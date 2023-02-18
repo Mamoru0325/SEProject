@@ -169,5 +169,21 @@ KEY `FK_3` (`courseId`),
 CONSTRAINT `FK_18` FOREIGN KEY `FK_3` (`courseId`) REFERENCES `Course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `PaymentCheck`
+(
+ `paymentId`    int NOT NULL ,
+ `userId`       int NOT NULL ,
+ `approveBy`    int NOT NULL ,
+ `joinCourseId` int NOT NULL ,
+ `status`       enum('yes','no') NOT NULL ,
+ `moneySlip`    varchar(45) NOT NULL ,
 
+PRIMARY KEY (`paymentId`),
+KEY `FK_2` (`userId`),
+CONSTRAINT `FK_20_2` FOREIGN KEY `FK_2` (`userId`) REFERENCES `User` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+KEY `FK_3` (`joinCourseId`),
+CONSTRAINT `FK_21` FOREIGN KEY `FK_3` (`joinCourseId`) REFERENCES `JoinCourse` (`joinCourseId`) ON DELETE CASCADE ON UPDATE CASCADE,
+KEY `FK_4` (`approveBy`),
+CONSTRAINT `FK_22` FOREIGN KEY `FK_4` (`approveBy`) REFERENCES `Staff` (`staffId`) ON DELETE NO ACTION ON UPDATE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
