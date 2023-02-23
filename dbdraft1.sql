@@ -88,11 +88,11 @@ CONSTRAINT `FK_14` FOREIGN KEY `FK_3` (`userId`) REFERENCES `User` (`userId`) ON
 
 CREATE TABLE `CommentLike`
 (
- `commentLike` int NOT NULL ,
+ `commentLikeId` int NOT NULL ,
  `commentId`   int NOT NULL ,
  `userId`      int NOT NULL ,
 
-PRIMARY KEY (`commentLike`),
+PRIMARY KEY (`commentLikeId`),
 KEY `FK_2` (`commentId`),
 CONSTRAINT `FK_7` FOREIGN KEY `FK_2` (`commentId`) REFERENCES `Comment` (`commentId`) ON DELETE CASCADE ON UPDATE CASCADE,
 KEY `FK_3` (`userId`),
@@ -148,11 +148,11 @@ CONSTRAINT `FK_15` FOREIGN KEY `FK_3` (`courseId`) REFERENCES `Course` (`courseI
 
 CREATE TABLE `PostLike`
 (
- `postLike` int NOT NULL ,
+ `postLikeId` int NOT NULL ,
  `postId`   int NOT NULL ,
  `userId`   int NOT NULL ,
 
-PRIMARY KEY (`postLike`),
+PRIMARY KEY (`postLikeId`),
 KEY `FK_2` (`postId`),
 CONSTRAINT `FK_3` FOREIGN KEY `FK_2` (`postId`) REFERENCES `Post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
 KEY `FK_3` (`userId`),
