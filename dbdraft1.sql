@@ -44,7 +44,7 @@ CREATE TABLE `account` (
 --
 
 CREATE TABLE `bookmark` (
-  `bookMarkId` int(11) NOT NULL,
+  `bookmarkId` int(11) NOT NULL,
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
