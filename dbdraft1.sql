@@ -87,7 +87,7 @@ CREATE TABLE `course` (
   `postId` int(11) DEFAULT NULL,
   `courseDetail` varchar(45) NOT NULL,
   `minimum` int(11) NOT NULL,
-  `maximum` int(11) DEFAULT NULL,
+  `maximum` int(11) NOT NULL,
   `price` float NOT NULL,
   `status` enum('full','available') NOT NULL,
   `firstEnrollDate` date NOT NULL,
