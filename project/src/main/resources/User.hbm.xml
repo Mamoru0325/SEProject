@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.User" optimistic-lock="none" table="user">
+        <id name="userId" type="int">
+            <column name="userId"/>
+            <generator class="foreign">
+                <param name="property">account</param>
+            </generator>
+        </id>
+        <one-to-one class="eng.cpe.se.project.model.Account" constrained="true" name="account"/>
+        <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="user">
+            <column name="followBy" not-null="true"/>
+        </many-to-one>
+        <property name="userName" type="string">
+            <column length="45" name="userName" not-null="true"/>
+        </property>
+        <property name="verifyStatus" type="string">
+            <column length="4" name="verifyStatus" not-null="true"/>
+        </property>
+        <property name="imgPath" type="string">
+            <column length="150" name="imgPath" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="bookmarks" table="bookmark">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.Bookmark"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="requestVerifyDetails" table="requestverifydetail">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.RequestVerifyDetail"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="postLikes" table="postlike">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.PostLike"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="commentLikes" table="commentlike">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.CommentLike"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="posts" table="post">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.Post"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="paymentChecks" table="paymentcheck">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.PaymentCheck"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="requestCourses" table="requestcourse">
+            <key>
+                <column name="requestBy" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.RequestCourse"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">
+            <key>
+                <column name="requestBy" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.Report"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="courseCreators" table="coursecreator">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.CourseCreator"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="comments" table="comment">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.Comment"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="users" table="user">
+            <key>
+                <column name="followBy" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.User"/>
+        </bag>
+    </class>
+</hibernate-mapping>
