@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2023 at 07:06 PM
+-- Generation Time: Feb 25, 2023 at 04:51 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,10 +20,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `se`
 --
-
--- --------------------------------------------------------
 CREATE DATABASE IF NOT EXISTS `se` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `se`;
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `account`
 --
@@ -280,7 +280,7 @@ ALTER TABLE `account`
 -- Indexes for table `bookmark`
 --
 ALTER TABLE `bookmark`
-  ADD PRIMARY KEY (`bookMarkId`),
+  ADD PRIMARY KEY (`bookmarkId`),
   ADD KEY `FK_2` (`postId`),
   ADD KEY `FK_3` (`userId`);
 
