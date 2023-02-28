@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="se" name="eng.cpe.se.project.model.RequestVerify" optimistic-lock="none" table="requestverify">
         <id name="requestVerifyId" type="int">
             <column name="requestVerifyId"/>
-            <generator class="assigned"/>
+            <generator class="identity"/>
         </id>
         <many-to-one class="eng.cpe.se.project.model.Staff" fetch="select" name="staff">
             <column name="approveBy" not-null="true"/>
@@ -23,6 +23,12 @@
                 <column name="requestVerifyId" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.RequestVerifyDetail"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="imgVerifies" table="imgverify">
+            <key>
+                <column name="requestVerifyId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.ImgVerify"/>
         </bag>
     </class>
 </hibernate-mapping>

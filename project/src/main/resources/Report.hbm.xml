@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="se" name="eng.cpe.se.project.model.Report" optimistic-lock="none" table="report">
         <id name="reportId" type="int">
             <column name="reportId"/>
-            <generator class="assigned"/>
+            <generator class="identity"/>
         </id>
         <many-to-one class="eng.cpe.se.project.model.Comment" fetch="select" name="comment">
             <column name="commentId"/>
@@ -12,6 +12,9 @@
         <many-to-one class="eng.cpe.se.project.model.Course" fetch="select" name="course">
             <column name="courseId"/>
         </many-to-one>
+        <property name="reportDetail" type="string">
+            <column length="65535" name="reportDetail" not-null="true"/>
+        </property>
         <many-to-one class="eng.cpe.se.project.model.Post" fetch="select" name="post">
             <column name="postId"/>
         </many-to-one>

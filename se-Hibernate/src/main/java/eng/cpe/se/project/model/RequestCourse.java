@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,9 +24,7 @@ public class RequestCourse implements java.io.Serializable {
 	public RequestCourse() {
 	}
 
-	public RequestCourse(int requestCourseId, Post post, Staff staff, User user, String status, Date dateApprove,
-			Date dateExprie) {
-		this.requestCourseId = requestCourseId;
+	public RequestCourse(Post post, Staff staff, User user, String status, Date dateApprove, Date dateExprie) {
 		this.post = post;
 		this.staff = staff;
 		this.user = user;
@@ -35,20 +33,19 @@ public class RequestCourse implements java.io.Serializable {
 		this.dateExprie = dateExprie;
 	}
 
-	public RequestCourse(int requestCourseId, Post post, Staff staff, User user, String status, Date dateApprove,
-			Date dateExprie, List<RequestCourseDetail> requestCourseDetails) {
-		this.requestCourseId = requestCourseId;
+	public RequestCourse(Post post, Staff staff, User user, String status, Date dateApprove, Date dateExprie,
+			List<RequestCourseDetail> requestcoursedetails) {
 		this.post = post;
 		this.staff = staff;
 		this.user = user;
 		this.status = status;
 		this.dateApprove = dateApprove;
 		this.dateExprie = dateExprie;
-		this.setRequestCourseDetails(requestCourseDetails);
+		this.requestCourseDetails = requestcoursedetails;
 	}
 
 	public int getRequestCourseId() {
-		return this.requestCourseId;
+		return requestCourseId;
 	}
 
 	public void setRequestCourseId(int requestCourseId) {
@@ -56,7 +53,7 @@ public class RequestCourse implements java.io.Serializable {
 	}
 
 	public Post getPost() {
-		return this.post;
+		return post;
 	}
 
 	public void setPost(Post post) {
@@ -64,7 +61,7 @@ public class RequestCourse implements java.io.Serializable {
 	}
 
 	public Staff getStaff() {
-		return this.staff;
+		return staff;
 	}
 
 	public void setStaff(Staff staff) {
@@ -72,7 +69,7 @@ public class RequestCourse implements java.io.Serializable {
 	}
 
 	public User getUser() {
-		return this.user;
+		return user;
 	}
 
 	public void setUser(User user) {
@@ -80,7 +77,7 @@ public class RequestCourse implements java.io.Serializable {
 	}
 
 	public String getStatus() {
-		return this.status;
+		return status;
 	}
 
 	public void setStatus(String status) {
@@ -88,7 +85,7 @@ public class RequestCourse implements java.io.Serializable {
 	}
 
 	public Date getDateApprove() {
-		return this.dateApprove;
+		return dateApprove;
 	}
 
 	public void setDateApprove(Date dateApprove) {
@@ -96,7 +93,7 @@ public class RequestCourse implements java.io.Serializable {
 	}
 
 	public Date getDateExprie() {
-		return this.dateExprie;
+		return dateExprie;
 	}
 
 	public void setDateExprie(Date dateExprie) {
@@ -111,6 +108,5 @@ public class RequestCourse implements java.io.Serializable {
 		this.requestCourseDetails = requestCourseDetails;
 	}
 
-	
 
 }

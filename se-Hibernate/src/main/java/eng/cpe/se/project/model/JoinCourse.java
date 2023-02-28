@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,19 +18,17 @@ public class JoinCourse implements java.io.Serializable {
 	public JoinCourse() {
 	}
 
-	public JoinCourse(int joinCourseId, Course course) {
-		this.joinCourseId = joinCourseId;
+	public JoinCourse(Course course) {
 		this.course = course;
 	}
 
-	public JoinCourse(int joinCourseId, Course course, List<PaymentCheck> paymentchecks) {
-		this.joinCourseId = joinCourseId;
+	public JoinCourse(Course course, List<PaymentCheck> paymentchecks) {
 		this.course = course;
-		this.setPaymentChecks(paymentchecks);
+		this.paymentChecks = paymentchecks;
 	}
 
 	public int getJoinCourseId() {
-		return this.joinCourseId;
+		return joinCourseId;
 	}
 
 	public void setJoinCourseId(int joinCourseId) {
@@ -38,7 +36,7 @@ public class JoinCourse implements java.io.Serializable {
 	}
 
 	public Course getCourse() {
-		return this.course;
+		return course;
 	}
 
 	public void setCourse(Course course) {

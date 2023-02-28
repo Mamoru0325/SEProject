@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,20 +19,18 @@ public class Type implements java.io.Serializable {
 	public Type() {
 	}
 
-	public Type(int typeId, String type) {
-		this.typeId = typeId;
+	public Type(String type) {
 		this.type = type;
 	}
 
-	public Type(int typeId, String type, List<Course> courses, List<Post> posts) {
-		this.typeId = typeId;
+	public Type(String type, List<Course> courses, List<Post> posts) {
 		this.type = type;
 		this.courses = courses;
 		this.posts = posts;
 	}
 
 	public int getTypeId() {
-		return this.typeId;
+		return typeId;
 	}
 
 	public void setTypeId(int typeId) {
@@ -40,7 +38,7 @@ public class Type implements java.io.Serializable {
 	}
 
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
 	public void setType(String type) {
@@ -48,7 +46,7 @@ public class Type implements java.io.Serializable {
 	}
 
 	public List<Course> getCourses() {
-		return this.courses;
+		return courses;
 	}
 
 	public void setCourses(List<Course> courses) {
@@ -56,11 +54,12 @@ public class Type implements java.io.Serializable {
 	}
 
 	public List<Post> getPosts() {
-		return this.posts;
+		return posts;
 	}
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
+
 
 }

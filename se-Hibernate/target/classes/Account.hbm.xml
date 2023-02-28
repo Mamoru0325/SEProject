@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="se" name="eng.cpe.se.project.model.Account" optimistic-lock="none" table="account">
         <id name="accountId" type="int">
             <column name="accountId"/>
-            <generator class="assigned"/>
+            <generator class="identity"/>
         </id>
         <property name="accountName" type="string">
             <column length="45" name="accountName" not-null="true"/>
