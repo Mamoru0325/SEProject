@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2023 at 02:39 PM
+-- Generation Time: Feb 28, 2023 at 03:46 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -16,7 +16,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
 CREATE DATABASE IF NOT EXISTS `se` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `se`;
 --
@@ -38,6 +37,13 @@ CREATE TABLE `account` (
   `lastName` varchar(45) NOT NULL,
   `phoneNumber` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`accountId`, `accountName`, `pwd`, `title`, `firstName`, `lastName`, `phoneNumber`) VALUES
+(1, 'pokpongthunder789@gmail.com', '123456', 'mr', 'paweenwich', 'thadee', '0896345911');
 
 -- --------------------------------------------------------
 
@@ -275,7 +281,8 @@ CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `userName` varchar(45) NOT NULL,
   `verifyStatus` enum('yes','no') NOT NULL,
-  `imgPath` varchar(150) NOT NULL
+  `imgPath` varchar(150) NOT NULL,
+  `followBy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -420,7 +427,8 @@ ALTER TABLE `type`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`),
-  ADD KEY `FK_1` (`userId`);
+  ADD KEY `FK_1` (`userId`),
+  ADD KEY `followBy` (`followBy`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -430,7 +438,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `accountId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `accountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bookmark`
@@ -636,7 +644,8 @@ ALTER TABLE `staff`
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `FK_9_1` FOREIGN KEY (`userId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_9_1` FOREIGN KEY (`userId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`followBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
