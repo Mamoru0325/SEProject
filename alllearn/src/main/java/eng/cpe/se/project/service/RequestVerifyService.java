@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import eng.cpe.se.project.model.RequestCourseDetail;
 import eng.cpe.se.project.model.RequestVerify;
 import eng.cpe.se.project.repository.RequestVerifyRepository;
 

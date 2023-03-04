@@ -1,5 +1,8 @@
 package eng.cpe.se.project.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 // Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
@@ -10,11 +13,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Account implements java.io.Serializable {
 
 	private int accountId;
+	@NotNull(message = "Email cannot be null")
+	@Email(message = "Email should be valid")
 	private String email;
+	@NotNull(message = "Password cannot be null")
 	private String password;
+	@NotNull(message = "Title cannot be null")
 	private String title;
+	@NotNull(message = "FirstName cannot be null")
 	private String firstName;
+	@NotNull(message = "LastName cannot be null")
 	private String lastName;
+	@NotNull(message = "PhoneNumber cannot be null")
 	private String phoneNumber;
 	@JsonIgnore
 	private Staff staff;

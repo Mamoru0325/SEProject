@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,10 +14,7 @@ public class Staff implements java.io.Serializable {
 	private int staffId;
 	private Account account;
 	private String position;
-	private List<ApproveWithdraw> approveWithdraws = new ArrayList<ApproveWithdraw>();
-	private List<PaymentCheck> paymentChecks = new ArrayList<PaymentCheck>();
 	private List<RequestVerify> requestVerifies = new ArrayList<RequestVerify>();
-	private List<RequestCourse> requestCourses = new ArrayList<RequestCourse>();
 
 	public Staff() {
 	}
@@ -27,14 +24,10 @@ public class Staff implements java.io.Serializable {
 		this.position = position;
 	}
 
-	public Staff(Account account, String position, List<ApproveWithdraw> approvewithdraws, List<PaymentCheck> paymentchecks, List<RequestVerify> requestverifies,
-			List<RequestCourse> requestcourses) {
+	public Staff(Account account, String position, List<RequestVerify> requestverifies) {
 		this.account = account;
 		this.position = position;
-		this.approveWithdraws = approvewithdraws;
-		this.paymentChecks = paymentchecks;
 		this.requestVerifies = requestverifies;
-		this.requestCourses = requestcourses;
 	}
 
 	public int getStaffId() {
@@ -61,22 +54,6 @@ public class Staff implements java.io.Serializable {
 		this.position = position;
 	}
 
-	public List<ApproveWithdraw> getApproveWithdraws() {
-		return approveWithdraws;
-	}
-
-	public void setApproveWithdraws(List<ApproveWithdraw> approveWithdraws) {
-		this.approveWithdraws = approveWithdraws;
-	}
-
-	public List<PaymentCheck> getPaymentChecks() {
-		return paymentChecks;
-	}
-
-	public void setPaymentChecks(List<PaymentCheck> paymentChecks) {
-		this.paymentChecks = paymentChecks;
-	}
-
 	public List<RequestVerify> getRequestVerifies() {
 		return requestVerifies;
 	}
@@ -85,13 +62,6 @@ public class Staff implements java.io.Serializable {
 		this.requestVerifies = requestVerifies;
 	}
 
-	public List<RequestCourse> getRequestCourses() {
-		return requestCourses;
-	}
-
-	public void setRequestCourses(List<RequestCourse> requestCourses) {
-		this.requestCourses = requestCourses;
-	}
-
+	
 
 }

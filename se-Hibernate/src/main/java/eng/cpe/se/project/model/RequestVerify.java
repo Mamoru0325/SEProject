@@ -1,7 +1,8 @@
 package eng.cpe.se.project.model;
-// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,29 +14,34 @@ public class RequestVerify implements java.io.Serializable {
 
 	private int requestVerifyId;
 	private Staff staff;
-	private String status;
-	private String note;
-	private String imgPath;
-	private List<RequestVerifyDetail> requestVerifyDetails = new ArrayList<RequestVerifyDetail>();
+	private User user;
+	private String verifyHeader;
+	private String verifyDetail;
+	private String approveStatus;
+	private Date dateApprove;
 	private List<ImgVerify> imgVerifies = new ArrayList<ImgVerify>();
 
 	public RequestVerify() {
 	}
 
-	public RequestVerify(Staff staff, String status, String note, String imgPath) {
+	public RequestVerify(Staff staff, User user, String verifyHeader, String verifyDetail, String approveStatus,
+			Date dateApprove) {
 		this.staff = staff;
-		this.status = status;
-		this.note = note;
-		this.imgPath = imgPath;
+		this.user = user;
+		this.verifyHeader = verifyHeader;
+		this.verifyDetail = verifyDetail;
+		this.approveStatus = approveStatus;
+		this.dateApprove = dateApprove;
 	}
 
-	public RequestVerify(Staff staff, String status, String note, String imgPath, List<RequestVerifyDetail> requestverifydetails,
-			List<ImgVerify> imgverifies) {
+	public RequestVerify(Staff staff, User user, String verifyHeader, String verifyDetail, String approveStatus,
+			Date dateApprove, List<ImgVerify> imgverifies) {
 		this.staff = staff;
-		this.status = status;
-		this.note = note;
-		this.imgPath = imgPath;
-		this.requestVerifyDetails = requestverifydetails;
+		this.user = user;
+		this.verifyHeader = verifyHeader;
+		this.verifyDetail = verifyDetail;
+		this.approveStatus = approveStatus;
+		this.dateApprove = dateApprove;
 		this.imgVerifies = imgverifies;
 	}
 
@@ -55,36 +61,44 @@ public class RequestVerify implements java.io.Serializable {
 		this.staff = staff;
 	}
 
-	public String getStatus() {
-		return status;
+	public User getUser() {
+		return user;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getNote() {
-		return note;
+	public String getVerifyHeader() {
+		return verifyHeader;
 	}
 
-	public void setNote(String note) {
-		this.note = note;
+	public void setVerifyHeader(String verifyHeader) {
+		this.verifyHeader = verifyHeader;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public String getVerifyDetail() {
+		return verifyDetail;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
+	public void setVerifyDetail(String verifyDetail) {
+		this.verifyDetail = verifyDetail;
 	}
 
-	public List<RequestVerifyDetail> getRequestVerifyDetails() {
-		return requestVerifyDetails;
+	public String getApproveStatus() {
+		return approveStatus;
 	}
 
-	public void setRequestVerifyDetails(List<RequestVerifyDetail> requestVerifyDetails) {
-		this.requestVerifyDetails = requestVerifyDetails;
+	public void setApproveStatus(String approveStatus) {
+		this.approveStatus = approveStatus;
+	}
+
+	public Date getDateApprove() {
+		return dateApprove;
+	}
+
+	public void setDateApprove(Date dateApprove) {
+		this.dateApprove = dateApprove;
 	}
 
 	public List<ImgVerify> getImgVerifies() {
@@ -94,6 +108,6 @@ public class RequestVerify implements java.io.Serializable {
 	public void setImgVerifies(List<ImgVerify> imgVerifies) {
 		this.imgVerifies = imgVerifies;
 	}
-	
+
 
 }

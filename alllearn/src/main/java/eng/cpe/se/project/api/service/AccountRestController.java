@@ -1,20 +1,27 @@
 package eng.cpe.se.project.api.service;
 
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Account;
 import eng.cpe.se.project.service.AccountService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/accounts")
@@ -22,6 +29,25 @@ public class AccountRestController {
 
 	@Autowired
 	private AccountService accountService;
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+		Response<ObjectNode> res = new Response<>();
+		res.setHttpStatus(HttpStatus.BAD_REQUEST);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		ObjectNode responObject = mapper.createObjectNode();
+
+		ex.getBindingResult().getAllErrors().forEach((error) -> {
+			String fieldname = ((FieldError) error).getField();
+			String errorMessage = error.getDefaultMessage();
+			responObject.put(fieldname, errorMessage);
+		});
+		res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+		res.setBody(responObject);
+		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
+	}
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Response<Account>> findById(@PathVariable("id") int id) {
@@ -39,7 +65,7 @@ public class AccountRestController {
 	}
 
 	@PostMapping(value = "/")
-	public ResponseEntity<Response<String>> createAccount(@RequestBody Account account) {
+	public ResponseEntity<Response<String>> createAccount(@Valid@RequestBody Account account) {
 		Response<String> res = new Response<>();
 		try {
 			accountService.save(account);
