@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,6 +19,10 @@ public class ImgPost implements java.io.Serializable {
 	public ImgPost(Post post, String imgPath) {
 		this.post = post;
 		this.imgPath = imgPath;
+	}
+	
+	public void clone(ImgPost other) {
+		this.imgPath = other.imgPath;
 	}
 
 	public int getImgPostId() {

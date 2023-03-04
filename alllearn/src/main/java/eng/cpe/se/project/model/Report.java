@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -16,25 +16,35 @@ public class Report implements java.io.Serializable {
 	@JsonIgnore
 	private Post post;
 	@JsonIgnore
+	private ReportType reportType;
+	@JsonIgnore
 	private User user;
 	private String reportDetail;
 
 	public Report() {
 	}
 
-	public Report(User user) {
+	public Report(ReportType reporttype, User user, String reportDetail) {
+		this.reportType = reporttype;
 		this.user = user;
+		this.reportDetail = reportDetail;
 	}
 
-	public Report(Comment comment, Course course, Post post, User user) {
+	public Report(Comment comment, Course course, Post post, ReportType reporttype, User user, String reportDetail) {
 		this.comment = comment;
 		this.course = course;
 		this.post = post;
+		this.reportType = reporttype;
 		this.user = user;
+		this.reportDetail = reportDetail;
+	}
+	
+	public void clone(Report other) {
+		this.reportDetail = other.reportDetail;
 	}
 
 	public int getReportId() {
-		return this.reportId;
+		return reportId;
 	}
 
 	public void setReportId(int reportId) {
@@ -42,7 +52,7 @@ public class Report implements java.io.Serializable {
 	}
 
 	public Comment getComment() {
-		return this.comment;
+		return comment;
 	}
 
 	public void setComment(Comment comment) {
@@ -50,7 +60,7 @@ public class Report implements java.io.Serializable {
 	}
 
 	public Course getCourse() {
-		return this.course;
+		return course;
 	}
 
 	public void setCourse(Course course) {
@@ -58,15 +68,23 @@ public class Report implements java.io.Serializable {
 	}
 
 	public Post getPost() {
-		return this.post;
+		return post;
 	}
 
 	public void setPost(Post post) {
 		this.post = post;
 	}
 
+	public ReportType getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(ReportType reportType) {
+		this.reportType = reportType;
+	}
+
 	public User getUser() {
-		return this.user;
+		return user;
 	}
 
 	public void setUser(User user) {
@@ -80,5 +98,6 @@ public class Report implements java.io.Serializable {
 	public void setReportDetail(String reportDetail) {
 		this.reportDetail = reportDetail;
 	}
+
 
 }

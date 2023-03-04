@@ -1,7 +1,8 @@
 package eng.cpe.se.project.model;
-// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,29 +20,38 @@ public class Comment implements java.io.Serializable {
 	@JsonIgnore
 	private User user;
 	private String commentDetail;
-	@JsonIgnore
-	private List<ImgComment> imgComments = new ArrayList<ImgComment>();
+	private Date createDate;
 	@JsonIgnore
 	private List<Report> reports = new ArrayList<Report>();
 	@JsonIgnore
-	private List<CommentLike> commentLikes = new ArrayList<CommentLike>();
+	private List<ImgComment> imgComments = new ArrayList<ImgComment>();
+	@JsonIgnore
+	private List<LikeComment> likeComments = new ArrayList<LikeComment>();
 
 	public Comment() {
 	}
 
-	public Comment(Post post, User user, String commentDetail) {
-		this.setPost(post);
-		this.setUser(user);
-		this.setCommentDetail(commentDetail);
+	public Comment(Post post, User user, String commentDetail, Date createDate) {
+		this.post = post;
+		this.user = user;
+		this.commentDetail = commentDetail;
+		this.createDate = createDate;
 	}
 
-	public Comment(Post post, User user, String commentDetail, List<ImgComment> imgcomments, List<Report> reports, List<CommentLike> commentlikes) {
-		this.setPost(post);
-		this.setUser(user);
-		this.setCommentDetail(commentDetail);
-		this.setImgComments(imgcomments);
-		this.setReports(reports);
-		this.setCommentLikes(commentlikes);
+	public Comment(Post post, User user, String commentDetail, Date createDate, List<Report> reports, List<ImgComment> imgComments,
+			List<LikeComment> likeComments) {
+		this.post = post;
+		this.user = user;
+		this.commentDetail = commentDetail;
+		this.createDate = createDate;
+		this.reports = reports;
+		this.imgComments = imgComments;
+		this.likeComments = likeComments;
+	}
+	
+	public void clone(Comment other) {
+		this.commentDetail = other.commentDetail;
+		this.createDate = other.createDate;
 	}
 
 	public int getCommentId() {
@@ -76,12 +86,12 @@ public class Comment implements java.io.Serializable {
 		this.commentDetail = commentDetail;
 	}
 
-	public List<ImgComment> getImgComments() {
-		return imgComments;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setImgComments(List<ImgComment> imgComments) {
-		this.imgComments = imgComments;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public List<Report> getReports() {
@@ -92,12 +102,20 @@ public class Comment implements java.io.Serializable {
 		this.reports = reports;
 	}
 
-	public List<CommentLike> getCommentLikes() {
-		return commentLikes;
+	public List<ImgComment> getImgComments() {
+		return imgComments;
 	}
 
-	public void setCommentLikes(List<CommentLike> commentLikes) {
-		this.commentLikes = commentLikes;
+	public void setImgComments(List<ImgComment> imgComments) {
+		this.imgComments = imgComments;
+	}
+
+	public List<LikeComment> getLikeComments() {
+		return likeComments;
+	}
+
+	public void setLikeComments(List<LikeComment> likeComments) {
+		this.likeComments = likeComments;
 	}
 
 
