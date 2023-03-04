@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2023 at 06:19 PM
+-- Generation Time: Mar 04, 2023 at 07:19 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -101,6 +101,7 @@ INSERT INTO `contenttype` (`contentTypeId`, `typeName`) VALUES
 
 CREATE TABLE `course` (
   `courseId` int(11) NOT NULL,
+  `contentTypeId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `courseDetail` varchar(255) NOT NULL,
   `minimum` int(11) NOT NULL,
@@ -328,7 +329,8 @@ ALTER TABLE `contenttype`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`courseId`),
-  ADD KEY `TC_Course339` (`userId`);
+  ADD KEY `TC_Course339` (`userId`),
+  ADD KEY `contentTypeId` (`contentTypeId`);
 
 --
 -- Indexes for table `imgcomment`
@@ -551,7 +553,8 @@ ALTER TABLE `comment`
 -- Constraints for table `course`
 --
 ALTER TABLE `course`
-  ADD CONSTRAINT `FK_Course188` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Course188` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`contentTypeId`) REFERENCES `contenttype` (`contentTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `imgcomment`
