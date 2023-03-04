@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.WithdrawReport" optimistic-lock="none" table="withdrawreport">
+        <id name="withdrawReportId" type="int">
+            <column name="withdrawReportId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="user">
+            <column name="userId" not-null="true"/>
+        </many-to-one>
+        <property name="withdrawBalance" type="float">
+            <column name="withdrawBalance" not-null="true" precision="12" scale="0"/>
+        </property>
+        <property name="dateWithdraw" type="date">
+            <column length="10" name="dateWithdraw" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="approveWithdrawDetails" table="approvewithdrawdetail">
+            <key>
+                <column name="withdrawReportId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.ApproveWithdrawDetail"/>
+        </bag>
+    </class>
+</hibernate-mapping>

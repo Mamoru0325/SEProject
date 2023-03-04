@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,30 +17,30 @@ public class RequestVerify implements java.io.Serializable {
 	private String note;
 	private String imgPath;
 	private List<RequestVerifyDetail> requestVerifyDetails = new ArrayList<RequestVerifyDetail>();
+	private List<ImgVerify> imgVerifies = new ArrayList<ImgVerify>();
 
 	public RequestVerify() {
 	}
 
-	public RequestVerify(int requestVerifyId, Staff staff, String status, String note, String imgPath) {
-		this.requestVerifyId = requestVerifyId;
+	public RequestVerify(Staff staff, String status, String note, String imgPath) {
 		this.staff = staff;
 		this.status = status;
 		this.note = note;
 		this.imgPath = imgPath;
 	}
 
-	public RequestVerify(int requestVerifyId, Staff staff, String status, String note, String imgPath,
-			List<RequestVerifyDetail> requestverifydetails) {
-		this.requestVerifyId = requestVerifyId;
+	public RequestVerify(Staff staff, String status, String note, String imgPath, List<RequestVerifyDetail> requestverifydetails,
+			List<ImgVerify> imgverifies) {
 		this.staff = staff;
 		this.status = status;
 		this.note = note;
 		this.imgPath = imgPath;
-		this.setRequestVerifyDetails(requestverifydetails);
+		this.requestVerifyDetails = requestverifydetails;
+		this.imgVerifies = imgverifies;
 	}
 
 	public int getRequestVerifyId() {
-		return this.requestVerifyId;
+		return requestVerifyId;
 	}
 
 	public void setRequestVerifyId(int requestVerifyId) {
@@ -48,7 +48,7 @@ public class RequestVerify implements java.io.Serializable {
 	}
 
 	public Staff getStaff() {
-		return this.staff;
+		return staff;
 	}
 
 	public void setStaff(Staff staff) {
@@ -56,7 +56,7 @@ public class RequestVerify implements java.io.Serializable {
 	}
 
 	public String getStatus() {
-		return this.status;
+		return status;
 	}
 
 	public void setStatus(String status) {
@@ -64,7 +64,7 @@ public class RequestVerify implements java.io.Serializable {
 	}
 
 	public String getNote() {
-		return this.note;
+		return note;
 	}
 
 	public void setNote(String note) {
@@ -72,7 +72,7 @@ public class RequestVerify implements java.io.Serializable {
 	}
 
 	public String getImgPath() {
-		return this.imgPath;
+		return imgPath;
 	}
 
 	public void setImgPath(String imgPath) {
@@ -87,5 +87,13 @@ public class RequestVerify implements java.io.Serializable {
 		this.requestVerifyDetails = requestVerifyDetails;
 	}
 
+	public List<ImgVerify> getImgVerifies() {
+		return imgVerifies;
+	}
+
+	public void setImgVerifies(List<ImgVerify> imgVerifies) {
+		this.imgVerifies = imgVerifies;
+	}
+	
 
 }

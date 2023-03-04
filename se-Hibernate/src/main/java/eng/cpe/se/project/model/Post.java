@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,6 +18,7 @@ public class Post implements java.io.Serializable {
 	private String imgPath;
 	private List<Report> reports = new ArrayList<Report>();
 	private List<RequestCourse> requestCourses = new ArrayList<RequestCourse>();
+	private List<ImgPost> imgPosts = new ArrayList<ImgPost>();
 	private List<PostLike> postLikes = new ArrayList<PostLike>();
 	private List<Comment> comments = new ArrayList<Comment>();
 	private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
@@ -26,26 +27,25 @@ public class Post implements java.io.Serializable {
 	public Post() {
 	}
 
-	public Post(int postId, User user, String postDetail, String imgPath) {
-		this.setPostId(postId);
-		this.setUser(user);
-		this.setPostDetail(postDetail);
-		this.setImgPath(imgPath);
+	public Post(User user, String postDetail, String imgPath) {
+		this.user = user;
+		this.postDetail = postDetail;
+		this.imgPath = imgPath;
 	}
 
-	public Post(int postId, Type type, User user, String postDetail, String imgPath, List<Report> reports, List<RequestCourse> requestcourses,
+	public Post(Type type, User user, String postDetail, String imgPath, List<Report> reports, List<RequestCourse> requestcourses, List<ImgPost> imgposts,
 			List<PostLike> postlikes, List<Comment> comments, List<Bookmark> bookmarks, List<Course> courses) {
-		this.setPostId(postId);
-		this.setType(type);
-		this.setUser(user);
-		this.setPostDetail(postDetail);
-		this.setImgPath(imgPath);
-		this.setReports(reports);
-		this.setRequestCourses(requestcourses);
-		this.setPostLikes(postlikes);
-		this.setComments(comments);
-		this.setBookmarks(bookmarks);
-		this.setCourses(courses);
+		this.type = type;
+		this.user = user;
+		this.postDetail = postDetail;
+		this.imgPath = imgPath;
+		this.reports = reports;
+		this.requestCourses = requestcourses;
+		this.imgPosts = imgposts;
+		this.postLikes = postlikes;
+		this.comments = comments;
+		this.bookmarks = bookmarks;
+		this.courses = courses;
 	}
 
 	public int getPostId() {
@@ -104,6 +104,14 @@ public class Post implements java.io.Serializable {
 		this.requestCourses = requestCourses;
 	}
 
+	public List<ImgPost> getImgPosts() {
+		return imgPosts;
+	}
+
+	public void setImgPosts(List<ImgPost> imgPosts) {
+		this.imgPosts = imgPosts;
+	}
+
 	public List<PostLike> getPostLikes() {
 		return postLikes;
 	}
@@ -135,5 +143,6 @@ public class Post implements java.io.Serializable {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
+
 
 }

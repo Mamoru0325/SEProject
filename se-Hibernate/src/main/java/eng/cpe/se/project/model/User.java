@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,11 +19,12 @@ public class User implements java.io.Serializable {
 	private String imgPath;
 	private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	private List<RequestVerifyDetail> requestVerifyDetails = new ArrayList<RequestVerifyDetail>();
+	private List<WithdrawReport> withdrawReports = new ArrayList<WithdrawReport>();
 	private List<PostLike> postLikes = new ArrayList<PostLike>();
 	private List<CommentLike> commentLikes = new ArrayList<CommentLike>();
 	private List<Post> posts = new ArrayList<Post>();
 	private List<PaymentCheck> paymentChecks = new ArrayList<PaymentCheck>();
-	private List<RequestCourse>  requestCourses = new ArrayList<RequestCourse>();
+	private List<RequestCourse> requestCourses = new ArrayList<RequestCourse>();
 	private List<Report> reports = new ArrayList<Report>();
 	private List<CourseCreator> courseCreators = new ArrayList<CourseCreator>();
 	private List<Comment> comments = new ArrayList<Comment>();
@@ -33,32 +34,33 @@ public class User implements java.io.Serializable {
 	}
 
 	public User(Account account, User user, String userName, String verifyStatus, String imgPath) {
-		this.setAccount(account);
-		this.setUser(user);
-		this.setUserName(userName);
-		this.setVerifyStatus(verifyStatus);
-		this.setImgPath(imgPath);
+		this.account = account;
+		this.user = user;
+		this.userName = userName;
+		this.verifyStatus = verifyStatus;
+		this.imgPath = imgPath;
 	}
 
 	public User(Account account, User user, String userName, String verifyStatus, String imgPath, List<Bookmark> bookmarks,
-			List<RequestVerifyDetail> requestverifydetails, List<PostLike> postlikes, List<CommentLike> commentlikes, List<Post> posts, List<PaymentCheck> paymentchecks, List<RequestCourse> requestcourses,
-			List<Report> reports, List<CourseCreator> coursecreators, List<Comment> comments, List<User> users) {
-		this.setAccount(account);
-		this.setUser(user);
-		this.setUserName(userName);
-		this.setVerifyStatus(verifyStatus);
-		this.setImgPath(imgPath);
-		this.setBookmarks(bookmarks);
-		this.setRequestVerifyDetails(requestverifydetails);
-		this.setPostLikes(postlikes);
-		this.setCommentLikes(commentlikes);
-		this.setPosts(posts);
-		this.setPaymentChecks(paymentchecks);
-		this.setRequestCourses(requestcourses);
-		this.setReports(reports);
-		this.setCourseCreators(coursecreators);
-		this.setComments(comments);
-		this.setUsers(users);
+			List<RequestVerifyDetail> requestverifydetails, List<WithdrawReport> withdrawreports, List<PostLike> postlikes, List<CommentLike> commentlikes, List<Post> posts,
+			List<PaymentCheck> paymentchecks, List<RequestCourse> requestcourses, List<Report> reports, List<CourseCreator> coursecreators, List<Comment> comments, List<User> users) {
+		this.account = account;
+		this.user = user;
+		this.userName = userName;
+		this.verifyStatus = verifyStatus;
+		this.imgPath = imgPath;
+		this.bookmarks = bookmarks;
+		this.requestVerifyDetails = requestverifydetails;
+		this.withdrawReports = withdrawreports;
+		this.postLikes = postlikes;
+		this.commentLikes = commentlikes;
+		this.posts = posts;
+		this.paymentChecks = paymentchecks;
+		this.requestCourses = requestcourses;
+		this.reports = reports;
+		this.courseCreators = coursecreators;
+		this.comments = comments;
+		this.users = users;
 	}
 
 	public int getUserId() {
@@ -123,6 +125,14 @@ public class User implements java.io.Serializable {
 
 	public void setRequestVerifyDetails(List<RequestVerifyDetail> requestVerifyDetails) {
 		this.requestVerifyDetails = requestVerifyDetails;
+	}
+
+	public List<WithdrawReport> getWithdrawReports() {
+		return withdrawReports;
+	}
+
+	public void setWithdrawReports(List<WithdrawReport> withdrawReports) {
+		this.withdrawReports = withdrawReports;
 	}
 
 	public List<PostLike> getPostLikes() {
@@ -197,5 +207,5 @@ public class User implements java.io.Serializable {
 		this.users = users;
 	}
 
-	
+
 }

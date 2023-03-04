@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.ApproveWithdraw" optimistic-lock="none" table="approvewithdraw">
+        <id name="approveWithdrawId" type="int">
+            <column name="approveWithdrawId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="eng.cpe.se.project.model.Staff" fetch="select" name="staff">
+            <column name="staffId" not-null="true"/>
+        </many-to-one>
+        <property name="dateApprove" type="date">
+            <column length="10" name="dateApprove" not-null="true"/>
+        </property>
+        <property name="status" type="string">
+            <column length="2" name="status" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="approveWithdrawDetails" table="approvewithdrawdetail">
+            <key>
+                <column name="approveWithdrawId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.ApproveWithdrawDetail"/>
+        </bag>
+    </class>
+</hibernate-mapping>

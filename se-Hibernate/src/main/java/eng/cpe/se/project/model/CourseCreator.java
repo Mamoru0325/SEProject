@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,21 +19,19 @@ public class CourseCreator implements java.io.Serializable {
 	public CourseCreator() {
 	}
 
-	public CourseCreator(int courseCreatorId, User user, float balance) {
-		this.courseCreatorId = courseCreatorId;
+	public CourseCreator(User user, float balance) {
 		this.user = user;
 		this.balance = balance;
 	}
 
-	public CourseCreator(int courseCreatorId, User user, float balance, List<Course> courses) {
-		this.courseCreatorId = courseCreatorId;
+	public CourseCreator(User user, float balance, List<Course> courses) {
 		this.user = user;
 		this.balance = balance;
 		this.courses = courses;
 	}
 
 	public int getCourseCreatorId() {
-		return this.courseCreatorId;
+		return courseCreatorId;
 	}
 
 	public void setCourseCreatorId(int courseCreatorId) {
@@ -41,7 +39,7 @@ public class CourseCreator implements java.io.Serializable {
 	}
 
 	public User getUser() {
-		return this.user;
+		return user;
 	}
 
 	public void setUser(User user) {
@@ -49,7 +47,7 @@ public class CourseCreator implements java.io.Serializable {
 	}
 
 	public float getBalance() {
-		return this.balance;
+		return balance;
 	}
 
 	public void setBalance(float balance) {
@@ -57,11 +55,12 @@ public class CourseCreator implements java.io.Serializable {
 	}
 
 	public List<Course> getCourses() {
-		return this.courses;
+		return courses;
 	}
 
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
+	
 
 }

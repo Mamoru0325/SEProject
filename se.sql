@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2023 at 03:46 PM
+-- Generation Time: Feb 28, 2023 at 06:51 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -44,6 +44,44 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`accountId`, `accountName`, `pwd`, `title`, `firstName`, `lastName`, `phoneNumber`) VALUES
 (1, 'pokpongthunder789@gmail.com', '123456', 'mr', 'paweenwich', 'thadee', '0896345911');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `approvewithdraw`
+--
+
+CREATE TABLE `approvewithdraw` (
+  `approveWithdrawId` int(11) NOT NULL,
+  `staffId` int(11) NOT NULL,
+  `dateApprove` date NOT NULL,
+  `status` enum('y','n') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `approvewithdrawdetail`
+--
+
+CREATE TABLE `approvewithdrawdetail` (
+  `approveWithdrawDetailId` int(11) NOT NULL,
+  `withdrawReportId` int(11) NOT NULL,
+  `approveWithdrawId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bankaccount`
+--
+
+CREATE TABLE `bankaccount` (
+  `bankAccountId` int(11) NOT NULL,
+  `accountNumber` varchar(45) NOT NULL,
+  `firstName` varchar(45) NOT NULL,
+  `lastName` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -115,6 +153,54 @@ CREATE TABLE `coursecreator` (
   `courseCreatorId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `balance` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imgcomment`
+--
+
+CREATE TABLE `imgcomment` (
+  `imgComment` int(11) NOT NULL,
+  `imgPath` varchar(150) NOT NULL,
+  `commentId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imgcourse`
+--
+
+CREATE TABLE `imgcourse` (
+  `imgCourse` int(11) NOT NULL,
+  `imgPath` varchar(150) NOT NULL,
+  `courseId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imgpost`
+--
+
+CREATE TABLE `imgpost` (
+  `imgPostId` int(11) NOT NULL,
+  `imgPath` varchar(150) NOT NULL,
+  `postId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imgverify`
+--
+
+CREATE TABLE `imgverify` (
+  `imgVerifyId` int(11) NOT NULL,
+  `requestVerifyId` int(11) NOT NULL,
+  `imgPath` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -285,6 +371,19 @@ CREATE TABLE `user` (
   `followBy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdrawreport`
+--
+
+CREATE TABLE `withdrawreport` (
+  `withdrawReportId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `withdrawBalance` float NOT NULL,
+  `dateWithdraw` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
@@ -294,6 +393,27 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `account`
   ADD PRIMARY KEY (`accountId`);
+
+--
+-- Indexes for table `approvewithdraw`
+--
+ALTER TABLE `approvewithdraw`
+  ADD PRIMARY KEY (`approveWithdrawId`),
+  ADD KEY `FK_2` (`staffId`);
+
+--
+-- Indexes for table `approvewithdrawdetail`
+--
+ALTER TABLE `approvewithdrawdetail`
+  ADD PRIMARY KEY (`approveWithdrawDetailId`),
+  ADD KEY `FK_2` (`withdrawReportId`),
+  ADD KEY `FK_3` (`approveWithdrawId`);
+
+--
+-- Indexes for table `bankaccount`
+--
+ALTER TABLE `bankaccount`
+  ADD PRIMARY KEY (`bankAccountId`);
 
 --
 -- Indexes for table `bookmark`
@@ -334,6 +454,34 @@ ALTER TABLE `course`
 ALTER TABLE `coursecreator`
   ADD PRIMARY KEY (`courseCreatorId`),
   ADD KEY `FK_2` (`userId`);
+
+--
+-- Indexes for table `imgcomment`
+--
+ALTER TABLE `imgcomment`
+  ADD PRIMARY KEY (`imgComment`),
+  ADD KEY `FK_2` (`commentId`);
+
+--
+-- Indexes for table `imgcourse`
+--
+ALTER TABLE `imgcourse`
+  ADD PRIMARY KEY (`imgCourse`),
+  ADD KEY `FK_2` (`courseId`);
+
+--
+-- Indexes for table `imgpost`
+--
+ALTER TABLE `imgpost`
+  ADD PRIMARY KEY (`imgPostId`),
+  ADD KEY `FK_2` (`postId`);
+
+--
+-- Indexes for table `imgverify`
+--
+ALTER TABLE `imgverify`
+  ADD PRIMARY KEY (`imgVerifyId`),
+  ADD KEY `FK_2` (`requestVerifyId`);
 
 --
 -- Indexes for table `joincourse`
@@ -431,6 +579,13 @@ ALTER TABLE `user`
   ADD KEY `followBy` (`followBy`);
 
 --
+-- Indexes for table `withdrawreport`
+--
+ALTER TABLE `withdrawreport`
+  ADD PRIMARY KEY (`withdrawReportId`),
+  ADD KEY `FK_2` (`userId`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -439,6 +594,24 @@ ALTER TABLE `user`
 --
 ALTER TABLE `account`
   MODIFY `accountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `approvewithdraw`
+--
+ALTER TABLE `approvewithdraw`
+  MODIFY `approveWithdrawId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `approvewithdrawdetail`
+--
+ALTER TABLE `approvewithdrawdetail`
+  MODIFY `approveWithdrawDetailId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bankaccount`
+--
+ALTER TABLE `bankaccount`
+  MODIFY `bankAccountId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bookmark`
@@ -469,6 +642,30 @@ ALTER TABLE `course`
 --
 ALTER TABLE `coursecreator`
   MODIFY `courseCreatorId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `imgcomment`
+--
+ALTER TABLE `imgcomment`
+  MODIFY `imgComment` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `imgcourse`
+--
+ALTER TABLE `imgcourse`
+  MODIFY `imgCourse` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `imgpost`
+--
+ALTER TABLE `imgpost`
+  MODIFY `imgPostId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `imgverify`
+--
+ALTER TABLE `imgverify`
+  MODIFY `imgVerifyId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `joincourse`
@@ -531,8 +728,27 @@ ALTER TABLE `type`
   MODIFY `typeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `withdrawreport`
+--
+ALTER TABLE `withdrawreport`
+  MODIFY `withdrawReportId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `approvewithdraw`
+--
+ALTER TABLE `approvewithdraw`
+  ADD CONSTRAINT `FK_38` FOREIGN KEY (`staffId`) REFERENCES `staff` (`staffId`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `approvewithdrawdetail`
+--
+ALTER TABLE `approvewithdrawdetail`
+  ADD CONSTRAINT `FK_39` FOREIGN KEY (`withdrawReportId`) REFERENCES `withdrawreport` (`withdrawReportId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_40` FOREIGN KEY (`approveWithdrawId`) REFERENCES `approvewithdraw` (`approveWithdrawId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bookmark`
@@ -568,6 +784,30 @@ ALTER TABLE `course`
 --
 ALTER TABLE `coursecreator`
   ADD CONSTRAINT `FK_28` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `imgcomment`
+--
+ALTER TABLE `imgcomment`
+  ADD CONSTRAINT `FK_35` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`);
+
+--
+-- Constraints for table `imgcourse`
+--
+ALTER TABLE `imgcourse`
+  ADD CONSTRAINT `FK_36` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`);
+
+--
+-- Constraints for table `imgpost`
+--
+ALTER TABLE `imgpost`
+  ADD CONSTRAINT `FK_34` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`);
+
+--
+-- Constraints for table `imgverify`
+--
+ALTER TABLE `imgverify`
+  ADD CONSTRAINT `FK_41` FOREIGN KEY (`requestVerifyId`) REFERENCES `requestverify` (`requestVerifyId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `joincourse`
@@ -646,6 +886,12 @@ ALTER TABLE `staff`
 ALTER TABLE `user`
   ADD CONSTRAINT `FK_9_1` FOREIGN KEY (`userId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`followBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `withdrawreport`
+--
+ALTER TABLE `withdrawreport`
+  ADD CONSTRAINT `FK_37` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

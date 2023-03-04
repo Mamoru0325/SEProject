@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Feb 24, 2023, 1:08:39 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +14,7 @@ public class Staff implements java.io.Serializable {
 	private int staffId;
 	private Account account;
 	private String position;
+	private List<ApproveWithdraw> approveWithdraws = new ArrayList<ApproveWithdraw>();
 	private List<PaymentCheck> paymentChecks = new ArrayList<PaymentCheck>();
 	private List<RequestVerify> requestVerifies = new ArrayList<RequestVerify>();
 	private List<RequestCourse> requestCourses = new ArrayList<RequestCourse>();
@@ -26,16 +27,18 @@ public class Staff implements java.io.Serializable {
 		this.position = position;
 	}
 
-	public Staff(Account account, String position, List<PaymentCheck> paymentchecks, List<RequestVerify> requestverifies, List<RequestCourse> requestcourses) {
+	public Staff(Account account, String position, List<ApproveWithdraw> approvewithdraws, List<PaymentCheck> paymentchecks, List<RequestVerify> requestverifies,
+			List<RequestCourse> requestcourses) {
 		this.account = account;
 		this.position = position;
-		this.setPaymentChecks(paymentchecks);
-		this.setRequestVerifies(requestverifies);
-		this.setRequestCourses(requestcourses);
+		this.approveWithdraws = approvewithdraws;
+		this.paymentChecks = paymentchecks;
+		this.requestVerifies = requestverifies;
+		this.requestCourses = requestcourses;
 	}
 
 	public int getStaffId() {
-		return this.staffId;
+		return staffId;
 	}
 
 	public void setStaffId(int staffId) {
@@ -43,7 +46,7 @@ public class Staff implements java.io.Serializable {
 	}
 
 	public Account getAccount() {
-		return this.account;
+		return account;
 	}
 
 	public void setAccount(Account account) {
@@ -51,11 +54,19 @@ public class Staff implements java.io.Serializable {
 	}
 
 	public String getPosition() {
-		return this.position;
+		return position;
 	}
 
 	public void setPosition(String position) {
 		this.position = position;
+	}
+
+	public List<ApproveWithdraw> getApproveWithdraws() {
+		return approveWithdraws;
+	}
+
+	public void setApproveWithdraws(List<ApproveWithdraw> approveWithdraws) {
+		this.approveWithdraws = approveWithdraws;
 	}
 
 	public List<PaymentCheck> getPaymentChecks() {
@@ -82,6 +93,5 @@ public class Staff implements java.io.Serializable {
 		this.requestCourses = requestCourses;
 	}
 
-	
 
 }
