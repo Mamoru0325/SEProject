@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -16,10 +19,16 @@ public class Comment implements java.io.Serializable {
 
 	private int commentId;
 	@JsonIgnore
+	@NotNull(message = "Post cannot be null")
 	private Post post;
 	@JsonIgnore
+	@NotNull(message = "User cannot be null")
 	private User user;
+	@NotNull(message = "Comment cannot be null")
+	@NotEmpty(message = "Comment may not be empty")
 	private String commentDetail;
+	@NotNull(message = "CreateDate cannot be null")
+	@NotEmpty(message = "Password may not be empty")
 	private Date createDate;
 	@JsonIgnore
 	private List<Report> reports = new ArrayList<Report>();

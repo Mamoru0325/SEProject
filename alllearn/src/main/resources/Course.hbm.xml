@@ -13,7 +13,7 @@
             <column name="userId" not-null="true"/>
         </many-to-one>
         <property name="courseDetail" type="string">
-            <column name="courseDetail" not-null="true"/>
+            <column length="65535" name="courseDetail" not-null="true"/>
         </property>
         <property name="minimum" type="int">
             <column name="minimum" not-null="true"/>

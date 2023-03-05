@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ContentType implements java.io.Serializable {
 
 	private int contentTypeId;
+	@NotNull(message = "TypeName cannot be null")
 	private String typeName;
 	@JsonIgnore
 	private List<Post> posts = new ArrayList<Post>();

@@ -16,7 +16,7 @@
             <column name="postHeader" not-null="true"/>
         </property>
         <property name="postDetail" type="string">
-            <column name="postDetail" not-null="true"/>
+            <column length="65535" name="postDetail" not-null="true"/>
         </property>
         <property name="createDate" type="date">
             <column length="10" name="createDate" not-null="true"/>

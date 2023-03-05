@@ -1,6 +1,8 @@
 package eng.cpe.se.project.model;
 // Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -10,8 +12,10 @@ public class Bookmark implements java.io.Serializable {
 
 	private int bookmarkId;
 	@JsonIgnore
+	@NotNull(message = "post cannot be null")
 	private Post post;
 	@JsonIgnore
+	@NotNull(message = "user cannot be null")
 	private User user;
 
 	public Bookmark() {

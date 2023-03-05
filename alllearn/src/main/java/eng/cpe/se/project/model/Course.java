@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -16,18 +20,37 @@ public class Course implements java.io.Serializable {
 
 	private int courseId;
 	@JsonIgnore
+	@NotNull(message = "ContentType cannot be null")
 	private ContentType contentType;
 	@JsonIgnore
+	@NotNull(message = "User cannot be null")
 	private User user;
+	@NotNull(message = "CourseDetail cannot be null")
+	@NotEmpty(message = "CourseDetail may not be empty")
 	private String courseDetail;
+	@NotNull(message = "Minimum cannot be null")
+	@NotEmpty(message = "Minimum may not be empty")
+	@NotBlank(message = "Minimum may not be blank")
 	private int minimum;
+	@NotNull(message = "Maximum cannot be null")
+	@NotEmpty(message = "Maximum may not be empty")
+	@NotBlank(message = "Maximum may not be blank")
 	private int maximum;
+	@NotNull(message = "Price cannot be null")
+	@NotEmpty(message = "Price may not be empty")
+	@NotBlank(message = "Price may not be blank")
 	private double price;
+	@NotNull(message = "Status cannot be null")
 	private String status;
+	@NotNull(message = "FirstEnrollDate cannot be null")
 	private Date firstEnrollDate;
+	@NotNull(message = "LastEnrollDate cannot be null")
 	private Date lastEnrollDate;
+	@NotNull(message = "EventDate cannot be null")
 	private Date eventDate;
+	@NotNull(message = "StartDate cannot be null")
 	private Date startDate;
+	@NotNull(message = "EndDate cannot be null")
 	private Date endDate;
 	@JsonIgnore
 	private List<Report> reports = new ArrayList<Report>();

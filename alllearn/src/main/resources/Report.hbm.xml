@@ -22,7 +22,7 @@
             <column name="userId" not-null="true"/>
         </many-to-one>
         <property name="reportDetail" type="string">
-            <column name="reportDetail" not-null="true"/>
+            <column length="65535" name="reportDetail" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

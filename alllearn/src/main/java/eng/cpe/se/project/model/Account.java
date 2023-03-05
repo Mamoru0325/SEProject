@@ -1,7 +1,12 @@
 package eng.cpe.se.project.model;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,17 +19,32 @@ public class Account implements java.io.Serializable {
 
 	private int accountId;
 	@NotNull(message = "Email cannot be null")
+	@NotBlank(message = "Password may not be blank")
+	@NotEmpty(message = "Password may not be empty")
 	@Email(message = "Email should be valid")
 	private String email;
 	@NotNull(message = "Password cannot be null")
+	@NotBlank(message = "Password may not be blank")
+	@NotEmpty(message = "Password may not be empty")
+	@Size(min = 2, max = 20, message = "Password must be between 2 and 20 characters long")
 	private String password;
 	@NotNull(message = "Title cannot be null")
+	@NotBlank(message = "Password may not be blank")
+	@NotEmpty(message = "Password may not be empty")
+	@Size(min = 2, max = 10, message = "Password must be between 2 and 10 characters long")
 	private String title;
 	@NotNull(message = "FirstName cannot be null")
+	@NotBlank(message = "Password may not be blank")
+	@NotEmpty(message = "Password may not be empty")
+	@Size(min = 2, max = 50, message = "Password must be between 2 and 50 characters long")
 	private String firstName;
 	@NotNull(message = "LastName cannot be null")
+	@NotBlank(message = "Password may not be blank")
+	@NotEmpty(message = "Password may not be empty")
+	@Size(min = 2, max = 50, message = "Password must be between 2 and 50 characters long")
 	private String lastName;
 	@NotNull(message = "PhoneNumber cannot be null")
+	@Digits(message="Number should contain 10 digits.", fraction = 0, integer = 10)
 	private String phoneNumber;
 	@JsonIgnore
 	private Staff staff;
