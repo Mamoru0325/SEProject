@@ -13,6 +13,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
 	@Query("from Account a where a.firstName = :firstName")
 	public Account findByName(@Param("firstName")String firstName);
 	
-
+	@Query("from Account a where a.email = :email")
+	public Account findByEmail(@Param("email")String email);
 	
 }

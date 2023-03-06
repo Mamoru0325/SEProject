@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import eng.cpe.se.project.model.Account;
 import eng.cpe.se.project.repository.AccountRepository;
 
+
 @Service
-public class AccountService {
+@Transactional
+public class AccountService{
 	
 	@Autowired
 	private AccountRepository accountRepository;
@@ -32,5 +35,9 @@ public class AccountService {
 	
 	public Account findByName(String firstName) {
 		return accountRepository.findByName(firstName);
+	}
+	
+	private boolean emailExists(String email) {
+		return accountRepository.findByEmail(email) != null;
 	}
 }

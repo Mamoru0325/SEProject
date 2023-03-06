@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,48 +13,29 @@ import java.util.Set;
 public class Course implements java.io.Serializable {
 
 	private int courseId;
-	private CourseCreator courseCreator;
-	private Post post;
-	private Type type;
+	private ContentType contentType;
+	private User user;
 	private String courseDetail;
 	private int minimum;
 	private int maximum;
-	private float price;
+	private double price;
 	private String status;
 	private Date firstEnrollDate;
 	private Date lastEnrollDate;
-	private Date eventDay;
-	private String startTime;
-	private String endTime;
+	private Date eventDate;
+	private Date startDate;
+	private Date endDate;
+	private List<Report> reports = new ArrayList<Report>();
 	private List<ImgCourse> imgCourses = new ArrayList<ImgCourse>();
 	private List<JoinCourse> joinCourses = new ArrayList<JoinCourse>();
-	private List<Report> reports = new ArrayList<Report>();
-	private List<RequestCourseDetail> requestCourseDetails = new ArrayList<RequestCourseDetail>();
 
 	public Course() {
 	}
 
-	public Course(CourseCreator coursecreator, Type type, String courseDetail, int minimum, float price, String status,
-			Date firstEnrollDate, Date lastEnrollDate, Date eventDay, String startTime, String endTime) {
-		this.courseCreator = coursecreator;
-		this.type = type;
-		this.courseDetail = courseDetail;
-		this.minimum = minimum;
-		this.price = price;
-		this.status = status;
-		this.firstEnrollDate = firstEnrollDate;
-		this.lastEnrollDate = lastEnrollDate;
-		this.eventDay = eventDay;
-		this.startTime = startTime;
-		this.endTime = endTime;
-	}
-
-	public Course(CourseCreator coursecreator, Post post, Type type, String courseDetail, int minimum, Integer maximum,
-			float price, String status, Date firstEnrollDate, Date lastEnrollDate, Date eventDay, String startTime,
-			String endTime, List<ImgCourse> imgcourses, List<JoinCourse> joincourses, List<Report> reports, List<RequestCourseDetail> requestcoursedetails) {
-		this.courseCreator = coursecreator;
-		this.post = post;
-		this.type = type;
+	public Course(ContentType contentType, User user, String courseDetail, int minimum, int maximum, double price, String status,
+			Date firstEnrollDate, Date lastEnrollDate, Date eventDate, Date startDate, Date endDate) {
+		this.contentType = contentType;
+		this.user = user;
 		this.courseDetail = courseDetail;
 		this.minimum = minimum;
 		this.maximum = maximum;
@@ -62,13 +43,29 @@ public class Course implements java.io.Serializable {
 		this.status = status;
 		this.firstEnrollDate = firstEnrollDate;
 		this.lastEnrollDate = lastEnrollDate;
-		this.eventDay = eventDay;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.eventDate = eventDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	public Course(ContentType contentType, User user, String courseDetail, int minimum, int maximum, double price, String status,
+			Date firstEnrollDate, Date lastEnrollDate, Date eventDate, Date startDate, Date endDate, List<Report> reports,
+			List<ImgCourse> imgcourses, List<JoinCourse> joincourses) {
+		this.contentType = contentType;
+		this.user = user;
+		this.courseDetail = courseDetail;
+		this.minimum = minimum;
+		this.maximum = maximum;
+		this.price = price;
+		this.status = status;
+		this.firstEnrollDate = firstEnrollDate;
+		this.lastEnrollDate = lastEnrollDate;
+		this.eventDate = eventDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.reports = reports;
 		this.imgCourses = imgcourses;
 		this.joinCourses = joincourses;
-		this.reports = reports;
-		this.requestCourseDetails = requestcoursedetails;
 	}
 
 	public int getCourseId() {
@@ -78,29 +75,21 @@ public class Course implements java.io.Serializable {
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
-
-	public CourseCreator getCourseCreator() {
-		return courseCreator;
+	
+	public ContentType getContentType() {
+		return contentType;
 	}
 
-	public void setCourseCreator(CourseCreator courseCreator) {
-		this.courseCreator = courseCreator;
+	public void setContentType(ContentType contentType) {
+		this.contentType = contentType;
 	}
 
-	public Post getPost() {
-		return post;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPost(Post post) {
-		this.post = post;
-	}
-
-	public Type getType() {
-		return type;
-	}
-
-	public void setType(Type type) {
-		this.type = type;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getCourseDetail() {
@@ -127,11 +116,11 @@ public class Course implements java.io.Serializable {
 		this.maximum = maximum;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -159,28 +148,36 @@ public class Course implements java.io.Serializable {
 		this.lastEnrollDate = lastEnrollDate;
 	}
 
-	public Date getEventDay() {
-		return eventDay;
+	public Date getEventDate() {
+		return eventDate;
 	}
 
-	public void setEventDay(Date eventDay) {
-		this.eventDay = eventDay;
+	public void setEventDate(Date eventDate) {
+		this.eventDate = eventDate;
 	}
 
-	public String getStartTime() {
-		return startTime;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public String getEndTime() {
-		return endTime;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
 	}
 
 	public List<ImgCourse> getImgCourses() {
@@ -199,20 +196,5 @@ public class Course implements java.io.Serializable {
 		this.joinCourses = joinCourses;
 	}
 
-	public List<Report> getReports() {
-		return reports;
-	}
 
-	public void setReports(List<Report> reports) {
-		this.reports = reports;
-	}
-
-	public List<RequestCourseDetail> getRequestCourseDetails() {
-		return requestCourseDetails;
-	}
-
-	public void setRequestCourseDetails(List<RequestCourseDetail> requestCourseDetails) {
-		this.requestCourseDetails = requestCourseDetails;
-	}
-	
 }

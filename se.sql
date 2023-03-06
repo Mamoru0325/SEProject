@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2023 at 06:51 PM
+-- Generation Time: Mar 04, 2023 at 07:19 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -16,8 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-CREATE DATABASE IF NOT EXISTS `se` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `se`;
+
 --
 -- Database: `se`
 --
@@ -30,11 +29,11 @@ USE `se`;
 
 CREATE TABLE `account` (
   `accountId` int(11) NOT NULL,
-  `accountName` varchar(45) NOT NULL,
-  `pwd` varchar(45) NOT NULL,
-  `title` varchar(45) NOT NULL,
-  `firstName` varchar(45) NOT NULL,
-  `lastName` varchar(45) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `title` varchar(10) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
   `phoneNumber` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -42,46 +41,8 @@ CREATE TABLE `account` (
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`accountId`, `accountName`, `pwd`, `title`, `firstName`, `lastName`, `phoneNumber`) VALUES
+INSERT INTO `account` (`accountId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`) VALUES
 (1, 'pokpongthunder789@gmail.com', '123456', 'mr', 'paweenwich', 'thadee', '0896345911');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `approvewithdraw`
---
-
-CREATE TABLE `approvewithdraw` (
-  `approveWithdrawId` int(11) NOT NULL,
-  `staffId` int(11) NOT NULL,
-  `dateApprove` date NOT NULL,
-  `status` enum('y','n') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `approvewithdrawdetail`
---
-
-CREATE TABLE `approvewithdrawdetail` (
-  `approveWithdrawDetailId` int(11) NOT NULL,
-  `withdrawReportId` int(11) NOT NULL,
-  `approveWithdrawId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bankaccount`
---
-
-CREATE TABLE `bankaccount` (
-  `bankAccountId` int(11) NOT NULL,
-  `accountNumber` varchar(45) NOT NULL,
-  `firstName` varchar(45) NOT NULL,
-  `lastName` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -105,20 +66,32 @@ CREATE TABLE `comment` (
   `commentId` int(11) NOT NULL,
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `commentDetail` text NOT NULL
+  `commentDetail` varchar(255) NOT NULL,
+  `createDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commentlike`
+-- Table structure for table `contenttype`
 --
 
-CREATE TABLE `commentlike` (
-  `commentLikeId` int(11) NOT NULL,
-  `commentId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL
+CREATE TABLE `contenttype` (
+  `contentTypeId` int(11) NOT NULL,
+  `typeName` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `contenttype`
+--
+
+INSERT INTO `contenttype` (`contentTypeId`, `typeName`) VALUES
+(1, 'เทคโนโลยี'),
+(2, 'อาหาร'),
+(3, 'กีฬา'),
+(4, 'การแพทย์'),
+(5, 'สุขภาพ'),
+(6, 'ทั่วไป');
 
 -- --------------------------------------------------------
 
@@ -128,31 +101,18 @@ CREATE TABLE `commentlike` (
 
 CREATE TABLE `course` (
   `courseId` int(11) NOT NULL,
-  `createBy` int(11) NOT NULL,
-  `typeId` int(11) NOT NULL,
-  `postId` int(11) DEFAULT NULL,
-  `courseDetail` varchar(45) NOT NULL,
+  `contentTypeId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `courseDetail` varchar(255) NOT NULL,
   `minimum` int(11) NOT NULL,
-  `maximum` int(11) DEFAULT NULL,
-  `price` float NOT NULL,
-  `status` enum('full','available') NOT NULL,
+  `maximum` int(11) NOT NULL,
+  `price` double NOT NULL,
+  `status` enum('Full','Available') NOT NULL DEFAULT 'Available',
   `firstEnrollDate` date NOT NULL,
   `lastEnrollDate` date NOT NULL,
-  `eventDay` date NOT NULL,
-  `startTime` varchar(45) NOT NULL,
-  `endTime` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `coursecreator`
---
-
-CREATE TABLE `coursecreator` (
-  `courseCreatorId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `balance` float NOT NULL
+  `eventDate` date NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -162,9 +122,9 @@ CREATE TABLE `coursecreator` (
 --
 
 CREATE TABLE `imgcomment` (
-  `imgComment` int(11) NOT NULL,
-  `imgPath` varchar(150) NOT NULL,
-  `commentId` int(11) NOT NULL
+  `imgCommentId` int(11) NOT NULL,
+  `commentId` int(11) NOT NULL,
+  `imgPath` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -174,9 +134,9 @@ CREATE TABLE `imgcomment` (
 --
 
 CREATE TABLE `imgcourse` (
-  `imgCourse` int(11) NOT NULL,
-  `imgPath` varchar(150) NOT NULL,
-  `courseId` int(11) NOT NULL
+  `imgCourseId` int(11) NOT NULL,
+  `courseId` int(11) NOT NULL,
+  `imgPath` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -187,8 +147,8 @@ CREATE TABLE `imgcourse` (
 
 CREATE TABLE `imgpost` (
   `imgPostId` int(11) NOT NULL,
-  `imgPath` varchar(150) NOT NULL,
-  `postId` int(11) NOT NULL
+  `postId` int(11) NOT NULL,
+  `imgPath` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -200,7 +160,7 @@ CREATE TABLE `imgpost` (
 CREATE TABLE `imgverify` (
   `imgVerifyId` int(11) NOT NULL,
   `requestVerifyId` int(11) NOT NULL,
-  `imgPath` varchar(150) NOT NULL
+  `imgPath` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -211,22 +171,32 @@ CREATE TABLE `imgverify` (
 
 CREATE TABLE `joincourse` (
   `joinCourseId` int(11) NOT NULL,
-  `courseId` int(11) NOT NULL
+  `courseId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paymentcheck`
+-- Table structure for table `likecomment`
 --
 
-CREATE TABLE `paymentcheck` (
-  `paymentId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `approveBy` int(11) NOT NULL,
-  `joinCourseId` int(11) NOT NULL,
-  `status` enum('yes','no') NOT NULL,
-  `imgPath` varchar(150) NOT NULL
+CREATE TABLE `likecomment` (
+  `likeCommentId` int(11) NOT NULL,
+  `commentId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `likepost`
+--
+
+CREATE TABLE `likepost` (
+  `likePostId` int(11) NOT NULL,
+  `postId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -238,21 +208,10 @@ CREATE TABLE `paymentcheck` (
 CREATE TABLE `post` (
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `typeId` int(11) DEFAULT NULL,
-  `postDetail` text NOT NULL,
-  `imgPath` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `postlike`
---
-
-CREATE TABLE `postlike` (
-  `postLikeId` int(11) NOT NULL,
-  `postId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL
+  `contentTypeId` int(11) NOT NULL,
+  `postHeader` varchar(255) NOT NULL,
+  `postDetail` varchar(255) NOT NULL,
+  `createDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -263,39 +222,33 @@ CREATE TABLE `postlike` (
 
 CREATE TABLE `report` (
   `reportId` int(11) NOT NULL,
-  `requestBy` int(11) NOT NULL,
-  `courseId` int(11) DEFAULT NULL,
+  `reportTypeId` int(11) NOT NULL,
   `postId` int(11) DEFAULT NULL,
-  `commentId` int(11) DEFAULT NULL
+  `commentId` int(11) DEFAULT NULL,
+  `courseId` int(11) DEFAULT NULL,
+  `userId` int(11) NOT NULL,
+  `reportDetail` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `requestcourse`
+-- Table structure for table `reporttype`
 --
 
-CREATE TABLE `requestcourse` (
-  `requestCourseId` int(11) NOT NULL,
-  `requestBy` int(11) NOT NULL,
-  `postId` int(11) NOT NULL,
-  `approveBy` int(11) NOT NULL,
-  `status` enum('waiting','approve','reject') NOT NULL,
-  `dateApprove` date NOT NULL,
-  `dateExprie` date NOT NULL
+CREATE TABLE `reporttype` (
+  `reportTypeId` int(11) NOT NULL,
+  `typeName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `requestcoursedetail`
+-- Dumping data for table `reporttype`
 --
 
-CREATE TABLE `requestcoursedetail` (
-  `requestCourseDetailId` int(11) NOT NULL,
-  `requestCourseId` int(11) NOT NULL,
-  `courseId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `reporttype` (`reportTypeId`, `typeName`) VALUES
+(1, 'อนาจาร,คุกคามทางเพศ'),
+(2, 'คำหยาบคาย'),
+(3, 'เนื้อหาไม่เหมาะสม');
 
 -- --------------------------------------------------------
 
@@ -305,22 +258,12 @@ CREATE TABLE `requestcoursedetail` (
 
 CREATE TABLE `requestverify` (
   `requestVerifyId` int(11) NOT NULL,
-  `approveBy` int(11) NOT NULL,
-  `status` enum('waiting','approve','reject') NOT NULL,
-  `note` text NOT NULL,
-  `imgPath` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `requestverifydetail`
---
-
-CREATE TABLE `requestverifydetail` (
-  `requestVerifyDetail` int(11) NOT NULL,
-  `requestVerifyId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL
+  `userId` int(11) NOT NULL,
+  `staffId` int(11) NOT NULL,
+  `verifyHeader` varchar(255) NOT NULL,
+  `verifyDetail` varchar(255) NOT NULL,
+  `approveStatus` enum('Approve','Waiting','Reject') NOT NULL DEFAULT 'Waiting',
+  `dateApprove` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -331,31 +274,8 @@ CREATE TABLE `requestverifydetail` (
 
 CREATE TABLE `staff` (
   `staffId` int(11) NOT NULL,
-  `position` varchar(45) NOT NULL
+  `position` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `type`
---
-
-CREATE TABLE `type` (
-  `typeId` int(11) NOT NULL,
-  `type` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `type`
---
-
-INSERT INTO `type` (`typeId`, `type`) VALUES
-(1, 'เทคโนโลยี'),
-(2, 'อาหาร'),
-(3, 'กีฬา'),
-(4, 'การแพทย์'),
-(5, 'สุขภาพ'),
-(6, 'ทั่วไป');
 
 -- --------------------------------------------------------
 
@@ -365,23 +285,11 @@ INSERT INTO `type` (`typeId`, `type`) VALUES
 
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
-  `userName` varchar(45) NOT NULL,
-  `verifyStatus` enum('yes','no') NOT NULL,
+  `username` varchar(50) NOT NULL,
   `imgPath` varchar(150) NOT NULL,
-  `followBy` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `withdrawreport`
---
-
-CREATE TABLE `withdrawreport` (
-  `withdrawReportId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `withdrawBalance` float NOT NULL,
-  `dateWithdraw` date NOT NULL
+  `backgroundPath` varchar(150) NOT NULL,
+  `verifyStatus` enum('Y','N') NOT NULL DEFAULT 'N',
+  `type` enum('Nomal','CourseCreator') NOT NULL DEFAULT 'Nomal'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -395,195 +303,133 @@ ALTER TABLE `account`
   ADD PRIMARY KEY (`accountId`);
 
 --
--- Indexes for table `approvewithdraw`
---
-ALTER TABLE `approvewithdraw`
-  ADD PRIMARY KEY (`approveWithdrawId`),
-  ADD KEY `FK_2` (`staffId`);
-
---
--- Indexes for table `approvewithdrawdetail`
---
-ALTER TABLE `approvewithdrawdetail`
-  ADD PRIMARY KEY (`approveWithdrawDetailId`),
-  ADD KEY `FK_2` (`withdrawReportId`),
-  ADD KEY `FK_3` (`approveWithdrawId`);
-
---
--- Indexes for table `bankaccount`
---
-ALTER TABLE `bankaccount`
-  ADD PRIMARY KEY (`bankAccountId`);
-
---
 -- Indexes for table `bookmark`
 --
 ALTER TABLE `bookmark`
   ADD PRIMARY KEY (`bookmarkId`),
-  ADD KEY `FK_2` (`postId`),
-  ADD KEY `FK_3` (`userId`);
+  ADD KEY `TC_Bookmark333` (`userId`),
+  ADD KEY `TC_Bookmark332` (`postId`);
 
 --
 -- Indexes for table `comment`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`commentId`),
-  ADD KEY `FK_2` (`postId`),
-  ADD KEY `FK_3` (`userId`);
+  ADD KEY `TC_Comment325` (`postId`),
+  ADD KEY `TC_Comment326` (`userId`);
 
 --
--- Indexes for table `commentlike`
+-- Indexes for table `contenttype`
 --
-ALTER TABLE `commentlike`
-  ADD PRIMARY KEY (`commentLikeId`),
-  ADD KEY `FK_2` (`commentId`),
-  ADD KEY `FK_3` (`userId`);
+ALTER TABLE `contenttype`
+  ADD PRIMARY KEY (`contentTypeId`);
 
 --
 -- Indexes for table `course`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`courseId`),
-  ADD KEY `FK_3` (`postId`),
-  ADD KEY `FK_4` (`typeId`),
-  ADD KEY `FK_4_1` (`createBy`);
-
---
--- Indexes for table `coursecreator`
---
-ALTER TABLE `coursecreator`
-  ADD PRIMARY KEY (`courseCreatorId`),
-  ADD KEY `FK_2` (`userId`);
+  ADD KEY `TC_Course339` (`userId`),
+  ADD KEY `contentTypeId` (`contentTypeId`);
 
 --
 -- Indexes for table `imgcomment`
 --
 ALTER TABLE `imgcomment`
-  ADD PRIMARY KEY (`imgComment`),
-  ADD KEY `FK_2` (`commentId`);
+  ADD PRIMARY KEY (`imgCommentId`),
+  ADD KEY `TC_ImgComment329` (`commentId`);
 
 --
 -- Indexes for table `imgcourse`
 --
 ALTER TABLE `imgcourse`
-  ADD PRIMARY KEY (`imgCourse`),
-  ADD KEY `FK_2` (`courseId`);
+  ADD PRIMARY KEY (`imgCourseId`),
+  ADD KEY `TC_ImgCourse340` (`courseId`);
 
 --
 -- Indexes for table `imgpost`
 --
 ALTER TABLE `imgpost`
   ADD PRIMARY KEY (`imgPostId`),
-  ADD KEY `FK_2` (`postId`);
+  ADD KEY `TC_ImgPost324` (`postId`);
 
 --
 -- Indexes for table `imgverify`
 --
 ALTER TABLE `imgverify`
   ADD PRIMARY KEY (`imgVerifyId`),
-  ADD KEY `FK_2` (`requestVerifyId`);
+  ADD KEY `TC_ImgVerify343` (`requestVerifyId`);
 
 --
 -- Indexes for table `joincourse`
 --
 ALTER TABLE `joincourse`
   ADD PRIMARY KEY (`joinCourseId`),
-  ADD KEY `FK_3` (`courseId`);
+  ADD KEY `TC_JoinCourse345` (`courseId`),
+  ADD KEY `TC_JoinCourse344` (`userId`);
 
 --
--- Indexes for table `paymentcheck`
+-- Indexes for table `likecomment`
 --
-ALTER TABLE `paymentcheck`
-  ADD PRIMARY KEY (`paymentId`),
-  ADD KEY `FK_2` (`userId`),
-  ADD KEY `FK_3` (`joinCourseId`),
-  ADD KEY `FK_4` (`approveBy`);
+ALTER TABLE `likecomment`
+  ADD PRIMARY KEY (`likeCommentId`),
+  ADD KEY `TC_LikeComment330` (`commentId`),
+  ADD KEY `TC_LikeComment331` (`userId`);
+
+--
+-- Indexes for table `likepost`
+--
+ALTER TABLE `likepost`
+  ADD PRIMARY KEY (`likePostId`),
+  ADD KEY `TC_LikePost328` (`postId`),
+  ADD KEY `TC_LikePost327` (`userId`);
 
 --
 -- Indexes for table `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`postId`),
-  ADD KEY `FK_3` (`typeId`),
-  ADD KEY `FK_3_1` (`userId`);
-
---
--- Indexes for table `postlike`
---
-ALTER TABLE `postlike`
-  ADD PRIMARY KEY (`postLikeId`),
-  ADD KEY `FK_2` (`postId`),
-  ADD KEY `FK_3` (`userId`);
+  ADD KEY `TC_Post322` (`userId`),
+  ADD KEY `TC_Post323` (`contentTypeId`);
 
 --
 -- Indexes for table `report`
 --
 ALTER TABLE `report`
   ADD PRIMARY KEY (`reportId`),
-  ADD KEY `FK_2` (`requestBy`),
-  ADD KEY `FK_3` (`commentId`),
-  ADD KEY `FK_4` (`postId`),
-  ADD KEY `FK_5` (`courseId`);
+  ADD KEY `TC_Report336` (`reportTypeId`),
+  ADD KEY `TC_Report334` (`userId`),
+  ADD KEY `postId` (`postId`),
+  ADD KEY `commentId` (`commentId`),
+  ADD KEY `courseId` (`courseId`);
 
 --
--- Indexes for table `requestcourse`
+-- Indexes for table `reporttype`
 --
-ALTER TABLE `requestcourse`
-  ADD PRIMARY KEY (`requestCourseId`),
-  ADD KEY `FK_3` (`approveBy`),
-  ADD KEY `FK_4` (`postId`),
-  ADD KEY `FK_4_1` (`requestBy`);
-
---
--- Indexes for table `requestcoursedetail`
---
-ALTER TABLE `requestcoursedetail`
-  ADD PRIMARY KEY (`requestCourseDetailId`),
-  ADD KEY `FK_2` (`requestCourseId`),
-  ADD KEY `FK_3` (`courseId`);
+ALTER TABLE `reporttype`
+  ADD PRIMARY KEY (`reportTypeId`);
 
 --
 -- Indexes for table `requestverify`
 --
 ALTER TABLE `requestverify`
   ADD PRIMARY KEY (`requestVerifyId`),
-  ADD KEY `FK_2` (`approveBy`);
-
---
--- Indexes for table `requestverifydetail`
---
-ALTER TABLE `requestverifydetail`
-  ADD PRIMARY KEY (`requestVerifyDetail`),
-  ADD KEY `FK_2` (`requestVerifyId`),
-  ADD KEY `FK_3` (`userId`);
+  ADD KEY `TC_requestVerify341` (`userId`),
+  ADD KEY `TC_requestVerify342` (`staffId`);
 
 --
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
   ADD PRIMARY KEY (`staffId`),
-  ADD KEY `FK_1` (`staffId`);
-
---
--- Indexes for table `type`
---
-ALTER TABLE `type`
-  ADD PRIMARY KEY (`typeId`);
+  ADD KEY `TC_Staff321` (`staffId`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`),
-  ADD KEY `FK_1` (`userId`),
-  ADD KEY `followBy` (`followBy`);
-
---
--- Indexes for table `withdrawreport`
---
-ALTER TABLE `withdrawreport`
-  ADD PRIMARY KEY (`withdrawReportId`),
-  ADD KEY `FK_2` (`userId`);
+  ADD KEY `TC_User320` (`userId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -594,24 +440,6 @@ ALTER TABLE `withdrawreport`
 --
 ALTER TABLE `account`
   MODIFY `accountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `approvewithdraw`
---
-ALTER TABLE `approvewithdraw`
-  MODIFY `approveWithdrawId` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `approvewithdrawdetail`
---
-ALTER TABLE `approvewithdrawdetail`
-  MODIFY `approveWithdrawDetailId` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `bankaccount`
---
-ALTER TABLE `bankaccount`
-  MODIFY `bankAccountId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bookmark`
@@ -626,10 +454,10 @@ ALTER TABLE `comment`
   MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `commentlike`
+-- AUTO_INCREMENT for table `contenttype`
 --
-ALTER TABLE `commentlike`
-  MODIFY `commentLikeId` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `contenttype`
+  MODIFY `contentTypeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `course`
@@ -638,22 +466,16 @@ ALTER TABLE `course`
   MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `coursecreator`
---
-ALTER TABLE `coursecreator`
-  MODIFY `courseCreatorId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `imgcomment`
 --
 ALTER TABLE `imgcomment`
-  MODIFY `imgComment` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `imgCommentId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `imgcourse`
 --
 ALTER TABLE `imgcourse`
-  MODIFY `imgCourse` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `imgCourseId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `imgpost`
@@ -674,10 +496,16 @@ ALTER TABLE `joincourse`
   MODIFY `joinCourseId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `paymentcheck`
+-- AUTO_INCREMENT for table `likecomment`
 --
-ALTER TABLE `paymentcheck`
-  MODIFY `paymentId` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `likecomment`
+  MODIFY `likeCommentId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `likepost`
+--
+ALTER TABLE `likepost`
+  MODIFY `likePostId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -686,28 +514,16 @@ ALTER TABLE `post`
   MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `postlike`
---
-ALTER TABLE `postlike`
-  MODIFY `postLikeId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
   MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `requestcourse`
+-- AUTO_INCREMENT for table `reporttype`
 --
-ALTER TABLE `requestcourse`
-  MODIFY `requestCourseId` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `requestcoursedetail`
---
-ALTER TABLE `requestcoursedetail`
-  MODIFY `requestCourseDetailId` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `reporttype`
+  MODIFY `reportTypeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `requestverify`
@@ -716,182 +532,110 @@ ALTER TABLE `requestverify`
   MODIFY `requestVerifyId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `requestverifydetail`
---
-ALTER TABLE `requestverifydetail`
-  MODIFY `requestVerifyDetail` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `type`
---
-ALTER TABLE `type`
-  MODIFY `typeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `withdrawreport`
---
-ALTER TABLE `withdrawreport`
-  MODIFY `withdrawReportId` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `approvewithdraw`
---
-ALTER TABLE `approvewithdraw`
-  ADD CONSTRAINT `FK_38` FOREIGN KEY (`staffId`) REFERENCES `staff` (`staffId`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Constraints for table `approvewithdrawdetail`
---
-ALTER TABLE `approvewithdrawdetail`
-  ADD CONSTRAINT `FK_39` FOREIGN KEY (`withdrawReportId`) REFERENCES `withdrawreport` (`withdrawReportId`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_40` FOREIGN KEY (`approveWithdrawId`) REFERENCES `approvewithdraw` (`approveWithdrawId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bookmark`
 --
 ALTER TABLE `bookmark`
-  ADD CONSTRAINT `FK_14` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_9` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Bookmark176` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_Bookmark195` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `FK_13_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_5` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `commentlike`
---
-ALTER TABLE `commentlike`
-  ADD CONSTRAINT `FK_12` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_7` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Comment175` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_Comment193` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `course`
 --
 ALTER TABLE `course`
-  ADD CONSTRAINT `FK_13_1` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_25` FOREIGN KEY (`typeId`) REFERENCES `type` (`typeId`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_28_1` FOREIGN KEY (`createBy`) REFERENCES `coursecreator` (`courseCreatorId`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `coursecreator`
---
-ALTER TABLE `coursecreator`
-  ADD CONSTRAINT `FK_28` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Course188` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`contentTypeId`) REFERENCES `contenttype` (`contentTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `imgcomment`
 --
 ALTER TABLE `imgcomment`
-  ADD CONSTRAINT `FK_35` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`);
+  ADD CONSTRAINT `FK_ImgComment180` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `imgcourse`
 --
 ALTER TABLE `imgcourse`
-  ADD CONSTRAINT `FK_36` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`);
+  ADD CONSTRAINT `FK_ImgCourse185` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `imgpost`
 --
 ALTER TABLE `imgpost`
-  ADD CONSTRAINT `FK_34` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`);
+  ADD CONSTRAINT `FK_ImgPost178` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `imgverify`
 --
 ALTER TABLE `imgverify`
-  ADD CONSTRAINT `FK_41` FOREIGN KEY (`requestVerifyId`) REFERENCES `requestverify` (`requestVerifyId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_ImgVerify187` FOREIGN KEY (`requestVerifyId`) REFERENCES `requestverify` (`requestVerifyId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `joincourse`
 --
 ALTER TABLE `joincourse`
-  ADD CONSTRAINT `FK_15` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_JoinCourse186` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_JoinCourse191` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `paymentcheck`
+-- Constraints for table `likecomment`
 --
-ALTER TABLE `paymentcheck`
-  ADD CONSTRAINT `FK_20_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_21` FOREIGN KEY (`joinCourseId`) REFERENCES `joincourse` (`joinCourseId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_22` FOREIGN KEY (`approveBy`) REFERENCES `staff` (`staffId`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE `likecomment`
+  ADD CONSTRAINT `FK_LikeComment181` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_LikeComment189` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `likepost`
+--
+ALTER TABLE `likepost`
+  ADD CONSTRAINT `FK_LikePost174` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_LikePost190` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `FK_11` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_13` FOREIGN KEY (`typeId`) REFERENCES `type` (`typeId`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `postlike`
---
-ALTER TABLE `postlike`
-  ADD CONSTRAINT `FK_10` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_3` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Post179` FOREIGN KEY (`contentTypeId`) REFERENCES `contenttype` (`contentTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_Post196` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `report`
 --
 ALTER TABLE `report`
-  ADD CONSTRAINT `FK_29` FOREIGN KEY (`requestBy`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_30` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_31` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_32` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `requestcourse`
---
-ALTER TABLE `requestcourse`
-  ADD CONSTRAINT `FK_19` FOREIGN KEY (`approveBy`) REFERENCES `staff` (`staffId`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_20` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_20_1` FOREIGN KEY (`requestBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `requestcoursedetail`
---
-ALTER TABLE `requestcoursedetail`
-  ADD CONSTRAINT `FK_17` FOREIGN KEY (`requestCourseId`) REFERENCES `requestcourse` (`requestCourseId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_18` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Report183` FOREIGN KEY (`reportTypeId`) REFERENCES `reporttype` (`reportTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_Report192` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `report_ibfk_2` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `report_ibfk_3` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `requestverify`
 --
 ALTER TABLE `requestverify`
-  ADD CONSTRAINT `FK_25_1` FOREIGN KEY (`approveBy`) REFERENCES `staff` (`staffId`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Constraints for table `requestverifydetail`
---
-ALTER TABLE `requestverifydetail`
-  ADD CONSTRAINT `FK_27` FOREIGN KEY (`requestVerifyId`) REFERENCES `requestverify` (`requestVerifyId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_27_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_requestVerify194` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_requestVerify198` FOREIGN KEY (`staffId`) REFERENCES `staff` (`staffId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `staff`
 --
 ALTER TABLE `staff`
-  ADD CONSTRAINT `FK_16` FOREIGN KEY (`staffId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Staff199` FOREIGN KEY (`staffId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `FK_9_1` FOREIGN KEY (`userId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`followBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `withdrawreport`
---
-ALTER TABLE `withdrawreport`
-  ADD CONSTRAINT `FK_37` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_User197` FOREIGN KEY (`userId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

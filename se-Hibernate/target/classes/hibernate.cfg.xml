@@ -10,30 +10,22 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         
         <mapping resource="Account.hbm.xml"/>
-        <mapping resource="ApproveWithdraw.hbm.xml"/>
-        <mapping resource="ApproveWithdrawDetail.hbm.xml"/>
-        <mapping resource="BankAccount.hbm.xml"/>
         <mapping resource="Bookmark.hbm.xml"/>
         <mapping resource="Comment.hbm.xml"/>
-        <mapping resource="CommentLike.hbm.xml"/>
+        <mapping resource="ContentType.hbm.xml"/>
         <mapping resource="Course.hbm.xml"/>
-        <mapping resource="CourseCreator.hbm.xml"/>
         <mapping resource="ImgComment.hbm.xml"/>
         <mapping resource="ImgCourse.hbm.xml"/>
         <mapping resource="ImgPost.hbm.xml"/>
         <mapping resource="ImgVerify.hbm.xml"/>
         <mapping resource="JoinCourse.hbm.xml"/>
-        <mapping resource="PaymentCheck.hbm.xml"/>
+        <mapping resource="LikeComment.hbm.xml"/>
+        <mapping resource="LikePost.hbm.xml"/>
         <mapping resource="Post.hbm.xml"/>
-        <mapping resource="PostLike.hbm.xml"/>
         <mapping resource="Report.hbm.xml"/>
-        <mapping resource="RequestCourse.hbm.xml"/>
-        <mapping resource="RequestCourseDetail.hbm.xml"/>
         <mapping resource="RequestVerify.hbm.xml"/>
-        <mapping resource="RequestVerifyDetail.hbm.xml"/>
+        <mapping resource="ReportType.hbm.xml"/>
         <mapping resource="Staff.hbm.xml"/>
-        <mapping resource="Type.hbm.xml"/>
         <mapping resource="User.hbm.xml"/>
-        <mapping resource="WithdrawReport.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,8 @@
 package eng.cpe.se.project.model;
-// Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,48 +16,52 @@ public class Post implements java.io.Serializable {
 
 	private int postId;
 	@JsonIgnore
-	private Type type;
+	private ContentType contentType;
 	@JsonIgnore
 	private User user;
+	private String postHeader;
 	private String postDetail;
-	private String imgPath;
-	@JsonIgnore
-	private List<Report> reports = new ArrayList<Report>();
-	@JsonIgnore
-	private List<RequestCourse> requestCourses = new ArrayList<RequestCourse>();
-	@JsonIgnore
-	private List<ImgPost> imgPosts = new ArrayList<ImgPost>();
-	@JsonIgnore
-	private List<PostLike> postLikes = new ArrayList<PostLike>();
-	@JsonIgnore
-	private List<Comment> comments = new ArrayList<Comment>();
+	private Date createDate;
 	@JsonIgnore
 	private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 	@JsonIgnore
-	private List<Course> courses = new ArrayList<Course>();
+	private List<Report> reports = new ArrayList<Report>();
+	@JsonIgnore
+	private List<ImgPost> imgPosts = new ArrayList<ImgPost>();
+	@JsonIgnore
+	private List<Comment> comments = new ArrayList<Comment>();
+	@JsonIgnore
+	private List<LikePost> likePosts = new ArrayList<LikePost>();
 
 	public Post() {
 	}
 
-	public Post(User user, String postDetail, String imgPath) {
+	public Post(ContentType contenttype, User user, String postHeader, String postDetail, Date createDate) {
+		this.contentType = contenttype;
 		this.user = user;
+		this.postHeader = postHeader;
 		this.postDetail = postDetail;
-		this.imgPath = imgPath;
+		this.createDate = createDate;
 	}
 
-	public Post(Type type, User user, String postDetail, String imgPath, List<Report> reports, List<RequestCourse> requestcourses, List<ImgPost> imgposts,
-			List<PostLike> postlikes, List<Comment> comments, List<Bookmark> bookmarks, List<Course> courses) {
-		this.type = type;
+	public Post(ContentType contenttype, User user, String postHeader, String postDetail, Date createDate,
+			List<Bookmark> bookmarks, List<Report> reports, List<ImgPost> imgposts, List<Comment> comments, List<LikePost> likeposts) {
+		this.contentType = contenttype;
 		this.user = user;
+		this.postHeader = postHeader;
 		this.postDetail = postDetail;
-		this.imgPath = imgPath;
-		this.reports = reports;
-		this.requestCourses = requestcourses;
-		this.imgPosts = imgposts;
-		this.postLikes = postlikes;
-		this.comments = comments;
+		this.createDate = createDate;
 		this.bookmarks = bookmarks;
-		this.courses = courses;
+		this.reports = reports;
+		this.imgPosts = imgposts;
+		this.comments = comments;
+		this.likePosts = likeposts;
+	}
+	
+	public void clone(Post other) {
+		this.postHeader = other.postHeader;
+		this.postDetail = other.postDetail;
+		this.createDate = other.createDate;
 	}
 
 	public int getPostId() {
@@ -67,12 +72,12 @@ public class Post implements java.io.Serializable {
 		this.postId = postId;
 	}
 
-	public Type getType() {
-		return type;
+	public ContentType getContentType() {
+		return contentType;
 	}
 
-	public void setType(Type type) {
-		this.type = type;
+	public void setContentType(ContentType contentType) {
+		this.contentType = contentType;
 	}
 
 	public User getUser() {
@@ -83,6 +88,14 @@ public class Post implements java.io.Serializable {
 		this.user = user;
 	}
 
+	public String getPostHeader() {
+		return postHeader;
+	}
+
+	public void setPostHeader(String postHeader) {
+		this.postHeader = postHeader;
+	}
+
 	public String getPostDetail() {
 		return postDetail;
 	}
@@ -91,52 +104,12 @@ public class Post implements java.io.Serializable {
 		this.postDetail = postDetail;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
-
-	public List<Report> getReports() {
-		return reports;
-	}
-
-	public void setReports(List<Report> reports) {
-		this.reports = reports;
-	}
-
-	public List<RequestCourse> getRequestCourses() {
-		return requestCourses;
-	}
-
-	public void setRequestCourses(List<RequestCourse> requestCourses) {
-		this.requestCourses = requestCourses;
-	}
-
-	public List<ImgPost> getImgPosts() {
-		return imgPosts;
-	}
-
-	public void setImgPosts(List<ImgPost> imgPosts) {
-		this.imgPosts = imgPosts;
-	}
-
-	public List<PostLike> getPostLikes() {
-		return postLikes;
-	}
-
-	public void setPostLikes(List<PostLike> postLikes) {
-		this.postLikes = postLikes;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public List<Bookmark> getBookmarks() {
@@ -147,12 +120,36 @@ public class Post implements java.io.Serializable {
 		this.bookmarks = bookmarks;
 	}
 
-	public List<Course> getCourses() {
-		return courses;
+	public List<Report> getReports() {
+		return reports;
 	}
 
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
+
+	public List<ImgPost> getImgPosts() {
+		return imgPosts;
+	}
+
+	public void setImgPosts(List<ImgPost> imgPosts) {
+		this.imgPosts = imgPosts;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public List<LikePost> getLikePosts() {
+		return likePosts;
+	}
+
+	public void setLikePosts(List<LikePost> likePosts) {
+		this.likePosts = likePosts;
 	}
 
 
