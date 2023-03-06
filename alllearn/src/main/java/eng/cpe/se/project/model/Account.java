@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import eng.cpe.se.project.security.validation.PasswordMatches;
+
 
 // Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
 
@@ -21,14 +21,10 @@ import eng.cpe.se.project.security.validation.PasswordMatches;
 public class Account implements java.io.Serializable {
 
 	private int accountId;
-	@NotBlank(message = "Email may not be blank")
-	@NotEmpty(message = "Email may not be empty")
-	@Email
 	private String email;
 	
 	private String password;
 	
-	private String matchingPassword;
 	
 	private String title;
 	
@@ -146,13 +142,4 @@ public class Account implements java.io.Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public String getMatchingPassword() {
-		return matchingPassword;
-	}
-
-	public void setMatchingPassword(String matchingPassword) {
-		this.matchingPassword = matchingPassword;
-	}
-
 }

@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Account;
-import eng.cpe.se.project.security.exception.AccountAlreadyExistException;
 import eng.cpe.se.project.service.AccountService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
@@ -53,7 +52,7 @@ public class AccountRestController {
 		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/id/{id}")
 	public ResponseEntity<Response<Account>> findById(@PathVariable("id") int id) {
 		Response<Account> res = new Response<>();
 		try {
@@ -72,18 +71,15 @@ public class AccountRestController {
 	public ResponseEntity<Response<Account>> createAccount(@Valid@RequestBody Account account) {
 		Response<Account> res = new Response<>();
 		try {
-			accountService.registerNewAccount(account);
+			System.out.println(account.getEmail()+account.getFirstName());
+			accountService.save(account);
 			res.setMessage("save  successfully.");
 			res.setBody(account);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Account>>(res, res.getHttpStatus());
-		} catch (AccountAlreadyExistException uaeEx) {
-			res.setMessage("An account for that username/email already exists.");
-			res.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-			return new ResponseEntity<Response<Account>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
-			res.setMessage(ex.toString());
-			res.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+			res.setMessage(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Account>>(res, res.getHttpStatus());
 		}
 	}

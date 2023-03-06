@@ -4,14 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import eng.cpe.se.project.model.Account;
 import eng.cpe.se.project.repository.AccountRepository;
-import eng.cpe.se.project.security.exception.AccountAlreadyExistException;
-import eng.cpe.se.project.service.register.IAccountService;
+
 
 @Service
-public class AccountService implements IAccountService{
+@Transactional
+public class AccountService{
 	
 	@Autowired
 	private AccountRepository accountRepository;
@@ -39,13 +40,4 @@ public class AccountService implements IAccountService{
 	private boolean emailExists(String email) {
 		return accountRepository.findByEmail(email) != null;
 	}
-	
-	public Account registerNewAccount(Account account) throws AccountAlreadyExistException {
-        if (emailExists(account.getEmail())) {
-            throw new AccountAlreadyExistException("There is an account with that email address: " + account.getEmail());
-        }else {
-        	return accountRepository.save(account);
-        }
-     
-    }
 }
