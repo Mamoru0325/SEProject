@@ -1,0 +1,21 @@
+.HomePage{
+    display: flex; 
+    justify-content: end;
+    margin-right: 50px;
+}
+.allContent{
+    display: flex; 
+    justify-content: space-around;
+    height: 500px;
+    width: 1000px;
+    background-color: blueviolet;
+    
+}
+.content{
+    display: flex;
+    height: 300px;
+    width: 500px;
+    margin: 50px;
+    background-color:rgb(255, 255, 255);
+    
+}

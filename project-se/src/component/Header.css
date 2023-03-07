@@ -1,0 +1,39 @@
+.container{
+    max-width: auto;
+    margin: auto;
+}
+.header{
+    background-color: rgb(175, 175, 175);
+    height: 60px;
+    margin: 0;
+}
+
+/* แถบ menu  ด้านบน */
+.header-con{
+    background-color: rgb(39, 39, 97);
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+}
+
+/* กลุ่ม link */
+.menu{
+    display: flex;
+    padding: 15px;
+   
+}
+
+/* logo */
+.logo{
+    margin-inline: 20px;
+    margin-top: 5px;
+}
+
+/* แต่ละ Link */
+.menu-link{
+    font-size: 20px;
+    padding-inline: 10px;
+    list-style-type: none;
+    color: antiquewhite;
+}
+
