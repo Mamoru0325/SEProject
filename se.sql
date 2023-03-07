@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2023 at 07:19 PM
+-- Generation Time: Mar 07, 2023 at 08:15 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -17,6 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+CREATE DATABASE IF NOT EXISTS `se` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `se`;
 --
 -- Database: `se`
 --
@@ -30,19 +32,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `account` (
   `accountId` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(20) NOT NULL,
   `title` varchar(10) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
-  `phoneNumber` varchar(10) NOT NULL
+  `phoneNumber` varchar(10) NOT NULL,
+  `role` enum('staff','user') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`accountId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`) VALUES
-(1, 'pokpongthunder789@gmail.com', '123456', 'mr', 'paweenwich', 'thadee', '0896345911');
+INSERT INTO `account` (`accountId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`, `role`) VALUES
+(1, 'pokpongthunder789@gmail.com', '123456', 'Mr', 'Paweenwich', 'Thadee', '0896345911', 'staff'),
+(2, 'suphalak.l@ku.th', '123456', 'Ms', 'Suphalak', 'L', '0896345911', 'staff'),
+(3, 'piya.rat@ku.th', '123456', 'Mr', 'Piya', 'Rat', '0896345911', 'staff'),
+(4, 'sarannut.l@ku.th', '123456', 'Ms', 'sarannut', 'L', '0896345911', 'staff');
 
 -- --------------------------------------------------------
 
@@ -66,7 +72,8 @@ CREATE TABLE `comment` (
   `commentId` int(11) NOT NULL,
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `commentDetail` varchar(255) NOT NULL,
+  `commentDetail` text NOT NULL,
+  `reportStatus` enum('Waiting') DEFAULT NULL,
   `createDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -102,17 +109,31 @@ INSERT INTO `contenttype` (`contentTypeId`, `typeName`) VALUES
 CREATE TABLE `course` (
   `courseId` int(11) NOT NULL,
   `contentTypeId` int(11) NOT NULL,
+  `courseTopic` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `userId` int(11) NOT NULL,
-  `courseDetail` varchar(255) NOT NULL,
+  `courseDetail` text NOT NULL,
   `minimum` int(11) NOT NULL,
   `maximum` int(11) NOT NULL,
   `price` double NOT NULL,
   `status` enum('Full','Available') NOT NULL DEFAULT 'Available',
+  `reportStatus` enum('Waiting','Done') DEFAULT NULL,
   `firstEnrollDate` date NOT NULL,
   `lastEnrollDate` date NOT NULL,
   `eventDate` date NOT NULL,
   `startDate` date NOT NULL,
   `endDate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `follower`
+--
+
+CREATE TABLE `follower` (
+  `followerId` int(11) NOT NULL,
+  `followTo` int(11) NOT NULL,
+  `followBy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -171,8 +192,7 @@ CREATE TABLE `imgverify` (
 
 CREATE TABLE `joincourse` (
   `joinCourseId` int(11) NOT NULL,
-  `courseId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL
+  `courseId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -202,6 +222,19 @@ CREATE TABLE `likepost` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `paymentcheck`
+--
+
+CREATE TABLE `paymentcheck` (
+  `paymentCheckId` int(11) NOT NULL,
+  `payBy` int(11) NOT NULL,
+  `joinCourseId` int(11) NOT NULL,
+  `imgPath` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `post`
 --
 
@@ -209,8 +242,9 @@ CREATE TABLE `post` (
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `contentTypeId` int(11) NOT NULL,
-  `postHeader` varchar(255) NOT NULL,
-  `postDetail` varchar(255) NOT NULL,
+  `postTopic` varchar(255) NOT NULL,
+  `postDetail` text NOT NULL,
+  `reportStatus` enum('Waiting','Done') DEFAULT NULL,
   `createDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -227,7 +261,8 @@ CREATE TABLE `report` (
   `commentId` int(11) DEFAULT NULL,
   `courseId` int(11) DEFAULT NULL,
   `userId` int(11) NOT NULL,
-  `reportDetail` varchar(255) NOT NULL
+  `reportDetail` text NOT NULL,
+  `status` enum('Approve','Waiting') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -249,6 +284,19 @@ INSERT INTO `reporttype` (`reportTypeId`, `typeName`) VALUES
 (1, 'อนาจาร,คุกคามทางเพศ'),
 (2, 'คำหยาบคาย'),
 (3, 'เนื้อหาไม่เหมาะสม');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requestcourse`
+--
+
+CREATE TABLE `requestcourse` (
+  `requestCourseId` int(11) NOT NULL,
+  `topic` varchar(255) NOT NULL,
+  `detail` text NOT NULL,
+  `requestTo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -333,6 +381,14 @@ ALTER TABLE `course`
   ADD KEY `contentTypeId` (`contentTypeId`);
 
 --
+-- Indexes for table `follower`
+--
+ALTER TABLE `follower`
+  ADD PRIMARY KEY (`followerId`),
+  ADD KEY `followTo` (`followTo`),
+  ADD KEY `followBy` (`followBy`);
+
+--
 -- Indexes for table `imgcomment`
 --
 ALTER TABLE `imgcomment`
@@ -365,8 +421,7 @@ ALTER TABLE `imgverify`
 --
 ALTER TABLE `joincourse`
   ADD PRIMARY KEY (`joinCourseId`),
-  ADD KEY `TC_JoinCourse345` (`courseId`),
-  ADD KEY `TC_JoinCourse344` (`userId`);
+  ADD KEY `TC_JoinCourse345` (`courseId`);
 
 --
 -- Indexes for table `likecomment`
@@ -383,6 +438,14 @@ ALTER TABLE `likepost`
   ADD PRIMARY KEY (`likePostId`),
   ADD KEY `TC_LikePost328` (`postId`),
   ADD KEY `TC_LikePost327` (`userId`);
+
+--
+-- Indexes for table `paymentcheck`
+--
+ALTER TABLE `paymentcheck`
+  ADD PRIMARY KEY (`paymentCheckId`),
+  ADD KEY `userId` (`payBy`),
+  ADD KEY `joinCourseId` (`joinCourseId`);
 
 --
 -- Indexes for table `post`
@@ -408,6 +471,13 @@ ALTER TABLE `report`
 --
 ALTER TABLE `reporttype`
   ADD PRIMARY KEY (`reportTypeId`);
+
+--
+-- Indexes for table `requestcourse`
+--
+ALTER TABLE `requestcourse`
+  ADD PRIMARY KEY (`requestCourseId`),
+  ADD KEY `requestTo` (`requestTo`);
 
 --
 -- Indexes for table `requestverify`
@@ -439,7 +509,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `accountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `accountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bookmark`
@@ -464,6 +534,12 @@ ALTER TABLE `contenttype`
 --
 ALTER TABLE `course`
   MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `follower`
+--
+ALTER TABLE `follower`
+  MODIFY `followerId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `imgcomment`
@@ -508,6 +584,12 @@ ALTER TABLE `likepost`
   MODIFY `likePostId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `paymentcheck`
+--
+ALTER TABLE `paymentcheck`
+  MODIFY `paymentCheckId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
@@ -524,6 +606,12 @@ ALTER TABLE `report`
 --
 ALTER TABLE `reporttype`
   MODIFY `reportTypeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `requestcourse`
+--
+ALTER TABLE `requestcourse`
+  MODIFY `requestCourseId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `requestverify`
@@ -557,6 +645,13 @@ ALTER TABLE `course`
   ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`contentTypeId`) REFERENCES `contenttype` (`contentTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
+-- Constraints for table `follower`
+--
+ALTER TABLE `follower`
+  ADD CONSTRAINT `follower_ibfk_1` FOREIGN KEY (`followBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `follower_ibfk_2` FOREIGN KEY (`followTo`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `imgcomment`
 --
 ALTER TABLE `imgcomment`
@@ -584,8 +679,7 @@ ALTER TABLE `imgverify`
 -- Constraints for table `joincourse`
 --
 ALTER TABLE `joincourse`
-  ADD CONSTRAINT `FK_JoinCourse186` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_JoinCourse191` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_JoinCourse186` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `likecomment`
@@ -600,6 +694,13 @@ ALTER TABLE `likecomment`
 ALTER TABLE `likepost`
   ADD CONSTRAINT `FK_LikePost174` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_LikePost190` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `paymentcheck`
+--
+ALTER TABLE `paymentcheck`
+  ADD CONSTRAINT `paymentcheck_ibfk_1` FOREIGN KEY (`payBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `paymentcheck_ibfk_2` FOREIGN KEY (`joinCourseId`) REFERENCES `joincourse` (`joinCourseId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `post`
@@ -617,6 +718,12 @@ ALTER TABLE `report`
   ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `report_ibfk_2` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `report_ibfk_3` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `requestcourse`
+--
+ALTER TABLE `requestcourse`
+  ADD CONSTRAINT `requestcourse_ibfk_1` FOREIGN KEY (`requestTo`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `requestverify`
