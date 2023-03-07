@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.Staff" optimistic-lock="none" table="staff">
+        <id name="staffId" type="int">
+            <column name="staffId"/>
+            <generator class="foreign">
+                <param name="property">account</param>
+            </generator>
+        </id>
+        <one-to-one class="eng.cpe.se.project.model.Account" constrained="true" name="account"/>
+        <property name="position" type="string">
+            <column name="position" not-null="true"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="requestverifies" table="requestverify">
+            <key>
+                <column name="staffId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.Requestverify"/>
+        </set>
+    </class>
+</hibernate-mapping>
