@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class ImgCourse implements java.io.Serializable {
 
-	private int imgCourseId;
+	private Integer imgCourseId;
 	@JsonIgnore
 	private Course course;
 	private String imgPath;
@@ -20,16 +20,12 @@ public class ImgCourse implements java.io.Serializable {
 		this.course = course;
 		this.imgPath = imgPath;
 	}
-	
-	public void clone(ImgCourse other) {
-		this.imgPath = other.imgPath;
-	}
 
-	public int getImgCourseId() {
+	public Integer getImgCourseId() {
 		return this.imgCourseId;
 	}
 
-	public void setImgCourseId(int imgCourseId) {
+	public void setImgCourseId(Integer imgCourseId) {
 		this.imgCourseId = imgCourseId;
 	}
 

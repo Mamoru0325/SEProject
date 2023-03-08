@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class RequestCourse implements java.io.Serializable {
 
-	private int requestCourseId;
+	private Integer requestCourseId;
 	@JsonIgnore
 	private User user;
 	private String topic;
@@ -22,23 +22,17 @@ public class RequestCourse implements java.io.Serializable {
 		this.topic = topic;
 		this.detail = detail;
 	}
-	
-	public void clone(RequestCourse other) {
-		this.user = other.user;
-		this.topic = other.topic;
-		this.detail = other.detail;
+
+	public Integer getRequestCourseId() {
+		return this.requestCourseId;
 	}
 
-	public int getRequestCourseId() {
-		return requestCourseId;
-	}
-
-	public void setRequestCourseId(int requestCourseId) {
+	public void setRequestCourseId(Integer requestCourseId) {
 		this.requestCourseId = requestCourseId;
 	}
 
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
 	public void setUser(User user) {
@@ -46,7 +40,7 @@ public class RequestCourse implements java.io.Serializable {
 	}
 
 	public String getTopic() {
-		return topic;
+		return this.topic;
 	}
 
 	public void setTopic(String topic) {
@@ -54,12 +48,11 @@ public class RequestCourse implements java.io.Serializable {
 	}
 
 	public String getDetail() {
-		return detail;
+		return this.detail;
 	}
 
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-
 
 }

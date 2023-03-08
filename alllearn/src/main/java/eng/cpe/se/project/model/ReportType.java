@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class ReportType implements java.io.Serializable {
 
-	private int reportTypeId;
+	private Integer reportTypeId;
 	private String typeName;
 	@JsonIgnore
 	private List<Report> reports = new ArrayList<Report>();
@@ -25,20 +25,18 @@ public class ReportType implements java.io.Serializable {
 		this.typeName = typeName;
 	}
 
-	public ReportType(String typeName, List<Report> reports) {
+	public ReportType(Integer reportTypeId, String typeName, List<Report> reports) {
+		super();
+		this.reportTypeId = reportTypeId;
 		this.typeName = typeName;
 		this.reports = reports;
 	}
-	
-	public void clone(ReportType other) {
-		this.typeName = other.typeName;
-	}
 
-	public int getReportTypeId() {
+	public Integer getReportTypeId() {
 		return reportTypeId;
 	}
 
-	public void setReportTypeId(int reportTypeId) {
+	public void setReportTypeId(Integer reportTypeId) {
 		this.reportTypeId = reportTypeId;
 	}
 
@@ -57,6 +55,5 @@ public class ReportType implements java.io.Serializable {
 	public void setReports(List<Report> reports) {
 		this.reports = reports;
 	}
-
 
 }

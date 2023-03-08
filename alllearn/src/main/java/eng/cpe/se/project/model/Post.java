@@ -1,9 +1,11 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class Post implements java.io.Serializable {
 
-	private int postId;
+	private Integer postId;
 	@JsonIgnore
 	private ContentType contentType;
 	@JsonIgnore
@@ -35,42 +37,37 @@ public class Post implements java.io.Serializable {
 	public Post() {
 	}
 
-	public Post(ContentType contenttype, User user, String postTopic, String postDetail,String reportStatus, Date createDate) {
+	public Post(ContentType contenttype, User user, String postTopic, String postDetail, Date createDate) {
 		this.contentType = contenttype;
 		this.user = user;
 		this.postTopic = postTopic;
 		this.postDetail = postDetail;
-		this.setReportStatus(reportStatus);
 		this.createDate = createDate;
 	}
 
-	public Post(ContentType contenttype, User user, String postTopic, String postDetail, String reportStatus, Date createDate,
-			List<Bookmark> bookmarks, List<Report> reports, List<ImgPost> imgposts, List<Comment> comments, List<LikePost> likeposts) {
-		this.contentType = contenttype;
+	public Post(Integer postId, ContentType contentType, User user, String postTopic, String postDetail,
+			String reportStatus, Date createDate, List<Bookmark> bookmarks, List<Report> reports,
+			List<ImgPost> imgPosts, List<Comment> comments, List<LikePost> likePosts) {
+		super();
+		this.postId = postId;
+		this.contentType = contentType;
 		this.user = user;
 		this.postTopic = postTopic;
 		this.postDetail = postDetail;
-		this.setReportStatus(reportStatus);
+		this.reportStatus = reportStatus;
 		this.createDate = createDate;
 		this.bookmarks = bookmarks;
 		this.reports = reports;
-		this.imgPosts = imgposts;
+		this.imgPosts = imgPosts;
 		this.comments = comments;
-		this.likePosts = likeposts;
-	}
-	
-	public void clone(Post other) {
-		this.postTopic = other.postTopic;
-		this.postDetail = other.postDetail;
-		this.reportStatus = reportStatus;
-		this.createDate = other.createDate;
+		this.likePosts = likePosts;
 	}
 
-	public int getPostId() {
+	public Integer getPostId() {
 		return postId;
 	}
 
-	public void setPostId(int postId) {
+	public void setPostId(Integer postId) {
 		this.postId = postId;
 	}
 
@@ -104,6 +101,14 @@ public class Post implements java.io.Serializable {
 
 	public void setPostDetail(String postDetail) {
 		this.postDetail = postDetail;
+	}
+
+	public String getReportStatus() {
+		return reportStatus;
+	}
+
+	public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
 	}
 
 	public Date getCreateDate() {
@@ -152,14 +157,6 @@ public class Post implements java.io.Serializable {
 
 	public void setLikePosts(List<LikePost> likePosts) {
 		this.likePosts = likePosts;
-	}
-
-	public String getReportStatus() {
-		return reportStatus;
-	}
-
-	public void setReportStatus(String reportStatus) {
-		this.reportStatus = reportStatus;
 	}
 
 

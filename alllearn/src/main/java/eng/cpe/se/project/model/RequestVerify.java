@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,11 +14,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class RequestVerify implements java.io.Serializable {
 
-	private int requestVerifyId;
+	private Integer requestVerifyId;
 	@JsonIgnore
-	private Staff staff;
+	private User userByUserId;
 	@JsonIgnore
-	private User user;
+	private User userByStaffId;
 	private String verifyHeader;
 	private String verifyDetail;
 	private String approveStatus;
@@ -29,56 +29,41 @@ public class RequestVerify implements java.io.Serializable {
 	public RequestVerify() {
 	}
 
-	public RequestVerify(Staff staff, User user, String verifyHeader, String verifyDetail, String approveStatus,
-			Date dateApprove) {
-		this.staff = staff;
-		this.user = user;
+	public RequestVerify(Integer requestVerifyId, User userByUserId, User userByStaffId, String verifyHeader,
+			String verifyDetail, String approveStatus, Date dateApprove, List<ImgVerify> imgVerifies) {
+		super();
+		this.requestVerifyId = requestVerifyId;
+		this.userByUserId = userByUserId;
+		this.userByStaffId = userByStaffId;
 		this.verifyHeader = verifyHeader;
 		this.verifyDetail = verifyDetail;
 		this.approveStatus = approveStatus;
 		this.dateApprove = dateApprove;
+		this.imgVerifies = imgVerifies;
 	}
 
-	public RequestVerify(Staff staff, User user, String verifyHeader, String verifyDetail, String approveStatus,
-			Date dateApprove, List<ImgVerify> imgverifies) {
-		this.staff = staff;
-		this.user = user;
-		this.verifyHeader = verifyHeader;
-		this.verifyDetail = verifyDetail;
-		this.approveStatus = approveStatus;
-		this.dateApprove = dateApprove;
-		this.imgVerifies = imgverifies;
-	}
-	
-	public void clone(RequestVerify other) {
-		this.verifyHeader = other.verifyHeader;
-		this.verifyDetail = other.verifyDetail;
-		this.approveStatus = other.approveStatus;
-		this.dateApprove = other.dateApprove;
-	}
-
-	public int getRequestVerifyId() {
+	public Integer getRequestVerifyId() {
 		return requestVerifyId;
 	}
 
-	public void setRequestVerifyId(int requestVerifyId) {
+	public void setRequestVerifyId(Integer requestVerifyId) {
 		this.requestVerifyId = requestVerifyId;
 	}
 
-	public Staff getStaff() {
-		return staff;
+	public User getUserByUserId() {
+		return userByUserId;
 	}
 
-	public void setStaff(Staff staff) {
-		this.staff = staff;
+	public void setUserByUserId(User userByUserId) {
+		this.userByUserId = userByUserId;
 	}
 
-	public User getUser() {
-		return user;
+	public User getUserByStaffId() {
+		return userByStaffId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserByStaffId(User userByStaffId) {
+		this.userByStaffId = userByStaffId;
 	}
 
 	public String getVerifyHeader() {

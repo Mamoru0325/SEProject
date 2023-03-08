@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class PaymentCheck implements java.io.Serializable {
 
-	private int paymentCheckId;
+	private Integer paymentCheckId;
 	@JsonIgnore
 	private JoinCourse joinCourse;
 	@JsonIgnore
@@ -24,11 +24,11 @@ public class PaymentCheck implements java.io.Serializable {
 		this.imgPath = imgPath;
 	}
 
-	public int getPaymentCheckId() {
+	public Integer getPaymentCheckId() {
 		return paymentCheckId;
 	}
 
-	public void setPaymentCheckId(int paymentCheckId) {
+	public void setPaymentCheckId(Integer paymentCheckId) {
 		this.paymentCheckId = paymentCheckId;
 	}
 
@@ -55,7 +55,6 @@ public class PaymentCheck implements java.io.Serializable {
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
 	}
-
 
 
 }

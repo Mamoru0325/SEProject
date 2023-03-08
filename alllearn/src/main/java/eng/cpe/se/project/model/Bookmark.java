@@ -1,7 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
-
-import javax.validation.constraints.NotNull;
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,12 +8,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class Bookmark implements java.io.Serializable {
 
-	private int bookmarkId;
+	private Integer bookmarkId;
 	@JsonIgnore
-	@NotNull(message = "post cannot be null")
 	private Post post;
 	@JsonIgnore
-	@NotNull(message = "user cannot be null")
 	private User user;
 
 	public Bookmark() {
@@ -25,13 +21,12 @@ public class Bookmark implements java.io.Serializable {
 		this.post = post;
 		this.user = user;
 	}
-	
 
-	public int getBookmarkId() {
+	public Integer getBookmarkId() {
 		return this.bookmarkId;
 	}
 
-	public void setBookmarkId(int bookmarkId) {
+	public void setBookmarkId(Integer bookmarkId) {
 		this.bookmarkId = bookmarkId;
 	}
 

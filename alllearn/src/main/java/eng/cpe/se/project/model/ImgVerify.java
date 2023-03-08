@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class ImgVerify implements java.io.Serializable {
 
-	private int imgVerifyId;
+	private Integer imgVerifyId;
 	@JsonIgnore
 	private RequestVerify requestVerify;
 	private String imgPath;
@@ -20,16 +20,12 @@ public class ImgVerify implements java.io.Serializable {
 		this.requestVerify = requestverify;
 		this.imgPath = imgPath;
 	}
-	
-	public void clone(ImgVerify other) {
-		this.imgPath = other.imgPath;
-	}
 
-	public int getImgVerifyId() {
+	public Integer getImgVerifyId() {
 		return imgVerifyId;
 	}
 
-	public void setImgVerifyId(int imgVerifyId) {
+	public void setImgVerifyId(Integer imgVerifyId) {
 		this.imgVerifyId = imgVerifyId;
 	}
 
@@ -49,6 +45,5 @@ public class ImgVerify implements java.io.Serializable {
 		this.imgPath = imgPath;
 	}
 
-	
 
 }

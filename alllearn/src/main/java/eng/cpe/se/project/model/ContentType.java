@@ -1,12 +1,10 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,13 +13,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class ContentType implements java.io.Serializable {
 
-	private int contentTypeId;
-	@NotNull(message = "TypeName cannot be null")
+	private Integer contentTypeId;
 	private String typeName;
 	@JsonIgnore
-	private List<Post> posts = new ArrayList<Post>();
-	@JsonIgnore
 	private List<Course> courses = new ArrayList<Course>();
+	@JsonIgnore
+	private List<Post> posts = new ArrayList<Post>();
 
 	public ContentType() {
 	}
@@ -30,21 +27,19 @@ public class ContentType implements java.io.Serializable {
 		this.typeName = typeName;
 	}
 
-	public ContentType(String typeName, List<Post> posts,List<Course> courses) {
+	public ContentType(Integer contentTypeId, String typeName, List<Course> courses, List<Post> posts) {
+		super();
+		this.contentTypeId = contentTypeId;
 		this.typeName = typeName;
-		this.posts = posts;
 		this.courses = courses;
-	}
-	
-	public void clone(ContentType other) {
-		this.typeName = other.typeName;
+		this.posts = posts;
 	}
 
-	public int getContentTypeId() {
+	public Integer getContentTypeId() {
 		return contentTypeId;
 	}
 
-	public void setContentTypeId(int contentTypeId) {
+	public void setContentTypeId(Integer contentTypeId) {
 		this.contentTypeId = contentTypeId;
 	}
 
@@ -56,14 +51,6 @@ public class ContentType implements java.io.Serializable {
 		this.typeName = typeName;
 	}
 
-	public List<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-
 	public List<Course> getCourses() {
 		return courses;
 	}
@@ -72,5 +59,12 @@ public class ContentType implements java.io.Serializable {
 		this.courses = courses;
 	}
 
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
 
 }

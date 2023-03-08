@@ -1,5 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class Report implements java.io.Serializable {
 
-	private int reportId;
+	private Integer reportId;
 	@JsonIgnore
 	private Comment comment;
 	@JsonIgnore
@@ -25,33 +25,24 @@ public class Report implements java.io.Serializable {
 	public Report() {
 	}
 
-	public Report(ReportType reporttype, User user, String reportDetail, String status) {
-		this.reportType = reporttype;
-		this.user = user;
-		this.reportDetail = reportDetail;
-		this.status = status;
-	}
-
-	public Report(Comment comment, Course course, Post post, ReportType reporttype, User user, String reportDetail, String status) {
+	public Report(Integer reportId, Comment comment, Course course, Post post, ReportType reportType, User user,
+			String reportDetail, String status) {
+		super();
+		this.reportId = reportId;
 		this.comment = comment;
 		this.course = course;
 		this.post = post;
-		this.reportType = reporttype;
+		this.reportType = reportType;
 		this.user = user;
 		this.reportDetail = reportDetail;
 		this.status = status;
 	}
-	
-	public void clone(Report other) {
-		this.reportDetail = other.reportDetail;
-		this.status = other.status;
-	}
 
-	public int getReportId() {
+	public Integer getReportId() {
 		return reportId;
 	}
 
-	public void setReportId(int reportId) {
+	public void setReportId(Integer reportId) {
 		this.reportId = reportId;
 	}
 
@@ -110,6 +101,5 @@ public class Report implements java.io.Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 }

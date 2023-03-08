@@ -1,7 +1,5 @@
 package eng.cpe.se.project.model;
-// Generated Mar 5, 2023, 12:22:12 AM by Hibernate Tools 5.6.3.Final
-
-import javax.validation.constraints.NotNull;
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,11 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class ImgComment implements java.io.Serializable {
 
-	private int imgCommentId;
+	private Integer imgCommentId;
 	@JsonIgnore
-	@NotNull(message = "Comment cannot be null")
 	private Comment comment;
-	@NotNull(message = "ImgPath cannot be null")
 	private String imgPath;
 
 	public ImgComment() {
@@ -24,16 +20,12 @@ public class ImgComment implements java.io.Serializable {
 		this.comment = comment;
 		this.imgPath = imgPath;
 	}
-	
-	public void clone(ImgComment other) {
-		this.imgPath = other.imgPath;
-	}
 
-	public int getImgCommentId() {
+	public Integer getImgCommentId() {
 		return this.imgCommentId;
 	}
 
-	public void setImgCommentId(int imgCommentId) {
+	public void setImgCommentId(Integer imgCommentId) {
 		this.imgCommentId = imgCommentId;
 	}
 
