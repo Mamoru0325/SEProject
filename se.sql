@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2023 at 08:15 AM
+-- Generation Time: Mar 07, 2023 at 06:30 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -17,39 +17,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE DATABASE IF NOT EXISTS `se` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `se`;
 --
 -- Database: `se`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `account`
---
-
-CREATE TABLE `account` (
-  `accountId` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `title` varchar(10) NOT NULL,
-  `firstName` varchar(50) NOT NULL,
-  `lastName` varchar(50) NOT NULL,
-  `phoneNumber` varchar(10) NOT NULL,
-  `role` enum('staff','user') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `account`
---
-
-INSERT INTO `account` (`accountId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`, `role`) VALUES
-(1, 'pokpongthunder789@gmail.com', '123456', 'Mr', 'Paweenwich', 'Thadee', '0896345911', 'staff'),
-(2, 'suphalak.l@ku.th', '123456', 'Ms', 'Suphalak', 'L', '0896345911', 'staff'),
-(3, 'piya.rat@ku.th', '123456', 'Mr', 'Piya', 'Rat', '0896345911', 'staff'),
-(4, 'sarannut.l@ku.th', '123456', 'Ms', 'sarannut', 'L', '0896345911', 'staff');
-
+CREATE DATABASE IF NOT EXISTS `se` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `se`;
 -- --------------------------------------------------------
 
 --
@@ -317,13 +289,21 @@ CREATE TABLE `requestverify` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `staff`
+-- Table structure for table `role`
 --
 
-CREATE TABLE `staff` (
-  `staffId` int(11) NOT NULL,
-  `position` varchar(255) NOT NULL
+CREATE TABLE `role` (
+  `roleId` int(11) NOT NULL,
+  `roleName` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`roleId`, `roleName`) VALUES
+(1, 'User'),
+(2, 'Staff');
 
 -- --------------------------------------------------------
 
@@ -333,6 +313,12 @@ CREATE TABLE `staff` (
 
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `title` varchar(10) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `phoneNumber` varchar(10) NOT NULL,
   `username` varchar(50) NOT NULL,
   `imgPath` varchar(150) NOT NULL,
   `backgroundPath` varchar(150) NOT NULL,
@@ -341,14 +327,34 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `user`
 --
 
+INSERT INTO `user` (`userId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`, `username`, `imgPath`, `backgroundPath`, `verifyStatus`, `type`) VALUES
+(1, 'pokpongthunder789@gmail.com', '123456', 'Mr', 'Paweenwich', 'Thadee', '0896345911', 'pokpong', '7841', '78451', 'N', 'Nomal');
+
+-- --------------------------------------------------------
+
 --
--- Indexes for table `account`
+-- Table structure for table `userrole`
 --
-ALTER TABLE `account`
-  ADD PRIMARY KEY (`accountId`);
+
+CREATE TABLE `userrole` (
+  `userRoleId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `roleId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `userrole`
+--
+
+INSERT INTO `userrole` (`userRoleId`, `userId`, `roleId`) VALUES
+(1, 1, 2);
+
+--
+-- Indexes for dumped tables
+--
 
 --
 -- Indexes for table `bookmark`
@@ -488,28 +494,30 @@ ALTER TABLE `requestverify`
   ADD KEY `TC_requestVerify342` (`staffId`);
 
 --
--- Indexes for table `staff`
+-- Indexes for table `role`
 --
-ALTER TABLE `staff`
-  ADD PRIMARY KEY (`staffId`),
-  ADD KEY `TC_Staff321` (`staffId`);
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`roleId`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`),
-  ADD KEY `TC_User320` (`userId`);
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `userrole`
+--
+ALTER TABLE `userrole`
+  ADD PRIMARY KEY (`userRoleId`),
+  ADD UNIQUE KEY `userId_2` (`userId`,`roleId`),
+  ADD KEY `userId` (`userId`),
+  ADD KEY `roleId` (`roleId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `account`
---
-ALTER TABLE `account`
-  MODIFY `accountId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bookmark`
@@ -620,6 +628,24 @@ ALTER TABLE `requestverify`
   MODIFY `requestVerifyId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `roleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `userrole`
+--
+ALTER TABLE `userrole`
+  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -628,28 +654,28 @@ ALTER TABLE `requestverify`
 --
 ALTER TABLE `bookmark`
   ADD CONSTRAINT `FK_Bookmark176` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_Bookmark195` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `bookmark_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `FK_Comment175` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_Comment193` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `course`
 --
 ALTER TABLE `course`
-  ADD CONSTRAINT `FK_Course188` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`contentTypeId`) REFERENCES `contenttype` (`contentTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`contentTypeId`) REFERENCES `contenttype` (`contentTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `course_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `follower`
 --
 ALTER TABLE `follower`
-  ADD CONSTRAINT `follower_ibfk_1` FOREIGN KEY (`followBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `follower_ibfk_2` FOREIGN KEY (`followTo`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `follower_ibfk_1` FOREIGN KEY (`followTo`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `follower_ibfk_2` FOREIGN KEY (`followBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `imgcomment`
@@ -686,38 +712,38 @@ ALTER TABLE `joincourse`
 --
 ALTER TABLE `likecomment`
   ADD CONSTRAINT `FK_LikeComment181` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_LikeComment189` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `likecomment_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `likepost`
 --
 ALTER TABLE `likepost`
   ADD CONSTRAINT `FK_LikePost174` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_LikePost190` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `likepost_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `paymentcheck`
 --
 ALTER TABLE `paymentcheck`
-  ADD CONSTRAINT `paymentcheck_ibfk_1` FOREIGN KEY (`payBy`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `paymentcheck_ibfk_2` FOREIGN KEY (`joinCourseId`) REFERENCES `joincourse` (`joinCourseId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `paymentcheck_ibfk_2` FOREIGN KEY (`joinCourseId`) REFERENCES `joincourse` (`joinCourseId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `paymentcheck_ibfk_3` FOREIGN KEY (`payBy`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `FK_Post179` FOREIGN KEY (`contentTypeId`) REFERENCES `contenttype` (`contentTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_Post196` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `report`
 --
 ALTER TABLE `report`
   ADD CONSTRAINT `FK_Report183` FOREIGN KEY (`reportTypeId`) REFERENCES `reporttype` (`reportTypeId`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_Report192` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `report_ibfk_2` FOREIGN KEY (`courseId`) REFERENCES `course` (`courseId`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `report_ibfk_3` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `report_ibfk_3` FOREIGN KEY (`commentId`) REFERENCES `comment` (`commentId`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `report_ibfk_4` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `requestcourse`
@@ -729,20 +755,15 @@ ALTER TABLE `requestcourse`
 -- Constraints for table `requestverify`
 --
 ALTER TABLE `requestverify`
-  ADD CONSTRAINT `FK_requestVerify194` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_requestVerify198` FOREIGN KEY (`staffId`) REFERENCES `staff` (`staffId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `requestverify_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `requestverify_ibfk_2` FOREIGN KEY (`staffId`) REFERENCES `user` (`userId`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `staff`
+-- Constraints for table `userrole`
 --
-ALTER TABLE `staff`
-  ADD CONSTRAINT `FK_Staff199` FOREIGN KEY (`staffId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `FK_User197` FOREIGN KEY (`userId`) REFERENCES `account` (`accountId`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `userrole`
+  ADD CONSTRAINT `userrole_ibfk_2` FOREIGN KEY (`roleId`) REFERENCES `role` (`roleId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `userrole_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
