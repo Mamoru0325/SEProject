@@ -1,5 +1,7 @@
 import React from "react"
 import Header from "./component/Header"
+import Register from "./component/Register";
+import Signin from "./component/SignIn";
 
 
 
@@ -10,7 +12,12 @@ function App() {
   //   return <Signin />
   // }
   return (
-    < Header />
+    <div>
+      <Header/>
+     
+      
+    </div>
+
   );
 }
 

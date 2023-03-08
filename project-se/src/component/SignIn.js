@@ -20,13 +20,13 @@ async function loginUser(credentials) {
     body: JSON.stringify(credentials)
   })
     .then(data => data.json())
- }
+}
 
 export default function Signin() {
   const classes = useStyles();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
-  
+
   let navigate = useNavigate()
 
   const handleSubmit = async e => {
@@ -36,15 +36,15 @@ export default function Signin() {
       password
     });
     if ('accessToken' in response) {
-        swal("Success", response.message, "success", {
+      swal("Success", response.message, "success", {
         buttons: false,
         timer: 2000,
       })
-      .then((value) => {
-        localStorage.setItem('accessToken', response['accessToken']);
-        localStorage.setItem('user', JSON.stringify(response['user']));
-        window.location.href = "/profile";
-      });
+        .then((value) => {
+          localStorage.setItem('accessToken', response['accessToken']);
+          localStorage.setItem('user', JSON.stringify(response['user']));
+          window.location.href = "/profile";
+        });
     } else {
       swal("Failed", response.message, "error");
     }
@@ -57,10 +57,10 @@ export default function Signin() {
       <Grid item xs={12} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-          <img src="./LogoV1.png" alt="bug" height={40} />
+            <img src="./LogoV1.png" alt="bug" height={40} />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
@@ -92,7 +92,18 @@ export default function Signin() {
               // className={classes.submit}
               onClick={() => navigate("/homepage")}
             >
-              Sign In
+              Log in
+            </Button>
+
+            <Button
+              fullWidth
+              variant="contained"
+              color="red"
+              // className={classes.submit}
+              onClick={() => navigate("/register")}
+              style={{marginTop:'10px'}}
+            >
+              Sing up
             </Button>
           </form>
         </div>
@@ -106,6 +117,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
+
     backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundSize: 'cover',
   },
@@ -123,6 +135,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%',
     marginTop: theme.spacing(1),
+
   },
   submit: {
     margin: theme.spacing(3, 0, 2),

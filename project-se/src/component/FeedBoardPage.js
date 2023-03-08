@@ -5,6 +5,9 @@ function FeedBoardPage() {
   return (
 
     <div className='HomePage'>
+       <div className='search-box'>
+        <p>searchBox</p>
+      </div>
       <div className='allContent'>
         <div className='content'>
           <div>content 01</div>

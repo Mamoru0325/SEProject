@@ -1,16 +1,21 @@
+
+
 .HomePage{
     display: flex; 
     justify-content: end;
     margin-right: 50px;
 }
+
+/* ส่วนกรอบ content */
 .allContent{
     display: flex; 
     justify-content: space-around;
     height: 500px;
     width: 1000px;
-    background-color: blueviolet;
+    background-color: #001d3d;
     
 }
+/* ส่วน content แต่ละอัน */
 .content{
     display: flex;
     height: 300px;
@@ -18,4 +23,12 @@
     margin: 50px;
     background-color:rgb(255, 255, 255);
     
+}
+
+.search-box{
+    height: 800px;
+    width: 300px;
+    margin-inline:50px;
+    background-color: #003566;
+
 }

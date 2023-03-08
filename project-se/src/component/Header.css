@@ -10,17 +10,10 @@
 
 /* แถบ menu  ด้านบน */
 .header-con{
-    background-color: rgb(39, 39, 97);
+    background-color: #000814;
     display: flex;
     justify-content: space-between;
     height: 60px;
-}
-
-/* กลุ่ม link */
-.menu{
-    display: flex;
-    padding: 15px;
-   
 }
 
 /* logo */
@@ -29,11 +22,74 @@
     margin-top: 5px;
 }
 
+
+/* กลุ่ม link */
+.menu{
+    display: flex;
+    /* padding: 20px; */
+    margin: 18px;
+    
+    
+    /* background-color: aquamarine; */
+}
+
 /* แต่ละ Link */
 .menu-link{
-    font-size: 20px;
-    padding-inline: 10px;
+    font-size: 18px;
+    margin-inline: 15px;
+    text-decoration: none;
     list-style-type: none;
     color: antiquewhite;
+    /* background-color: blueviolet; */
 }
+
+.menu-link:hover{
+    color: #ffd60a;
+
+    
+}
+
+.menu-link:focus{
+    color:#ffd60a;
+ 
+}
+
+
+/* Part of dropdown */
+.dropdown{
+    position: absolute;
+    top: 58px;
+    width: 300px;
+    transform: translateX(-45%);
+    background-color: aqua;
+    border: var(--border);
+    border-radius: var(--border-raduis);
+    padding: 1rem;
+    overflow:hidden;
+}
+
+.menu-item{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: var(--border-raduis);
+    transition: background var(--speed);
+    padding: 0.5rem;
+}
+
+.icon-button{
+    --button-size: calc(var(--nav-size))*0.5;
+    width:var(--button-size);
+    height: var(--button-size);
+    background-color: chartreuse;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}   
+
+
 

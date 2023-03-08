@@ -1,4 +1,5 @@
 
+import { BorderAll } from '@material-ui/icons'
 import React from 'react'
 
 function Banner() {
@@ -9,9 +10,12 @@ function Banner() {
       width :'auto',
       margin:'50px',
       color: 'white',
-      backgroundColor:'blue'
+      backgroundColor:'blue',
+      border: '3px solid black'
+      
     }}>
-      Banner
+      <img src="./pic04.png" alt="bug" height={300} width={'100%'} />
+      
     </div>
   )
 }
