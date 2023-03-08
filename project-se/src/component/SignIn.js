@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from '@material-ui/core';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 
@@ -53,15 +54,20 @@ export default function Signin() {
   return (
     <Grid container className={classes.root}>
       <CssBaseline />
+
       <Grid item xs={false} md={7} className={classes.image} />
+
       <Grid item xs={12} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
+
           <Avatar className={classes.avatar}>
             <img src="./LogoV1.png" alt="bug" height={40} />
           </Avatar>
+
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
+
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
@@ -95,16 +101,23 @@ export default function Signin() {
               Log in
             </Button>
 
-            <Button
+            {/* <Button
               fullWidth
               variant="contained"
-              color="red"
+              color="redA"
               // className={classes.submit}
               onClick={() => navigate("/register")}
               style={{marginTop:'10px'}}
             >
               Sing up
-            </Button>
+            </Button> */}
+            <Grid container style={{ marginTop: '15px' }}>
+              <Grid item>
+                <Link href="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
           </form>
         </div>
       </Grid>

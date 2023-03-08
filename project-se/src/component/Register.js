@@ -42,13 +42,16 @@ export default function Register() {
     const [lname, setLname] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [avatar, setAvatar] = useState('');
+    const [avatar, setPassword] = useState('');
     return (
         <Container maxWidth="xs">
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5" >
-                    Create Account
+                    Sing up
                 </Typography>
+                <p style={{position : "absolute" , marginTop:'25px'}}>
+                    Create new account
+                </p>
                 <form className={classes.form} onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
@@ -99,9 +102,9 @@ export default function Register() {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="avatar"
-                                label="Avatar"
-                                onChange={(e) => setAvatar(e.target.value)}
+                                id="password"
+                                label="Password"
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </Grid>
                     </Grid>
