@@ -1,0 +1,166 @@
+.container {
+    max-width: auto;
+    margin: auto;
+}
+.profile{
+    background: lightblue;
+    height: 700px;
+}
+.profileฺBack-con{
+    background: lightcoral;
+    height: 170px;
+}
+.content-con {
+    background: lightcyan;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+}
+.aboutMe-con{
+    background: lightgoldenrodyellow;
+    height: 530px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    bottom: 410px;
+}
+.myImg{
+    height: 150px;
+    width: 150px;
+    background:lightgrey;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 410px;
+}
+.followTab{
+    background: lightpink;
+    height: 80px;
+    width: 200px;
+    position: absolute;
+    bottom: 320px;
+}
+.desc{
+    background: lightgreen;
+    height: 250px;
+    width: 300px;
+    position: absolute;
+    bottom: 50px;
+    border-radius: 15%;
+}
+.nameCourse-con{
+    background: lightgreen;
+    height: 500px;
+    width: 90%;
+}
+.nameTab-con{
+    display: flex;
+    flex-direction: row;
+    background: lightblue;
+    height: 50px;
+    list-style-type: none;
+}
+.nameTab-con li{
+    margin-right: 10px;
+}
+.name{
+    font-size: 30px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: row;
+}
+.course-con{
+    background: lightcoral;
+    height: 450px;
+    display: flex;
+}
+.course-item{
+    background: lightsalmon;
+    width: 50%;
+    height: 95%;
+    margin: 10px;
+}
+.course-img{
+    background: lightblue;
+    height: 55%;
+}
+.course-img img{
+    height: 100%;
+    width: 100%;
+    border-top-right-radius: 10%;
+    border-top-left-radius: 10%;
+}
+.course-owner{
+    background: lightgreen;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.owner-img{
+    background: lightcoral;
+    height: 40px;
+    width: 45px;
+    margin-left: 10px;
+}
+.owner-name{
+    background: aqua;
+    margin-left: 10px;
+    height: 100%;
+    width: 100%;
+}
+.nameVerified{
+    background: lightcyan;
+    height: 65%;
+    display: flex;
+    flex-direction: row;
+}
+.name{
+    font-size: 100%;
+}
+.name-show{
+    margin-right: 10px;
+}
+.date{
+    font-size: 50%;
+}
+.course-detail{
+    background: lightblue;
+    height: 27%;
+}
+.detail-con{
+    height: 100%;
+    background: aqua;
+    padding-left: 10px;
+}
+.topic{
+    font-size: 15px;
+    height: 30%;
+}
+.about{
+    font-size: 13px;
+    height: 70%;
+    background: lightslategrey;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-top: 5px;
+}
+.course-cat{
+    background: lightseagreen;
+    height: 7%;
+    display: flex;
+    flex-direction: row;
+}
+.cat-type{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: aliceblue;
+    border-radius: 10%;
+    min-width: 40px;
+    text-align: center;
+}
+.detail-con{
+    list-style-type: none;
+}
