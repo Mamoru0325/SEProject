@@ -10,6 +10,7 @@ import ErrorPage from './ErrorPage'
 import WritePage from './WritePage'
 import CreateCoursePage from './CreateCoursePage'
 import Register from './Register'
+import Profile from './Profile'
 
 const DropdownMenu = () => {
 
@@ -78,6 +79,7 @@ function Header() {
                 <Route path="/" element={<SignIn />} />
                 <Route path="/homepage" element={<HomePage />} />
                 <Route path="/write" element={<WritePage />} />
+                <Route path="/Profile" element={<Profile />} />
                 <Route path="/createCourse" element={<CreateCoursePage />} />
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/*" element={<ErrorPage />} />

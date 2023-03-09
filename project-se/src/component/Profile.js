@@ -2,6 +2,7 @@ import React from 'react'
 import './Profile.css'
 import "./Header.css"
 import imgPok from '../pok.jpg'
+import Button from '@material-ui/core/Button';
 
 function Profile() {
   return (
@@ -16,7 +17,11 @@ function Profile() {
 
             </div>
             <div className='followTab'>
-              
+              <Button variant="contained">Follow</Button>
+              <div className='total'>
+                <div className='num'>100k</div>
+                <div className='text'>follower</div>
+              </div>
             </div>
             <div className='desc'>
 
@@ -24,12 +29,12 @@ function Profile() {
           </div>
           <div className='nameCourse-con'>
             <ul className='nameTab-con'>
-                <li className="name">
+                <li className="name-Big">
                   <li className='fname'>
-                    sasdasd
+                    นายก
                   </li>
                   <li className='lname'>
-                    sasdasdaa
+                    นามสมมุติ
                   </li>
                 </li>
                  <li className="moreTab">
