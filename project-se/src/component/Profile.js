@@ -2,9 +2,22 @@ import React from 'react'
 import './Profile.css'
 import "./Header.css"
 import imgPok from '../pok.jpg'
+import proImg from '../proImg.jpg'
+import moreImg from '../more.jpg'
+import verifImg from '../verifiedIcon.jpg'
 import Button from '@material-ui/core/Button';
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import NavigationIcon from '@mui/icons-material/Navigation';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SvgIcon from '@mui/material/SvgIcon';
+import EmailIcon from '@mui/icons-material/Email';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 function Profile() {
+  
   return (
     <div className='profile'>
       <div className='container'>
@@ -14,7 +27,7 @@ function Profile() {
         <div className='content-con'>
           <div className='aboutMe-con'>
             <div className='myImg'>
-
+              <img src={proImg}/>
             </div>
             <div className='followTab'>
               <Button variant="contained">Follow</Button>
@@ -23,8 +36,36 @@ function Profile() {
                 <div className='text'>follower</div>
               </div>
             </div>
-            <div className='desc'>
-
+            <div className='desc-con'>
+              <ul className='desc'>
+                <li className='desc-text'>
+                  <li className='desc-icon'>
+                    <SvgIcon component={AccountCircleIcon}inheritViewBox />
+                  </li>
+                  <li className='text'>
+                    สรุปเรื่อง การเงิน การลงทุน เศรษฐกิจ เพื่อนำไปใช้
+วางแผนได้อย่างถูกต้องครบถ้วน เพื่อเป้าหมายใน
+การดำเนินชีวิตได้อย่างมีความสุขพร้อมกับมีอิสระ
+ทางด้านการเงิน
+                  </li>
+                </li>
+                <li className='desc-text'>
+                  <li className='desc-icon'>
+                    <SvgIcon component={EmailIcon}inheritViewBox />
+                  </li>
+                  <li className='text'>
+                    xxx@gmail.com
+                  </li>
+                </li>
+                <li className='desc-text'>
+                  <li className='desc-icon'>
+                    <SvgIcon component={CalendarMonthIcon}inheritViewBox />
+                  </li>
+                  <li className='text'>
+                    สร้างเมื่อ 3 มีนาคม 2560
+                  </li>
+                </li>
+              </ul>
             </div>
           </div>
           <div className='nameCourse-con'>
@@ -38,13 +79,18 @@ function Profile() {
                   </li>
                 </li>
                  <li className="moreTab">
-                  aaaaa
+                  <img src={verifImg}/>
+
                 </li>
                 <li className="verified">
-                  asdasd
+                  <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                    <Fab size="small" color="primary" aria-label="add">
+                      <AddIcon />
+                    </Fab>
+                  </Box>
                 </li>
                 <li className="profession">
-                  asdasd
+                  ถนัดด้านเชิงธุรกิจ
                 </li>
             </ul>
           <div className='course-con'>
@@ -54,7 +100,7 @@ function Profile() {
               </div>
               <div className='course-owner'>
                 <div className='owner-img'>
-
+                  <img src={proImg}/>
                 </div>
                 <div className='owner-name'>
                   <div className='nameVerified'>
@@ -67,7 +113,7 @@ function Profile() {
                       </div>
                     </div>
                     <div className='Verifi'>
-                      aaa
+                      <img src={verifImg}/>
                     </div>
                   </div>
                   <div className='date'>
