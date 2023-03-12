@@ -12,6 +12,7 @@ import CreateCoursePage from './CreateCoursePage'
 import Register from './Register'
 import Profile from './Profile'
 import MyProfile from './MyProfile'
+import BoardPage from './BoardPage'
 
 const DropdownMenu = () => {
 
@@ -83,6 +84,7 @@ function Header() {
                 <Route path="/Profile" element={<Profile />} />
                 <Route path="/MyProfile" element={<MyProfile />} />
                 <Route path="/createCourse" element={<CreateCoursePage />} />
+                <Route path="/BoardPage" element={<BoardPage />} />
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/*" element={<ErrorPage />} />
             </Routes>
