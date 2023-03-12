@@ -315,7 +315,7 @@ INSERT INTO `role` (`roleId`, `roleName`) VALUES
 CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(200) NOT NULL,
   `title` varchar(10) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
