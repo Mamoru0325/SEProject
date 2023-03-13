@@ -2,21 +2,25 @@
     max-width: auto;
     margin: auto;
 }
-.profile{
+
+.profile {
     background: lightblue;
     height: 700px;
 }
-.profileฺBack-con{
+
+.profileฺBack-con {
     background: lightcoral;
     height: 170px;
 }
+
 .content-con {
     background: lightcyan;
     height: 500px;
     display: flex;
     flex-direction: row;
 }
-.aboutMe-con{
+
+.aboutMe-con {
     background: lightgoldenrodyellow;
     height: 530px;
     width: 400px;
@@ -24,53 +28,61 @@
     justify-content: center;
     bottom: 410px;
 }
-.myImg{
+
+.myImg {
     height: 150px;
     width: 150px;
-    background:lightgrey;
+    background: lightgrey;
     border-radius: 50%;
     position: absolute;
-    bottom: 410px;
+    top: 150px;
 }
-.myImg img{
+
+.myImg img {
     height: 100%;
     width: 100%;
     border-radius: 50%;
 }
-.followTab{
+
+.followTab {
     background: lightpink;
     height: 80px;
     width: 200px;
     position: absolute;
-    bottom: 320px;
+    top: 320px;
     flex-direction: row;
     display: flex;
     align-items: center;
 }
-.total{
+
+.total {
     padding-left: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.num{
+
+.num {
     font-size: 20px;
 }
-.text{
+
+.text {
     font-size: 13px;
 }
-.desc-con{
+
+.desc-con {
     background: lightgreen;
     height: 250px;
     width: 300px;
     position: absolute;
-    bottom: 50px;
+    top: 430px;
     border-radius: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.desc{
+
+.desc {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -81,7 +93,8 @@
     display: flex;
     flex-direction: column;
 }
-.desc-text{
+
+.desc-text {
     background: antiquewhite;
     margin-top: 10px;
     margin-left: 5px;
@@ -92,90 +105,107 @@
     overflow: hidden;
     vertical-align: middle;
     max-height: 100%;
+    
 }
-.nameCourse-con{
+
+.nameCourse-con {
     background: lightgreen;
     height: 500px;
     width: 90%;
 }
-.nameTab-con{
+
+.nameTab-con {
     display: flex;
     flex-direction: row;
     background: lightblue;
     height: 50px;
     list-style-type: none;
 }
-.nameTab-con li{
+
+.nameTab-con li {
     margin-right: 10px;
     display: flex;
     align-items: center;
 }
-.moreTab img{
+
+.moreTab img {
     height: 50%;
     width: 100%;
 }
-.verified{
+
+.verified {
     background: gold;
     height: 100%;
 }
-.name-Big{
+
+.name-Big {
     font-size: 30px;
     font-weight: 400;
     display: flex;
     flex-direction: row;
 }
-.course-con{
+
+.course-con {
     background: lightcoral;
     height: 450px;
     display: flex;
 }
-.course-item{
+
+.course-item {
     background: lightsalmon;
     width: 50%;
     height: 95%;
     margin: 10px;
 }
-.course-img{
+
+.course-img {
     background: lightblue;
     height: 55%;
 }
-.course-img img{
+
+.course-img img {
     height: 100%;
     width: 100%;
     border-top-right-radius: 10%;
     border-top-left-radius: 10%;
 }
-.course-owner{
+
+.course-owner {
     background: lightgreen;
     height: 10%;
     display: flex;
     align-items: center;
     flex-direction: row;
 }
-.owner-img{
+
+.owner-img {
     background: lightcoral;
     height: 40px;
     width: 45px;
     margin-left: 10px;
 }
-.owner-img img{
+
+.owner-img img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
 }
-.owner-name{
+
+.owner-name {
     background: aqua;
     margin-left: 10px;
     height: 100%;
     width: 100%;
 }
-.nameVerified{
+
+.nameVerified {
     background: lightcyan;
     height: 65%;
     display: flex;
     flex-direction: row;
 }
-.Verifi{
+
+.Verifi {
     background: lightcoral;
     height: 100%;
     width: 30px;
@@ -183,36 +213,44 @@
     align-items: center;
     justify-content: center;
 }
-.Verifi img{
+
+.Verifi img {
     width: 70%;
     height: 70%;
 }
-.name{
+
+.name {
     font-size: 100%;
     background: gold;
     display: flex;
     flex-direction: row;
 }
-.name-show{
+
+.name-show {
     margin-right: 10px;
 }
-.date{
+
+.date {
     font-size: 50%;
 }
-.course-detail{
+
+.course-detail {
     background: lightblue;
     height: 27%;
 }
-.detail-con{
+
+.detail-con {
     height: 100%;
     background: aqua;
     padding-left: 10px;
 }
-.topic{
+
+.topic {
     font-size: 15px;
     height: 30%;
 }
-.about{
+
+.about {
     font-size: 13px;
     height: 70%;
     background: lightslategrey;
@@ -221,13 +259,15 @@
     overflow: hidden;
     margin-top: 5px;
 }
-.course-cat{
+
+.course-cat {
     background: lightseagreen;
     height: 7%;
     display: flex;
     flex-direction: row;
 }
-.cat-type{
+
+.cat-type {
     margin-right: 10px;
     margin-left: 10px;
     margin-top: 3px;
@@ -237,6 +277,7 @@
     min-width: 40px;
     text-align: center;
 }
-.detail-con{
+
+.detail-con {
     list-style-type: none;
 }

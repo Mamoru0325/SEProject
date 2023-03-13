@@ -1,10 +1,8 @@
 import React from 'react'
 import './BoardPage.css'
-import proImg from '../proImg.jpg'
 import { Button } from '@mui/material'
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import SvgIcon from '@mui/material/SvgIcon';
-import pok from '../pok.jpg'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
 
@@ -16,7 +14,7 @@ function BoardPage() {
                     <div className='boardPagePostHead-con'>
                         <ul className='boardPageOwner-con'>
                           <li className='boardPageOwnerImg'>
-                            <img src={proImg}/>
+                            <img src="./proImg.jpg"/>
                           </li>
                           <li className='boardPageOwnerDetail'>
                             <li className='boardPageOwnerName'>
@@ -41,7 +39,7 @@ function BoardPage() {
                     </div>
                     <div className='boardPagePostBody-con'>
                       <div className='boardPagePostBodyImg'>
-                        <img src={pok}></img>
+                        <img src="./pok.jpg"></img>
                         <span className='boardPagePostBodyLikeNum'>
                           <SvgIcon component={ThumbUpIcon}inheritViewBox />1k
                         </span>
@@ -81,7 +79,7 @@ function BoardPage() {
                             <div className='boardPageRecPosTextOwner'>
                               <ul className='boardPageOwner-con'>
                           <li className='boardPageOwnerImg'>
-                            <img src={proImg}/>
+                            <img src="./proImg.jpg"/>
                           </li>
                           <li className='boardPageOwnerDetail'>
                             <li className='boardPageOwnerName'>
@@ -99,7 +97,7 @@ function BoardPage() {
                             </div>
                           </div>
                           <div className='boardPageRecPosImg'>
-                            <img src={pok}/>
+                            <img src="./pok,jpg"/>
                             <SvgIcon component={BookmarksIcon}inheritViewBox />
                           </div>
                         </div>
