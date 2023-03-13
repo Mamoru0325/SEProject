@@ -1,10 +1,6 @@
 import React from 'react'
 import './Profile.css'
 import "./Header.css"
-import imgPok from '../pok.jpg'
-import proImg from '../proImg.jpg'
-import moreImg from '../more.jpg'
-import verifImg from '../verifiedIcon.jpg'
 import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
@@ -27,7 +23,7 @@ function Profile() {
         <div className='content-con'>
           <div className='aboutMe-con'>
             <div className='myImg'>
-              <img src={proImg}/>
+              <img src="./proImg.jpg"/>
             </div>
             <div className='followTab'>
               <Button variant="contained">Follow</Button>
@@ -79,7 +75,7 @@ function Profile() {
                   </li>
                 </li>
                  <li className="moreTab">
-                  <img src={verifImg}/>
+                  <img src="./verifiedIcon.jpg"/>
 
                 </li>
                 <li className="verified">
@@ -96,11 +92,11 @@ function Profile() {
           <div className='course-con'>
             <div className='course-item'>
               <div className='course-img'>
-                <img src={imgPok}/>
+                <img src="./pok.jpg"/>
               </div>
               <div className='course-owner'>
                 <div className='owner-img'>
-                  <img src={proImg}/>
+                  <img src="./proImg.jpg"/>
                 </div>
                 <div className='owner-name'>
                   <div className='nameVerified'>
@@ -113,7 +109,7 @@ function Profile() {
                       </div>
                     </div>
                     <div className='Verifi'>
-                      <img src={verifImg}/>
+                      <img src="./verifiedIcon.jpg"/>
                     </div>
                   </div>
                   <div className='date'>
