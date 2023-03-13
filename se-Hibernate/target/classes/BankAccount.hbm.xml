@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 1, 2023, 12:55:07 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.BankAccount" optimistic-lock="none" table="bankaccount">
+        <id name="bankAccountId" type="int">
+            <column name="bankAccountId"/>
+            <generator class="identity"/>
+        </id>
+        <property name="accountNumber" type="string">
+            <column length="45" name="accountNumber" not-null="true"/>
+        </property>
+        <property name="firstName" type="string">
+            <column length="45" name="firstName" not-null="true"/>
+        </property>
+        <property name="lastName" type="string">
+            <column length="45" name="lastName" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

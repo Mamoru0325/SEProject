@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +21,11 @@ import org.springframework.http.HttpStatus;
 
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.User;
+import eng.cpe.se.project.security.exception.AccountAlreadyExistException;
 import eng.cpe.se.project.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserRestController {
 	@Autowired
 	private UserService userService;
@@ -46,22 +48,6 @@ public class UserRestController {
         res.setBody(responObject);
         return new ResponseEntity<Response<ObjectNode>>(res,res.getHttpStatus());
     }
-	
-	@PostMapping("/registration")
-	public ResponseEntity<Response<User>> createUser(@Valid@RequestBody User user) {
-		Response<User> res = new Response<>();
-		try {
-			userService.save(user);
-			res.setMessage("Success Create");
-			res.setBody(user);
-			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
-		} catch (Exception ex) {
-			res.setBody(null);
-			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
-		}
-	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Response<User>> updateUser(@PathVariable("id")int id) {
@@ -94,6 +80,22 @@ public class UserRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Response<String>> deleteById(@PathVariable("id")int id){
+		Response<String> res = new Response<String>();
+		try {
+			userService.delete(id);
+			res.setMessage("delete"+ id + "success");
+			res.setBody("");
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 		}
 	}
 	
