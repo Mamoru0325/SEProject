@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -92,20 +93,34 @@ public class AuthRestController {
 	}
 
 	@PostMapping("/signin")
-	public ResponseEntity<Response<JwtResponse>> authenticateUser(@Valid@RequestBody LoginDTO loginRequest) {
+	public ResponseEntity<Response<JwtResponse>> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
 		Response<JwtResponse> res = new Response<>();
-		final Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-		
-		 SecurityContextHolder.getContext().setAuthentication(authentication);
-		 String jwt = jwtUtils.generateToken(authentication);
-		 UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();    
-		 List<String> roles = userDetails.getAuthorities().stream()
-		        .map(item -> item.getAuthority())
-		        .collect(Collectors.toList());
-		 res.setBody(new JwtResponse(jwt, userDetails.getUsername(), roles));
-		 res.setHttpStatus(HttpStatus.OK);
-		 res.setMessage("ok");
-		 return new ResponseEntity<Response<JwtResponse>>(res, res.getHttpStatus());
+		System.out.println(encoder.encode(loginRequest.getPassword()));
+		UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
+				loginRequest.getPassword());
+		final Authentication authentication = authenticationManager.authenticate(authReq);
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		System.out.println("011010");
+
+		String jwt = jwtUtils.generateToken(authentication);
+
+		System.out.println("011010");
+
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+		System.out.println("011010");
+
+		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
+				.collect(Collectors.toList());
+		System.out.println("011010");
+		for (String r : roles) {
+			System.out.println("0000000000" + r.charAt(1));
+		}
+		res.setBody(new JwtResponse(jwt, userDetails.getUsername(), roles));
+		res.setHttpStatus(HttpStatus.OK);
+		res.setMessage("ok");
+		return new ResponseEntity<Response<JwtResponse>>(res, res.getHttpStatus());
 	}
 }
