@@ -2,13 +2,10 @@ import React from 'react'
 import './Profile.css'
 import './MyProfile.css'
 import "./Header.css"
-import imgPok from '../pok.jpg'
-import proImg from '../proImg.jpg'
-import moreImg from '../more.jpg'
-import verifImg from '../verifiedIcon.jpg'
 import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import NavigationIcon from '@mui/icons-material/Navigation';
@@ -29,7 +26,7 @@ function Profile() {
         <div className='content-con'>
           <div className='aboutMe-con'>
             <div className='myImg'>
-              <img src={proImg}/>
+              <img src="" alt='profileImg'/>
             </div>
             <div className='MyProfile-totalTab'>
               <ul className='MyProfile-totalText'>
@@ -89,8 +86,8 @@ function Profile() {
                     นามสมมุติ
                   </li>
                 </li>
-                 <li className="moreTab">
-                  <img src={verifImg}/>
+                <li className="moreTab">
+                  <SvgIcon component={VerifiedIcon}inheritViewBox />
                 </li>
                 <li className="profession">
                   ถนัดด้านเชิงธุรกิจ
@@ -99,11 +96,11 @@ function Profile() {
           <div className='course-con'>
             <div className='course-item'>
               <div className='course-img'>
-                <img src={imgPok}/>
+                <img src="" alt='courseImg'/>
               </div>
               <div className='course-owner'>
                 <div className='owner-img'>
-                  <img src={proImg}/>
+                  <img src="" alt='profileImg'/>
                 </div>
                 <div className='owner-name'>
                   <div className='nameVerified'>
@@ -116,7 +113,7 @@ function Profile() {
                       </div>
                     </div>
                     <div className='Verifi'>
-                      <img src={verifImg}/>
+                      <SvgIcon component={VerifiedIcon}inheritViewBox />
                     </div>
                   </div>
                   <div className='date'>

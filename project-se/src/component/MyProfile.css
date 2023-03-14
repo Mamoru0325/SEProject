@@ -3,7 +3,7 @@
     height: 80px;
     width: 200px;
     position: absolute;
-    bottom: 320px;
+    top: 320px;
     flex-direction: row;
     display: flex;
     align-items: center;
@@ -21,7 +21,7 @@
     background: lawngreen;
     height: 30px;
     position: absolute;
-    bottom: 10px;
+    top: 700px;
     width: 150px;
     display: flex;
     justify-content: center;

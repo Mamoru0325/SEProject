@@ -4,6 +4,7 @@ import "./Header.css"
 import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import NavigationIcon from '@mui/icons-material/Navigation';
@@ -73,30 +74,22 @@ function Profile() {
                   <li className='lname'>
                     นามสมมุติ
                   </li>
-                </li>
-                 <li className="moreTab">
-                  <img src="./verifiedIcon.jpg"/>
-
-                </li>
-                <li className="verified">
-                  <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                    <Fab size="small" color="primary" aria-label="add">
-                      <AddIcon />
-                    </Fab>
-                  </Box>
+                <li className="moreTab">
+                  <SvgIcon component={VerifiedIcon}inheritViewBox />
                 </li>
                 <li className="profession">
                   ถนัดด้านเชิงธุรกิจ
                 </li>
+              </li>
             </ul>
           <div className='course-con'>
             <div className='course-item'>
               <div className='course-img'>
-                <img src="./pok.jpg"/>
+                <img src="" alt='courseImg'/>
               </div>
               <div className='course-owner'>
                 <div className='owner-img'>
-                  <img src="./proImg.jpg"/>
+                  <img src="" alt='profileImg'/>
                 </div>
                 <div className='owner-name'>
                   <div className='nameVerified'>
@@ -109,7 +102,7 @@ function Profile() {
                       </div>
                     </div>
                     <div className='Verifi'>
-                      <img src="./verifiedIcon.jpg"/>
+                      <SvgIcon component={VerifiedIcon}inheritViewBox />
                     </div>
                   </div>
                   <div className='date'>
