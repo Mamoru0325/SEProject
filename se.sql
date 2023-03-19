@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2023 at 06:30 PM
+-- Generation Time: Mar 19, 2023 at 04:51 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -332,7 +332,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`, `username`, `imgPath`, `backgroundPath`, `verifyStatus`, `type`) VALUES
-(1, 'pokpongthunder789@gmail.com', '123456', 'Mr', 'Paweenwich', 'Thadee', '0896345911', 'pokpong', '7841', '78451', 'N', 'Nomal');
+(1, 'admin@hotmail.com', '$2a$10$a1l6WI0b02CU.BMy3k6NnujFnQRPTncydqmPY3S3DoFQf26.DQzrK', 'Mr', 'admin', 'admin', '0896345911', 'admin', 'dd', 'dd', 'Y', 'Nomal'),
+(2, 'staff@hotmail.com', '$2a$10$KsBCSQd56QysbLE2zwI29Obs3dJXterNDpjK5mpzx07oqH6lS4qqa', 'Mr', 'staff', 'staff', '0896345911', 'staff', 'dd', 'dd', 'Y', 'Nomal'),
+(3, 'user@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user', 'user', '0896345911', 'user', 'dd', 'dd', 'Y', 'Nomal');
 
 -- --------------------------------------------------------
 
@@ -351,7 +353,12 @@ CREATE TABLE `userrole` (
 --
 
 INSERT INTO `userrole` (`userRoleId`, `userId`, `roleId`) VALUES
-(1, 1, 2);
+(1, 3, 1),
+(2, 3, 2),
+(3, 3, 3),
+(4, 4, 1),
+(5, 4, 2),
+(6, 5, 1);
 
 --
 -- Indexes for dumped tables
@@ -505,7 +512,9 @@ ALTER TABLE `role`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `email_2` (`email`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `userrole`
@@ -632,19 +641,19 @@ ALTER TABLE `requestverify`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `roleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `roleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `userrole`
 --
 ALTER TABLE `userrole`
-  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
