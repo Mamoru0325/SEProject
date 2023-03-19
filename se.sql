@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2023 at 04:51 AM
+-- Generation Time: Mar 19, 2023 at 08:22 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -353,12 +353,12 @@ CREATE TABLE `userrole` (
 --
 
 INSERT INTO `userrole` (`userRoleId`, `userId`, `roleId`) VALUES
-(1, 3, 1),
-(2, 3, 2),
-(3, 3, 3),
-(4, 4, 1),
-(5, 4, 2),
-(6, 5, 1);
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 2, 1),
+(5, 2, 2),
+(6, 3, 1);
 
 --
 -- Indexes for dumped tables
