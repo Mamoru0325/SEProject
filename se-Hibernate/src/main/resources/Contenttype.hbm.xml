@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class catalog="se" name="eng.cpe.se.project.model.Contenttype" optimistic-lock="none" table="contenttype">
+    <class catalog="se" name="eng.cpe.se.project.model.ContentType" optimistic-lock="none" table="contenttype">
         <id name="contentTypeId" type="java.lang.Integer">
             <column name="contentTypeId"/>
             <generator class="identity"/>
@@ -9,17 +9,17 @@
         <property name="typeName" type="string">
             <column length="50" name="typeName" not-null="true"/>
         </property>
-        <set fetch="select" inverse="true" lazy="true" name="courses" table="course">
+        <bag fetch="select" inverse="true" lazy="true" name="courses" table="course">
             <key>
                 <column name="contentTypeId" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Course"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="posts" table="post">
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="posts" table="post">
             <key>
                 <column name="contentTypeId" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Post"/>
-        </set>
+        </bag>
     </class>
 </hibernate-mapping>

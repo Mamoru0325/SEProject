@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class catalog="se" name="eng.cpe.se.project.model.Imgverify" optimistic-lock="none" table="imgverify">
+    <class catalog="se" name="eng.cpe.se.project.model.ImgVerify" optimistic-lock="none" table="imgverify">
         <id name="imgVerifyId" type="java.lang.Integer">
             <column name="imgVerifyId"/>
             <generator class="identity"/>
         </id>
-        <many-to-one class="eng.cpe.se.project.model.Requestverify" fetch="select" name="requestverify">
+        <many-to-one class="eng.cpe.se.project.model.RequestVerify" fetch="select" name="requestVerify">
             <column name="requestVerifyId" not-null="true"/>
         </many-to-one>
         <property name="imgPath" type="string">

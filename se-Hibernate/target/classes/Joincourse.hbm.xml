@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class catalog="se" name="eng.cpe.se.project.model.Joincourse" optimistic-lock="none" table="joincourse">
+    <class catalog="se" name="eng.cpe.se.project.model.JoinCourse" optimistic-lock="none" table="joincourse">
         <id name="joinCourseId" type="java.lang.Integer">
             <column name="joinCourseId"/>
             <generator class="identity"/>
@@ -9,11 +9,11 @@
         <many-to-one class="eng.cpe.se.project.model.Course" fetch="select" name="course">
             <column name="courseId" not-null="true"/>
         </many-to-one>
-        <set fetch="select" inverse="true" lazy="true" name="paymentchecks" table="paymentcheck">
+        <bag fetch="select" inverse="true" lazy="true" name="paymentChecks" table="paymentcheck">
             <key>
                 <column name="joinCourseId" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Paymentcheck"/>
-        </set>
+            <one-to-many class="eng.cpe.se.project.model.PaymentCheck"/>
+        </bag>
     </class>
 </hibernate-mapping>

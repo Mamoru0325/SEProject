@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="se" name="eng.cpe.se.project.model.Post" optimistic-lock="none" table="post">
         <id name="postId" type="java.lang.Integer">
             <column name="postId"/>
             <generator class="identity"/>
         </id>
-        <many-to-one class="eng.cpe.se.project.model.Contenttype" fetch="select" name="contenttype">
+        <many-to-one class="eng.cpe.se.project.model.ContentType" fetch="select" name="contentType">
             <column name="contentTypeId" not-null="true"/>
         </many-to-one>
         <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="user">
@@ -24,35 +24,35 @@
         <property name="createDate" type="date">
             <column length="10" name="createDate" not-null="true"/>
         </property>
-        <set fetch="select" inverse="true" lazy="true" name="bookmarks" table="bookmark">
+        <bag fetch="select" inverse="true" lazy="true" name="bookmarks" table="bookmark">
             <key>
                 <column name="postId" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Bookmark"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="reports" table="report">
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">
             <key>
                 <column name="postId"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Report"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="imgposts" table="imgpost">
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="imgPosts" table="imgpost">
             <key>
                 <column name="postId" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Imgpost"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="comments" table="comment">
+            <one-to-many class="eng.cpe.se.project.model.ImgPost"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="comments" table="comment">
             <key>
                 <column name="postId" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Comment"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="likeposts" table="likepost">
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="likePosts" table="likepost">
             <key>
                 <column name="postId" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Likepost"/>
-        </set>
+            <one-to-many class="eng.cpe.se.project.model.LikePost"/>
+        </bag>
     </class>
 </hibernate-mapping>

@@ -1,8 +1,10 @@
 package eng.cpe.se.project.model;
-// Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,32 +13,35 @@ import java.util.Set;
 public class Post implements java.io.Serializable {
 
 	private Integer postId;
-	private Contenttype contenttype;
+	private ContentType contentType;
 	private User user;
 	private String postTopic;
 	private String postDetail;
 	private String reportStatus;
 	private Date createDate;
-	private Set bookmarks = new HashSet(0);
-	private Set reports = new HashSet(0);
-	private Set imgposts = new HashSet(0);
-	private Set comments = new HashSet(0);
-	private Set likeposts = new HashSet(0);
+	private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+	private List<Report> reports = new ArrayList<Report>();
+	private List<ImgPost> imgPosts = new ArrayList<ImgPost>();
+	private List<Comment> comments = new ArrayList<Comment>();
+	private List<LikePost> likePosts = new ArrayList<LikePost>();
 
 	public Post() {
 	}
 
-	public Post(Contenttype contenttype, User user, String postTopic, String postDetail, Date createDate) {
-		this.contenttype = contenttype;
+	public Post(ContentType contenttype, User user, String postTopic, String postDetail, Date createDate) {
+		this.contentType = contenttype;
 		this.user = user;
 		this.postTopic = postTopic;
 		this.postDetail = postDetail;
 		this.createDate = createDate;
 	}
 
-	public Post(Contenttype contenttype, User user, String postTopic, String postDetail, String reportStatus,
-			Date createDate, Set bookmarks, Set reports, Set imgposts, Set comments, Set likeposts) {
-		this.contenttype = contenttype;
+	public Post(Integer postId, ContentType contentType, User user, String postTopic, String postDetail,
+			String reportStatus, Date createDate, List<Bookmark> bookmarks, List<Report> reports,
+			List<ImgPost> imgPosts, List<Comment> comments, List<LikePost> likePosts) {
+		super();
+		this.postId = postId;
+		this.contentType = contentType;
 		this.user = user;
 		this.postTopic = postTopic;
 		this.postDetail = postDetail;
@@ -44,29 +49,29 @@ public class Post implements java.io.Serializable {
 		this.createDate = createDate;
 		this.bookmarks = bookmarks;
 		this.reports = reports;
-		this.imgposts = imgposts;
+		this.imgPosts = imgPosts;
 		this.comments = comments;
-		this.likeposts = likeposts;
+		this.likePosts = likePosts;
 	}
 
 	public Integer getPostId() {
-		return this.postId;
+		return postId;
 	}
 
 	public void setPostId(Integer postId) {
 		this.postId = postId;
 	}
 
-	public Contenttype getContenttype() {
-		return this.contenttype;
+	public ContentType getContentType() {
+		return contentType;
 	}
 
-	public void setContenttype(Contenttype contenttype) {
-		this.contenttype = contenttype;
+	public void setContentType(ContentType contentType) {
+		this.contentType = contentType;
 	}
 
 	public User getUser() {
-		return this.user;
+		return user;
 	}
 
 	public void setUser(User user) {
@@ -74,7 +79,7 @@ public class Post implements java.io.Serializable {
 	}
 
 	public String getPostTopic() {
-		return this.postTopic;
+		return postTopic;
 	}
 
 	public void setPostTopic(String postTopic) {
@@ -82,7 +87,7 @@ public class Post implements java.io.Serializable {
 	}
 
 	public String getPostDetail() {
-		return this.postDetail;
+		return postDetail;
 	}
 
 	public void setPostDetail(String postDetail) {
@@ -90,7 +95,7 @@ public class Post implements java.io.Serializable {
 	}
 
 	public String getReportStatus() {
-		return this.reportStatus;
+		return reportStatus;
 	}
 
 	public void setReportStatus(String reportStatus) {
@@ -98,51 +103,52 @@ public class Post implements java.io.Serializable {
 	}
 
 	public Date getCreateDate() {
-		return this.createDate;
+		return createDate;
 	}
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public Set getBookmarks() {
-		return this.bookmarks;
+	public List<Bookmark> getBookmarks() {
+		return bookmarks;
 	}
 
-	public void setBookmarks(Set bookmarks) {
+	public void setBookmarks(List<Bookmark> bookmarks) {
 		this.bookmarks = bookmarks;
 	}
 
-	public Set getReports() {
-		return this.reports;
+	public List<Report> getReports() {
+		return reports;
 	}
 
-	public void setReports(Set reports) {
+	public void setReports(List<Report> reports) {
 		this.reports = reports;
 	}
 
-	public Set getImgposts() {
-		return this.imgposts;
+	public List<ImgPost> getImgPosts() {
+		return imgPosts;
 	}
 
-	public void setImgposts(Set imgposts) {
-		this.imgposts = imgposts;
+	public void setImgPosts(List<ImgPost> imgPosts) {
+		this.imgPosts = imgPosts;
 	}
 
-	public Set getComments() {
-		return this.comments;
+	public List<Comment> getComments() {
+		return comments;
 	}
 
-	public void setComments(Set comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 
-	public Set getLikeposts() {
-		return this.likeposts;
+	public List<LikePost> getLikePosts() {
+		return likePosts;
 	}
 
-	public void setLikeposts(Set likeposts) {
-		this.likeposts = likeposts;
+	public void setLikePosts(List<LikePost> likePosts) {
+		this.likePosts = likePosts;
 	}
+
 
 }

@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="se" name="eng.cpe.se.project.model.User" optimistic-lock="none" table="user">
-        <id name="userId" type="int">
+        <id name="userId" type="java.lang.Integer">
             <column name="userId"/>
-            <generator class="foreign">
-                <param name="property">account</param>
-            </generator>
+            <generator class="identity"/>
         </id>
-        <one-to-one class="eng.cpe.se.project.model.Account" constrained="true" name="account"/>
+        <property name="email" type="string">
+            <column length="50" name="email" not-null="true" unique="true"/>
+        </property>
+        <property name="password" type="string">
+            <column length="20" name="password" not-null="true"/>
+        </property>
+        <property name="title" type="string">
+            <column length="10" name="title" not-null="true"/>
+        </property>
+        <property name="firstName" type="string">
+            <column length="50" name="firstName" not-null="true"/>
+        </property>
+        <property name="lastName" type="string">
+            <column length="50" name="lastName" not-null="true"/>
+        </property>
+        <property name="phoneNumber" type="string">
+            <column length="10" name="phoneNumber" not-null="true"/>
+        </property>
         <property name="username" type="string">
             <column length="50" name="username" not-null="true"/>
         </property>
@@ -24,77 +39,89 @@
         <property name="type" type="string">
             <column length="13" name="type" not-null="true"/>
         </property>
-        <set fetch="select" inverse="true" lazy="true" name="comments" table="comment">
+        <bag fetch="select" inverse="true" lazy="true" name="paymentChecks" table="paymentcheck">
             <key>
-                <column name="userId" not-null="true"/>
+                <column name="payBy" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Comment"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="likecomments" table="likecomment">
-            <key>
-                <column name="userId" not-null="true"/>
-            </key>
-            <one-to-many class="eng.cpe.se.project.model.Likecomment"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="followersForFollowTo" table="follower">
-            <key>
-                <column name="followTo" not-null="true"/>
-            </key>
-            <one-to-many class="eng.cpe.se.project.model.Follower"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="followersForFollowBy" table="follower">
+            <one-to-many class="eng.cpe.se.project.model.PaymentCheck"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="followersForFollowBy" table="follower">
             <key>
                 <column name="followBy" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Follower"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="paymentchecks" table="paymentcheck">
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="followersForFollowTo" table="follower">
             <key>
-                <column name="payBy" not-null="true"/>
+                <column name="followTo" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Paymentcheck"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="posts" table="post">
+            <one-to-many class="eng.cpe.se.project.model.Follower"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="comments" table="comment">
             <key>
                 <column name="userId" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Post"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="requestcourses" table="requestcourse">
+            <one-to-many class="eng.cpe.se.project.model.Comment"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="requestVerifiesForUserId" table="requestverify">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.RequestVerify"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="requestCourses" table="requestcourse">
             <key>
                 <column name="requestTo" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Requestcourse"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="likeposts" table="likepost">
-            <key>
-                <column name="userId" not-null="true"/>
-            </key>
-            <one-to-many class="eng.cpe.se.project.model.Likepost"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="courses" table="course">
+            <one-to-many class="eng.cpe.se.project.model.RequestCourse"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="courses" table="course">
             <key>
                 <column name="userId" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Course"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="reports" table="report">
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="requestVerifiesForStaffId" table="requestverify">
             <key>
-                <column name="userId" not-null="true"/>
+                <column name="staffId" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Report"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="bookmarks" table="bookmark">
+            <one-to-many class="eng.cpe.se.project.model.RequestVerify"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="bookmarks" table="bookmark">
             <key>
                 <column name="userId" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Bookmark"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="requestverifies" table="requestverify">
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="posts" table="post">
             <key>
                 <column name="userId" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Requestverify"/>
-        </set>
+            <one-to-many class="eng.cpe.se.project.model.Post"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="likeComments" table="likecomment">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.LikeComment"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.Report"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="likePosts" table="likepost">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.LikePost"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="userRoles" table="userrole">
+            <key>
+                <column name="userId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.UserRole"/>
+        </bag>
     </class>
 </hibernate-mapping>

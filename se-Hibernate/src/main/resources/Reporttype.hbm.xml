@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class catalog="se" name="eng.cpe.se.project.model.Reporttype" optimistic-lock="none" table="reporttype">
+    <class catalog="se" name="eng.cpe.se.project.model.ReportType" optimistic-lock="none" table="reporttype">
         <id name="reportTypeId" type="java.lang.Integer">
             <column name="reportTypeId"/>
             <generator class="identity"/>
@@ -9,11 +9,11 @@
         <property name="typeName" type="string">
             <column name="typeName" not-null="true"/>
         </property>
-        <set fetch="select" inverse="true" lazy="true" name="reports" table="report">
+        <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">
             <key>
                 <column name="reportTypeId" not-null="true"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Report"/>
-        </set>
+        </bag>
     </class>
 </hibernate-mapping>

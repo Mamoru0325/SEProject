@@ -1,8 +1,10 @@
 package eng.cpe.se.project.model;
-// Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,7 +13,7 @@ import java.util.Set;
 public class Course implements java.io.Serializable {
 
 	private Integer courseId;
-	private Contenttype contenttype;
+	private ContentType contentType;
 	private User user;
 	private String courseTopic;
 	private String courseDetail;
@@ -25,35 +27,20 @@ public class Course implements java.io.Serializable {
 	private Date eventDate;
 	private Date startDate;
 	private Date endDate;
-	private Set reports = new HashSet(0);
-	private Set imgcourses = new HashSet(0);
-	private Set joincourses = new HashSet(0);
+	private List<Report> reports = new ArrayList<Report>();
+	private List<ImgCourse> imgCourses = new ArrayList<ImgCourse>();
+	private List<JoinCourse> joinCourses = new ArrayList<JoinCourse>();
 
 	public Course() {
 	}
 
-	public Course(Contenttype contenttype, User user, String courseTopic, String courseDetail, int minimum, int maximum,
-			double price, String status, Date firstEnrollDate, Date lastEnrollDate, Date eventDate, Date startDate,
-			Date endDate) {
-		this.contenttype = contenttype;
-		this.user = user;
-		this.courseTopic = courseTopic;
-		this.courseDetail = courseDetail;
-		this.minimum = minimum;
-		this.maximum = maximum;
-		this.price = price;
-		this.status = status;
-		this.firstEnrollDate = firstEnrollDate;
-		this.lastEnrollDate = lastEnrollDate;
-		this.eventDate = eventDate;
-		this.startDate = startDate;
-		this.endDate = endDate;
-	}
-
-	public Course(Contenttype contenttype, User user, String courseTopic, String courseDetail, int minimum, int maximum,
-			double price, String status, String reportStatus, Date firstEnrollDate, Date lastEnrollDate, Date eventDate,
-			Date startDate, Date endDate, Set reports, Set imgcourses, Set joincourses) {
-		this.contenttype = contenttype;
+	public Course(Integer courseId, ContentType contentType, User user, String courseTopic, String courseDetail,
+			int minimum, int maximum, double price, String status, String reportStatus, Date firstEnrollDate,
+			Date lastEnrollDate, Date eventDate, Date startDate, Date endDate, List<Report> reports,
+			List<ImgCourse> imgCourses, List<JoinCourse> joinCourses) {
+		super();
+		this.courseId = courseId;
+		this.contentType = contentType;
 		this.user = user;
 		this.courseTopic = courseTopic;
 		this.courseDetail = courseDetail;
@@ -68,28 +55,28 @@ public class Course implements java.io.Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.reports = reports;
-		this.imgcourses = imgcourses;
-		this.joincourses = joincourses;
+		this.imgCourses = imgCourses;
+		this.joinCourses = joinCourses;
 	}
 
 	public Integer getCourseId() {
-		return this.courseId;
+		return courseId;
 	}
 
 	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 
-	public Contenttype getContenttype() {
-		return this.contenttype;
+	public ContentType getContentType() {
+		return contentType;
 	}
 
-	public void setContenttype(Contenttype contenttype) {
-		this.contenttype = contenttype;
+	public void setContentType(ContentType contentType) {
+		this.contentType = contentType;
 	}
 
 	public User getUser() {
-		return this.user;
+		return user;
 	}
 
 	public void setUser(User user) {
@@ -97,7 +84,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public String getCourseTopic() {
-		return this.courseTopic;
+		return courseTopic;
 	}
 
 	public void setCourseTopic(String courseTopic) {
@@ -105,7 +92,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public String getCourseDetail() {
-		return this.courseDetail;
+		return courseDetail;
 	}
 
 	public void setCourseDetail(String courseDetail) {
@@ -113,7 +100,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public int getMinimum() {
-		return this.minimum;
+		return minimum;
 	}
 
 	public void setMinimum(int minimum) {
@@ -121,7 +108,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public int getMaximum() {
-		return this.maximum;
+		return maximum;
 	}
 
 	public void setMaximum(int maximum) {
@@ -129,7 +116,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public double getPrice() {
-		return this.price;
+		return price;
 	}
 
 	public void setPrice(double price) {
@@ -137,7 +124,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public String getStatus() {
-		return this.status;
+		return status;
 	}
 
 	public void setStatus(String status) {
@@ -145,7 +132,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public String getReportStatus() {
-		return this.reportStatus;
+		return reportStatus;
 	}
 
 	public void setReportStatus(String reportStatus) {
@@ -153,7 +140,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public Date getFirstEnrollDate() {
-		return this.firstEnrollDate;
+		return firstEnrollDate;
 	}
 
 	public void setFirstEnrollDate(Date firstEnrollDate) {
@@ -161,7 +148,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public Date getLastEnrollDate() {
-		return this.lastEnrollDate;
+		return lastEnrollDate;
 	}
 
 	public void setLastEnrollDate(Date lastEnrollDate) {
@@ -169,7 +156,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public Date getEventDate() {
-		return this.eventDate;
+		return eventDate;
 	}
 
 	public void setEventDate(Date eventDate) {
@@ -177,7 +164,7 @@ public class Course implements java.io.Serializable {
 	}
 
 	public Date getStartDate() {
-		return this.startDate;
+		return startDate;
 	}
 
 	public void setStartDate(Date startDate) {
@@ -185,35 +172,35 @@ public class Course implements java.io.Serializable {
 	}
 
 	public Date getEndDate() {
-		return this.endDate;
+		return endDate;
 	}
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
-	public Set getReports() {
-		return this.reports;
+	public List<Report> getReports() {
+		return reports;
 	}
 
-	public void setReports(Set reports) {
+	public void setReports(List<Report> reports) {
 		this.reports = reports;
 	}
 
-	public Set getImgcourses() {
-		return this.imgcourses;
+	public List<ImgCourse> getImgCourses() {
+		return imgCourses;
 	}
 
-	public void setImgcourses(Set imgcourses) {
-		this.imgcourses = imgcourses;
+	public void setImgCourses(List<ImgCourse> imgCourses) {
+		this.imgCourses = imgCourses;
 	}
 
-	public Set getJoincourses() {
-		return this.joincourses;
+	public List<JoinCourse> getJoinCourses() {
+		return joinCourses;
 	}
 
-	public void setJoincourses(Set joincourses) {
-		this.joincourses = joincourses;
+	public void setJoinCourses(List<JoinCourse> joinCourses) {
+		this.joinCourses = joinCourses;
 	}
 
 }

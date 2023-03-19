@@ -1,7 +1,9 @@
 package eng.cpe.se.project.model;
-// Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final
+// Generated Mar 7, 2023, 11:29:50 PM by Hibernate Tools 5.6.3.Final
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -9,32 +11,44 @@ import java.util.Set;
  */
 public class User implements java.io.Serializable {
 
-	private int userId;
-	private Account account;
+	private Integer userId;
+	private String email;
+	private String password;
+	private String title;
+	private String firstName;
+	private String lastName;
+	private String phoneNumber;
 	private String username;
 	private String imgPath;
 	private String backgroundPath;
 	private String verifyStatus;
 	private String type;
-	private Set comments = new HashSet(0);
-	private Set likecomments = new HashSet(0);
-	private Set followersForFollowTo = new HashSet(0);
-	private Set followersForFollowBy = new HashSet(0);
-	private Set paymentchecks = new HashSet(0);
-	private Set posts = new HashSet(0);
-	private Set requestcourses = new HashSet(0);
-	private Set likeposts = new HashSet(0);
-	private Set courses = new HashSet(0);
-	private Set reports = new HashSet(0);
-	private Set bookmarks = new HashSet(0);
-	private Set requestverifies = new HashSet(0);
+	private List<PaymentCheck> paymentChecks = new ArrayList<PaymentCheck>();
+	private List<Follower> followersForFollowBy = new ArrayList<Follower>();
+	private List<Follower> followersForFollowTo = new ArrayList<Follower>();
+	private List<Comment> comments = new ArrayList<Comment>();
+	private List<RequestVerify> requestVerifiesForUserId = new ArrayList<RequestVerify>();
+	private List<RequestCourse> requestCourses = new ArrayList<RequestCourse>();
+	private List<Course> courses = new ArrayList<Course>();
+	private List<RequestVerify> requestVerifiesForStaffId = new ArrayList<RequestVerify>();
+	private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+	private List<Post> posts = new ArrayList<Post>();
+	private List<LikeComment> likeComments = new ArrayList<LikeComment>();
+	private List<Report> reports = new ArrayList<Report>();
+	private List<LikePost> likePosts = new ArrayList<LikePost>();
+	private List<UserRole> userRoles = new ArrayList<UserRole>();
 
 	public User() {
 	}
 
-	public User(Account account, String username, String imgPath, String backgroundPath, String verifyStatus,
-			String type) {
-		this.account = account;
+	public User(String email, String password, String title, String firstName, String lastName, String phoneNumber,
+			String username, String imgPath, String backgroundPath, String verifyStatus, String type) {
+		this.email = email;
+		this.password = password;
+		this.title = title;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
 		this.username = username;
 		this.imgPath = imgPath;
 		this.backgroundPath = backgroundPath;
@@ -42,48 +56,100 @@ public class User implements java.io.Serializable {
 		this.type = type;
 	}
 
-	public User(Account account, String username, String imgPath, String backgroundPath, String verifyStatus,
-			String type, Set comments, Set likecomments, Set followersForFollowTo, Set followersForFollowBy,
-			Set paymentchecks, Set posts, Set requestcourses, Set likeposts, Set courses, Set reports, Set bookmarks,
-			Set requestverifies) {
-		this.account = account;
+	public User(Integer userId, String email, String password, String title, String firstName, String lastName,
+			String phoneNumber, String username, String imgPath, String backgroundPath, String verifyStatus,
+			String type, List<PaymentCheck> paymentChecks, List<Follower> followersForFollowBy,
+			List<Follower> followersForFollowTo, List<Comment> comments, List<RequestVerify> requestVerifiesForUserId,
+			List<RequestCourse> requestCourses, List<Course> courses, List<RequestVerify> requestVerifiesForStaffId,
+			List<Bookmark> bookmarks, List<Post> posts, List<LikeComment> likeComments, List<Report> reports,
+			List<LikePost> likePosts, List<UserRole> userRoles) {
+		super();
+		this.userId = userId;
+		this.email = email;
+		this.password = password;
+		this.title = title;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
 		this.username = username;
 		this.imgPath = imgPath;
 		this.backgroundPath = backgroundPath;
 		this.verifyStatus = verifyStatus;
 		this.type = type;
-		this.comments = comments;
-		this.likecomments = likecomments;
-		this.followersForFollowTo = followersForFollowTo;
+		this.paymentChecks = paymentChecks;
 		this.followersForFollowBy = followersForFollowBy;
-		this.paymentchecks = paymentchecks;
-		this.posts = posts;
-		this.requestcourses = requestcourses;
-		this.likeposts = likeposts;
+		this.followersForFollowTo = followersForFollowTo;
+		this.comments = comments;
+		this.requestVerifiesForUserId = requestVerifiesForUserId;
+		this.requestCourses = requestCourses;
 		this.courses = courses;
-		this.reports = reports;
+		this.requestVerifiesForStaffId = requestVerifiesForStaffId;
 		this.bookmarks = bookmarks;
-		this.requestverifies = requestverifies;
+		this.posts = posts;
+		this.likeComments = likeComments;
+		this.reports = reports;
+		this.likePosts = likePosts;
+		this.userRoles = userRoles;
 	}
 
-	public int getUserId() {
-		return this.userId;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	public Account getAccount() {
-		return this.account;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getUsername() {
-		return this.username;
+		return username;
 	}
 
 	public void setUsername(String username) {
@@ -91,7 +157,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public String getImgPath() {
-		return this.imgPath;
+		return imgPath;
 	}
 
 	public void setImgPath(String imgPath) {
@@ -99,7 +165,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public String getBackgroundPath() {
-		return this.backgroundPath;
+		return backgroundPath;
 	}
 
 	public void setBackgroundPath(String backgroundPath) {
@@ -107,7 +173,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public String getVerifyStatus() {
-		return this.verifyStatus;
+		return verifyStatus;
 	}
 
 	public void setVerifyStatus(String verifyStatus) {
@@ -115,107 +181,124 @@ public class User implements java.io.Serializable {
 	}
 
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
 	public void setType(String type) {
 		this.type = type;
 	}
 
-	public Set getComments() {
-		return this.comments;
+	public List<PaymentCheck> getPaymentChecks() {
+		return paymentChecks;
 	}
 
-	public void setComments(Set comments) {
-		this.comments = comments;
+	public void setPaymentChecks(List<PaymentCheck> paymentChecks) {
+		this.paymentChecks = paymentChecks;
 	}
 
-	public Set getLikecomments() {
-		return this.likecomments;
+	public List<Follower> getFollowersForFollowBy() {
+		return followersForFollowBy;
 	}
 
-	public void setLikecomments(Set likecomments) {
-		this.likecomments = likecomments;
-	}
-
-	public Set getFollowersForFollowTo() {
-		return this.followersForFollowTo;
-	}
-
-	public void setFollowersForFollowTo(Set followersForFollowTo) {
-		this.followersForFollowTo = followersForFollowTo;
-	}
-
-	public Set getFollowersForFollowBy() {
-		return this.followersForFollowBy;
-	}
-
-	public void setFollowersForFollowBy(Set followersForFollowBy) {
+	public void setFollowersForFollowBy(List<Follower> followersForFollowBy) {
 		this.followersForFollowBy = followersForFollowBy;
 	}
 
-	public Set getPaymentchecks() {
-		return this.paymentchecks;
+	public List<Follower> getFollowersForFollowTo() {
+		return followersForFollowTo;
 	}
 
-	public void setPaymentchecks(Set paymentchecks) {
-		this.paymentchecks = paymentchecks;
+	public void setFollowersForFollowTo(List<Follower> followersForFollowTo) {
+		this.followersForFollowTo = followersForFollowTo;
 	}
 
-	public Set getPosts() {
-		return this.posts;
+	public List<Comment> getComments() {
+		return comments;
 	}
 
-	public void setPosts(Set posts) {
-		this.posts = posts;
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
-	public Set getRequestcourses() {
-		return this.requestcourses;
+	public List<RequestVerify> getRequestVerifiesForUserId() {
+		return requestVerifiesForUserId;
 	}
 
-	public void setRequestcourses(Set requestcourses) {
-		this.requestcourses = requestcourses;
+	public void setRequestVerifiesForUserId(List<RequestVerify> requestVerifiesForUserId) {
+		this.requestVerifiesForUserId = requestVerifiesForUserId;
 	}
 
-	public Set getLikeposts() {
-		return this.likeposts;
+	public List<RequestCourse> getRequestCourses() {
+		return requestCourses;
 	}
 
-	public void setLikeposts(Set likeposts) {
-		this.likeposts = likeposts;
+	public void setRequestCourses(List<RequestCourse> requestCourses) {
+		this.requestCourses = requestCourses;
 	}
 
-	public Set getCourses() {
-		return this.courses;
+	public List<Course> getCourses() {
+		return courses;
 	}
 
-	public void setCourses(Set courses) {
+	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
 
-	public Set getReports() {
-		return this.reports;
+	public List<RequestVerify> getRequestVerifiesForStaffId() {
+		return requestVerifiesForStaffId;
 	}
 
-	public void setReports(Set reports) {
-		this.reports = reports;
+	public void setRequestVerifiesForStaffId(List<RequestVerify> requestVerifiesForStaffId) {
+		this.requestVerifiesForStaffId = requestVerifiesForStaffId;
 	}
 
-	public Set getBookmarks() {
-		return this.bookmarks;
+	public List<Bookmark> getBookmarks() {
+		return bookmarks;
 	}
 
-	public void setBookmarks(Set bookmarks) {
+	public void setBookmarks(List<Bookmark> bookmarks) {
 		this.bookmarks = bookmarks;
 	}
 
-	public Set getRequestverifies() {
-		return this.requestverifies;
+	public List<Post> getPosts() {
+		return posts;
 	}
 
-	public void setRequestverifies(Set requestverifies) {
-		this.requestverifies = requestverifies;
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
+
+	public List<LikeComment> getLikeComments() {
+		return likeComments;
+	}
+
+	public void setLikeComments(List<LikeComment> likeComments) {
+		this.likeComments = likeComments;
+	}
+
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
+	}
+
+	public List<LikePost> getLikePosts() {
+		return likePosts;
+	}
+
+	public void setLikePosts(List<LikePost> likePosts) {
+		this.likePosts = likePosts;
+	}
+
+	public List<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+
 
 }

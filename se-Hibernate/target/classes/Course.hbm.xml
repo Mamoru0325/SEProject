@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Mar 7, 2023, 9:28:55 AM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="se" name="eng.cpe.se.project.model.Course" optimistic-lock="none" table="course">
         <id name="courseId" type="java.lang.Integer">
             <column name="courseId"/>
             <generator class="identity"/>
         </id>
-        <many-to-one class="eng.cpe.se.project.model.Contenttype" fetch="select" name="contenttype">
+        <many-to-one class="eng.cpe.se.project.model.ContentType" fetch="select" name="contentType">
             <column name="contentTypeId" not-null="true"/>
         </many-to-one>
         <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="user">
@@ -48,23 +48,23 @@
         <property name="endDate" type="date">
             <column length="10" name="endDate" not-null="true"/>
         </property>
-        <set fetch="select" inverse="true" lazy="true" name="reports" table="report">
+        <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">
             <key>
                 <column name="courseId"/>
             </key>
             <one-to-many class="eng.cpe.se.project.model.Report"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="imgcourses" table="imgcourse">
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="imgCourses" table="imgcourse">
             <key>
                 <column name="courseId" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Imgcourse"/>
-        </set>
-        <set fetch="select" inverse="true" lazy="true" name="joincourses" table="joincourse">
+            <one-to-many class="eng.cpe.se.project.model.ImgCourse"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="joinCourses" table="joincourse">
             <key>
                 <column name="courseId" not-null="true"/>
             </key>
-            <one-to-many class="eng.cpe.se.project.model.Joincourse"/>
-        </set>
+            <one-to-many class="eng.cpe.se.project.model.JoinCourse"/>
+        </bag>
     </class>
 </hibernate-mapping>
