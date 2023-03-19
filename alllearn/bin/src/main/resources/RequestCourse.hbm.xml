@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.RequestCourse" optimistic-lock="none" table="requestcourse">
+        <id name="requestCourseId" type="java.lang.Integer">
+            <column name="requestCourseId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="user">
+            <column name="requestTo" not-null="true"/>
+        </many-to-one>
+        <property name="topic" type="string">
+            <column name="topic" not-null="true"/>
+        </property>
+        <property name="detail" type="string">
+            <column length="65535" name="detail" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.Course" optimistic-lock="none" table="course">
+        <id name="courseId" type="java.lang.Integer">
+            <column name="courseId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="eng.cpe.se.project.model.ContentType" fetch="select" name="contentType">
+            <column name="contentTypeId" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="user">
+            <column name="userId" not-null="true"/>
+        </many-to-one>
+        <property name="courseTopic" type="string">
+            <column length="50" name="courseTopic" not-null="true"/>
+        </property>
+        <property name="courseDetail" type="string">
+            <column length="65535" name="courseDetail" not-null="true"/>
+        </property>
+        <property name="minimum" type="int">
+            <column name="minimum" not-null="true"/>
+        </property>
+        <property name="maximum" type="int">
+            <column name="maximum" not-null="true"/>
+        </property>
+        <property name="price" type="double">
+            <column name="price" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property name="status" type="string">
+            <column length="9" name="status" not-null="true"/>
+        </property>
+        <property name="reportStatus" type="string">
+            <column length="8" name="reportStatus"/>
+        </property>
+        <property name="firstEnrollDate" type="date">
+            <column length="10" name="firstEnrollDate" not-null="true"/>
+        </property>
+        <property name="lastEnrollDate" type="date">
+            <column length="10" name="lastEnrollDate" not-null="true"/>
+        </property>
+        <property name="eventDate" type="date">
+            <column length="10" name="eventDate" not-null="true"/>
+        </property>
+        <property name="startDate" type="date">
+            <column length="10" name="startDate" not-null="true"/>
+        </property>
+        <property name="endDate" type="date">
+            <column length="10" name="endDate" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">
+            <key>
+                <column name="courseId"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.Report"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="imgCourses" table="imgcourse">
+            <key>
+                <column name="courseId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.ImgCourse"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="joinCourses" table="joincourse">
+            <key>
+                <column name="courseId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.JoinCourse"/>
+        </bag>
+    </class>
+</hibernate-mapping>

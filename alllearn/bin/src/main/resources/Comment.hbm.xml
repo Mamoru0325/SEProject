@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.Comment" optimistic-lock="none" table="comment">
+        <id name="commentId" type="java.lang.Integer">
+            <column name="commentId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="eng.cpe.se.project.model.Post" fetch="select" name="post">
+            <column name="postId" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="user">
+            <column name="userId" not-null="true"/>
+        </many-to-one>
+        <property name="commentDetail" type="string">
+            <column length="65535" name="commentDetail" not-null="true"/>
+        </property>
+        <property name="reportStatus" type="string">
+            <column length="8" name="reportStatus"/>
+        </property>
+        <property name="createDate" type="date">
+            <column length="10" name="createDate" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">
+            <key>
+                <column name="commentId"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.Report"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="imgComments" table="imgcomment">
+            <key>
+                <column name="commentId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.ImgComment"/>
+        </bag>
+        <bag fetch="select" inverse="true" lazy="true" name="likeComments" table="likecomment">
+            <key>
+                <column name="commentId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.LikeComment"/>
+        </bag>
+    </class>
+</hibernate-mapping>

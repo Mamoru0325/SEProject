@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.RequestVerify" optimistic-lock="none" table="requestverify">
+        <id name="requestVerifyId" type="java.lang.Integer">
+            <column name="requestVerifyId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="userByUserId">
+            <column name="userId" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="userByStaffId">
+            <column name="staffId" not-null="true"/>
+        </many-to-one>
+        <property name="verifyHeader" type="string">
+            <column name="verifyHeader" not-null="true"/>
+        </property>
+        <property name="verifyDetail" type="string">
+            <column name="verifyDetail" not-null="true"/>
+        </property>
+        <property name="approveStatus" type="string">
+            <column length="8" name="approveStatus" not-null="true"/>
+        </property>
+        <property name="dateApprove" type="date">
+            <column length="10" name="dateApprove" not-null="true"/>
+        </property>
+        <bag fetch="select" inverse="true" lazy="true" name="imgVerifies" table="imgverify">
+            <key>
+                <column name="requestVerifyId" not-null="true"/>
+            </key>
+            <one-to-many class="eng.cpe.se.project.model.ImgVerify"/>
+        </bag>
+    </class>
+</hibernate-mapping>

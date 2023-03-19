@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated Mar 7, 2023, 11:29:51 PM by Hibernate Tools 5.6.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="se" name="eng.cpe.se.project.model.UserRole" optimistic-lock="none" table="userrole">
+        <id name="userRoleId" type="java.lang.Integer">
+            <column name="userRoleId"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="eng.cpe.se.project.model.Role" fetch="select" name="role">
+            <column name="roleId" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="user">
+            <column name="userId" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
