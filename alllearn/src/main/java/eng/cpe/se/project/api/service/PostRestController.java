@@ -10,6 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +22,7 @@ import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.service.PostService;
 
 @RestController
+@RequestMapping("/posts")
 public class PostRestController {
 	
 	@Autowired
@@ -45,7 +48,7 @@ public class PostRestController {
     }
 	
 	@GetMapping("/page/{page}/value/{value}")
-	public ResponseEntity<Response<List<Post>>> findById(@PathVariable("page")int page,@PathVariable("value")int value) {
+	public ResponseEntity<Response<List<Post>>> findAllPost(@PathVariable("page")int page,@PathVariable("value")int value) {
 		Response<List<Post>> res = new Response<>();
 		try {
 			List<Post> posts = postService.findAll(page, value);
@@ -59,5 +62,7 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
 		}
 	}
+	
+	
 
 }

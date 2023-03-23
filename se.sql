@@ -302,9 +302,9 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`roleId`, `roleName`) VALUES
-(1, 'User'),
-(2, 'Staff'),
-(3, 'SystemAdmin');
+(1, 'ROLE_User'),
+(2, 'ROLE_Staff'),
+(3, 'ROLE_SystemAdmin');
 
 -- --------------------------------------------------------
 

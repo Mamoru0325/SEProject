@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/test")
@@ -17,13 +19,14 @@ public class TestAuth {
 	}
 
 	@GetMapping("/user")
-	@PreAuthorize("hasRole('USER') or hasRole('Staff') or hasRole('SystemAdmin')")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User') or hasRole('Staff') or hasRole('SystemAdmin')")
 	public String userAccess() {
 		return "User Content.";
 	}
 
-	@GetMapping("/mod")
-	@PreAuthorize("hasRole('Staff')")
+	@GetMapping("/staff")
+	@PreAuthorize("hasRole('Staff') or hasRole('SystemAdmin')")
 	public String moderatorAccess() {
 		return "Moderator Board.";
 	}

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,7 @@ import eng.cpe.se.project.model.Report;
 import eng.cpe.se.project.service.ReportService;
 
 @RestController
+@RequestMapping("/reports")
 public class ReportRestController {
 	@Autowired
 	private ReportService reportService;
@@ -46,7 +48,7 @@ public class ReportRestController {
     }
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Response<Report>> updateUser(@PathVariable("id")int id) {
+	public ResponseEntity<Response<Report>> updateReportById(@PathVariable("id")int id) {
 		Response<Report> res = new Response<>();
 		try {
 			Report re = reportService.findById(id);
@@ -63,7 +65,7 @@ public class ReportRestController {
 	}
 	
 	@GetMapping("/page/{page}/value/{value}")
-	public ResponseEntity<Response<List<Report>>> findById(@PathVariable("page")int page,@PathVariable("value")int value) {
+	public ResponseEntity<Response<List<Report>>> findAllReport(@PathVariable("page")int page,@PathVariable("value")int value) {
 		Response<List<Report>> res = new Response<>();
 		try {
 			List<Report> re = reportService.findAll(page,value);
@@ -79,7 +81,7 @@ public class ReportRestController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Response<String>> deleteById(@PathVariable("id")int id){
+	public ResponseEntity<Response<String>> deleteReportById(@PathVariable("id")int id){
 		Response<String> res = new Response<String>();
 		try {
 			reportService.delete(id);
