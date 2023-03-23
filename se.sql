@@ -216,7 +216,7 @@ CREATE TABLE `post` (
   `contentTypeId` int(11) NOT NULL,
   `postTopic` varchar(255) NOT NULL,
   `postDetail` text NOT NULL,
-  `reportStatus` enum('Waiting','Done') DEFAULT NULL,
+  `reportStatus` enum('Waiting','Done') DEFAULT 'Done',
   `createDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
