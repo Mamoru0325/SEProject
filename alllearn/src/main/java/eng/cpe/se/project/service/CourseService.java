@@ -3,6 +3,8 @@ package eng.cpe.se.project.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import eng.cpe.se.project.model.Course;
@@ -27,6 +29,11 @@ public class CourseService {
 	
 	public void delete(int id) {
 		courseRepository.deleteById(id);
+	}
+	
+	public List<Course> findAll(int page,int value){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return (List<Course>) courseRepository.findAll(pageable);
 	}
 
 }

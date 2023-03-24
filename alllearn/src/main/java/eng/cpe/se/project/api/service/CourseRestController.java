@@ -1,5 +1,7 @@
 package eng.cpe.se.project.api.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -118,6 +121,22 @@ public class CourseRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/page/{page}/value/{value}")
+	public ResponseEntity<Response<List<Course>>> findAll(@PathVariable("page")int page,@PathVariable("value")int value) {
+		Response<List<Course>> res = new Response<>();
+		try {
+			List<Course> courses = courseService.findAll(page, value);
+			res.setMessage("find success");
+			res.setBody(courses);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Course>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Course>>>(res, res.getHttpStatus());
 		}
 	}
 }
