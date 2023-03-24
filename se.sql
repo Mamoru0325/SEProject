@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2023 at 08:22 AM
+-- Generation Time: Mar 24, 2023 at 01:16 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -45,7 +45,7 @@ CREATE TABLE `comment` (
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `commentDetail` text NOT NULL,
-  `reportStatus` enum('Waiting') DEFAULT NULL,
+  `reportStatus` enum('Waiting') DEFAULT 'Waiting',
   `createDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -88,13 +88,20 @@ CREATE TABLE `course` (
   `maximum` int(11) NOT NULL,
   `price` double NOT NULL,
   `status` enum('Full','Available') NOT NULL DEFAULT 'Available',
-  `reportStatus` enum('Waiting','Done') DEFAULT NULL,
+  `reportStatus` enum('Waiting','Done') DEFAULT 'Done',
   `firstEnrollDate` date NOT NULL,
   `lastEnrollDate` date NOT NULL,
   `eventDate` date NOT NULL,
   `startDate` date NOT NULL,
   `endDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`courseId`, `contentTypeId`, `courseTopic`, `userId`, `courseDetail`, `minimum`, `maximum`, `price`, `status`, `reportStatus`, `firstEnrollDate`, `lastEnrollDate`, `eventDate`, `startDate`, `endDate`) VALUES
+(1, 1, 'service', 6, 'service', 5, 30, 100, 'Available', 'Done', '2023-03-24', '2023-03-24', '2023-03-24', '2023-03-24', '2023-03-24');
 
 -- --------------------------------------------------------
 
@@ -220,6 +227,13 @@ CREATE TABLE `post` (
   `createDate` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`postId`, `userId`, `contentTypeId`, `postTopic`, `postDetail`, `reportStatus`, `createDate`) VALUES
+(1, 3, 1, 'service', 'do it pokpong', 'Done', '2023-03-24');
+
 -- --------------------------------------------------------
 
 --
@@ -234,7 +248,7 @@ CREATE TABLE `report` (
   `courseId` int(11) DEFAULT NULL,
   `userId` int(11) NOT NULL,
   `reportDetail` text NOT NULL,
-  `status` enum('Approve','Waiting') NOT NULL
+  `status` enum('Approve','Waiting') NOT NULL DEFAULT 'Waiting'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -279,12 +293,19 @@ CREATE TABLE `requestcourse` (
 CREATE TABLE `requestverify` (
   `requestVerifyId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `staffId` int(11) NOT NULL,
+  `staffId` int(11) DEFAULT NULL,
   `verifyHeader` varchar(255) NOT NULL,
-  `verifyDetail` varchar(255) NOT NULL,
+  `verifyDetail` text NOT NULL,
   `approveStatus` enum('Approve','Waiting','Reject') NOT NULL DEFAULT 'Waiting',
   `dateApprove` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `requestverify`
+--
+
+INSERT INTO `requestverify` (`requestVerifyId`, `userId`, `staffId`, `verifyHeader`, `verifyDetail`, `approveStatus`, `dateApprove`) VALUES
+(1, 3, NULL, 'service', 'do it pokpong', 'Waiting', '2023-03-24');
 
 -- --------------------------------------------------------
 
@@ -304,7 +325,8 @@ CREATE TABLE `role` (
 INSERT INTO `role` (`roleId`, `roleName`) VALUES
 (1, 'ROLE_User'),
 (2, 'ROLE_Staff'),
-(3, 'ROLE_SystemAdmin');
+(3, 'ROLE_SystemAdmin'),
+(4, 'ROLE_CourseCreator');
 
 -- --------------------------------------------------------
 
@@ -323,18 +345,24 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `imgPath` varchar(150) NOT NULL,
   `backgroundPath` varchar(150) NOT NULL,
-  `verifyStatus` enum('Y','N') NOT NULL DEFAULT 'N',
-  `type` enum('Nomal','CourseCreator') NOT NULL DEFAULT 'Nomal'
+  `verifyStatus` enum('Y','N') NOT NULL DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`userId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`, `username`, `imgPath`, `backgroundPath`, `verifyStatus`, `type`) VALUES
-(1, 'admin@hotmail.com', '$2a$10$a1l6WI0b02CU.BMy3k6NnujFnQRPTncydqmPY3S3DoFQf26.DQzrK', 'Mr', 'admin', 'admin', '0896345911', 'admin', 'dd', 'dd', 'Y', 'Nomal'),
-(2, 'staff@hotmail.com', '$2a$10$KsBCSQd56QysbLE2zwI29Obs3dJXterNDpjK5mpzx07oqH6lS4qqa', 'Mr', 'staff', 'staff', '0896345911', 'staff', 'dd', 'dd', 'Y', 'Nomal'),
-(3, 'user@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user', 'user', '0896345911', 'user', 'dd', 'dd', 'Y', 'Nomal');
+INSERT INTO `user` (`userId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`, `username`, `imgPath`, `backgroundPath`, `verifyStatus`) VALUES
+(1, 'admin@hotmail.com', '$2a$10$a1l6WI0b02CU.BMy3k6NnujFnQRPTncydqmPY3S3DoFQf26.DQzrK', 'Mr', 'admin', 'admin', '0896345911', 'admin', 'dd', 'dd', 'Y'),
+(2, 'staff@hotmail.com', '$2a$10$KsBCSQd56QysbLE2zwI29Obs3dJXterNDpjK5mpzx07oqH6lS4qqa', 'Mr', 'staff', 'staff', '0896345911', 'staff', 'dd', 'dd', 'Y'),
+(3, 'user@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user', 'user', '0896345911', 'user', 'dd', 'dd', 'Y'),
+(4, 'user1@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user1', 'user1', '0896345911', 'user1', 'dd', 'dd', 'Y'),
+(5, 'user2@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user2', 'user2', '0896345911', 'user2', 'dd', 'dd', 'N'),
+(6, 'user3@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user3', 'user3', '0896345911', 'user3', 'dd', 'dd', 'Y'),
+(7, 'user4@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user4', 'user4', '0896345911', 'user4', 'dd', 'dd', 'Y'),
+(8, 'user5@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user5', 'user5', '0896345911', 'user5', 'dd', 'dd', 'N'),
+(9, 'user6@hotmail.com', '$2a$10$qeU5VmKnI8HsbfMjb46ZTe.jnv4HmYp0zx5eAqLFyStK943oacfYG', 'Mr', 'user6', 'user6', '0896345911', 'user6', 'hh', 'hh', 'N'),
+(10, 'staff1@hotmail.com', '$2a$10$gj3kH.iUN146bbMMnupkZeuDboCS.6jpphZHHT64Ibh7SR9e/eI92', 'Mr', 'staff1', 'staff1', '0896345911', 'staff1', 'hh', 'hh', 'Y');
 
 -- --------------------------------------------------------
 
@@ -358,7 +386,17 @@ INSERT INTO `userrole` (`userRoleId`, `userId`, `roleId`) VALUES
 (3, 1, 3),
 (4, 2, 1),
 (5, 2, 2),
-(6, 3, 1);
+(6, 3, 1),
+(7, 4, 1),
+(8, 5, 1),
+(9, 6, 1),
+(10, 6, 4),
+(11, 7, 1),
+(12, 7, 4),
+(13, 8, 1),
+(14, 9, 1),
+(15, 10, 1),
+(16, 10, 2);
 
 --
 -- Indexes for dumped tables
@@ -551,7 +589,7 @@ ALTER TABLE `contenttype`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `follower`
@@ -611,7 +649,7 @@ ALTER TABLE `paymentcheck`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `report`
@@ -635,25 +673,25 @@ ALTER TABLE `requestcourse`
 -- AUTO_INCREMENT for table `requestverify`
 --
 ALTER TABLE `requestverify`
-  MODIFY `requestVerifyId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `requestVerifyId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `roleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `roleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `userrole`
 --
 ALTER TABLE `userrole`
-  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

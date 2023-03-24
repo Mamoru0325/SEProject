@@ -88,12 +88,12 @@ public class PostRestController {
 	@PreAuthorize("hasRole('User') or hasRole('Staff') or hasRole('SystemAdmin')")
 	public ResponseEntity<Response<Post>> updateById(@PathVariable("id")int id,@RequestBody Post post){
 		Response<Post> res = new Response<>();
-		Post p = postService.findById(id);
+		Post _post = postService.findById(id);
 		try {
-			p.clone(post);
-			postService.save(p);
+			_post.clone(post);
+			postService.save(_post);
 			res.setMessage("update "+id+"success");
-			res.setBody(p);
+			res.setBody(_post);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Post>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
@@ -164,6 +164,23 @@ public class PostRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Comment>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{id}/page/{page}/value/{value}")
+	public ResponseEntity<Response<List<Comment>>> findAllcomment(@PathVariable("id")int id,@PathVariable("page")int page,@PathVariable("value")int value) {
+		Response<List<Comment>> res = new Response<>();
+		Post post = postService.findById(id);
+		try {
+			List<Comment> comments = commentService.findAllByPost(post,page, value);
+			res.setMessage("find success");
+			res.setBody(comments);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Comment>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Comment>>>(res, res.getHttpStatus());
 		}
 	}
 
