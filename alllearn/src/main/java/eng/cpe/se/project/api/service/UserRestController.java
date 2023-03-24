@@ -23,13 +23,16 @@ import org.springframework.http.HttpStatus;
 
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.ContentType;
+import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.RequestVerify;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.service.ContentTypeService;
+import eng.cpe.se.project.service.CourseService;
 import eng.cpe.se.project.service.PostService;
 import eng.cpe.se.project.service.RequestVerifyService;
 import eng.cpe.se.project.service.UserService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 
@@ -44,6 +47,8 @@ public class UserRestController {
 	private RequestVerifyService requestVerifyService;
 	@Autowired
 	private ContentTypeService contentTypeService;
+	@Autowired
+	private CourseService courseService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -134,14 +139,14 @@ public class UserRestController {
 		}
 	}
 	
-	@PostMapping("/post/contentid/{id}")
+	@PostMapping("/post")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Post>> createPostByUser(@PathVariable("id")int id,@Valid@RequestBody Post post){
+	public ResponseEntity<Response<Post>> createPostByUser(@Parameter(name = "contentId")int contentId,@Valid@RequestBody Post post){
 		Response<Post> res = new Response<Post>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByEmail(email);
-		ContentType contentType = contentTypeService.findById(id);
+		ContentType contentType = contentTypeService.findById(contentId);
 		try {
 			post.setUser(user);
 			post.setContentType(contentType);
@@ -167,7 +172,7 @@ public class UserRestController {
 		try {
 			request.setUserByUserId(user);
 			requestVerifyService.save(request);
-			res.setMessage("create Post Success");
+			res.setMessage("create RequestVerify Success");
 			res.setBody(request);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<RequestVerify>>(res, res.getHttpStatus());
@@ -175,6 +180,29 @@ public class UserRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<RequestVerify>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@PostMapping("/course")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('CourseCreator')")
+	public ResponseEntity<Response<Course>> createCourseByUser(@Parameter(name = "contentId")int contentId,@Valid@RequestBody Course course){
+		Response<Course> res = new Response<Course>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		ContentType contentType = contentTypeService.findById(contentId);
+		try {
+			course.setUser(user);
+			course.setContentType(contentType);
+			courseService.save(course);
+			res.setMessage("create Course Success");
+			res.setBody(course);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Course>>(res, res.getHttpStatus());
+		}catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Course>>(res, res.getHttpStatus());
 		}
 	}
 	

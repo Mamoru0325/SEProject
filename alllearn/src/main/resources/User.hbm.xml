@@ -36,9 +36,6 @@
         <property name="verifyStatus" type="string">
             <column length="2" name="verifyStatus" not-null="true"/>
         </property>
-        <property name="type" type="string">
-            <column length="13" name="type" not-null="true"/>
-        </property>
         <bag fetch="select" inverse="true" lazy="true" name="paymentChecks" table="paymentcheck">
             <key>
                 <column name="payBy" not-null="true"/>

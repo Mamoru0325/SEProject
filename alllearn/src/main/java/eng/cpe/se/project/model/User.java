@@ -27,7 +27,6 @@ public class User implements java.io.Serializable {
 	private String imgPath;
 	private String backgroundPath;
 	private String verifyStatus;
-	private String type;
 	@JsonIgnore
 	private List<PaymentCheck> paymentChecks = new ArrayList<PaymentCheck>();
 	@JsonIgnore
@@ -61,8 +60,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public User(String email, String password, String matchingPassword, String title, String firstName, String lastName,
-			String phoneNumber, String username, String imgPath, String backgroundPath, String verifyStatus,
-			String type) {
+			String phoneNumber, String username, String imgPath, String backgroundPath, String verifyStatus) {
 		this.email = email;
 		this.password = password;
 		this.title = title;
@@ -73,12 +71,11 @@ public class User implements java.io.Serializable {
 		this.imgPath = imgPath;
 		this.backgroundPath = backgroundPath;
 		this.verifyStatus = verifyStatus;
-		this.type = type;
 	}
 
 	public User(Integer userId, String email, String password, String matchingPassword, String title, String firstName,
 			String lastName, String phoneNumber, String username, String imgPath, String backgroundPath,
-			String verifyStatus, String type, List<PaymentCheck> paymentChecks, List<Follower> followersForFollowBy,
+			String verifyStatus, List<PaymentCheck> paymentChecks, List<Follower> followersForFollowBy,
 			List<Follower> followersForFollowTo, List<Comment> comments, List<RequestVerify> requestVerifiesForUserId,
 			List<RequestCourse> requestCourses, List<Course> courses, List<RequestVerify> requestVerifiesForStaffId,
 			List<Bookmark> bookmarks, List<Post> posts, List<LikeComment> likeComments, List<Report> reports,
@@ -95,7 +92,6 @@ public class User implements java.io.Serializable {
 		this.imgPath = imgPath;
 		this.backgroundPath = backgroundPath;
 		this.verifyStatus = verifyStatus;
-		this.type = type;
 		this.paymentChecks = paymentChecks;
 		this.followersForFollowBy = followersForFollowBy;
 		this.followersForFollowTo = followersForFollowTo;
@@ -123,7 +119,6 @@ public class User implements java.io.Serializable {
 		this.imgPath = other.imgPath;
 		this.backgroundPath = other.backgroundPath;
 		this.verifyStatus = other.verifyStatus;
-		this.type = other.type;
 	}
 	
 	public void signup(SignupDTO other) {
@@ -137,7 +132,6 @@ public class User implements java.io.Serializable {
 		this.imgPath = other.getImgPath();
 		this.backgroundPath = other.getBackgroundPath();
 		this.verifyStatus = other.getVerifyStatus();
-		this.type = other.getType();
 	}
 
 	public Integer getUserId() {
@@ -227,15 +221,7 @@ public class User implements java.io.Serializable {
 	public void setVerifyStatus(String verifyStatus) {
 		this.verifyStatus = verifyStatus;
 	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
+	
 	public List<PaymentCheck> getPaymentChecks() {
 		return paymentChecks;
 	}

@@ -72,6 +72,26 @@ public class UserService implements IUserService, UserDetailsService{
         	
         }
 	}
+	
+	@Override
+	public void registerNewStaff(User user,String roleName,String roleName1) throws AccountAlreadyExistException{
+		if (emailExists(user.getEmail())) {
+            throw new AccountAlreadyExistException("There is an account with that email address: " + user.getEmail());
+        }else if(userNameExists(user.getUsername())) {
+        	throw new AccountAlreadyExistException("There is an account with that userName : " + user.getUsername());
+        }
+		else {
+			save(user);
+			Role role = roleService.findByRoleName(roleName);
+			Role role1 = roleService.findByRoleName(roleName1);
+			UserRole userRole = new UserRole(role, user);
+			UserRole userRole1 = new UserRole(role1, user);
+			userRoleService.save(userRole);
+			userRoleService.save(userRole1);
+			user.getUserRoles().add(userRole);
+			user.getUserRoles().add(userRole1);
+        }
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
