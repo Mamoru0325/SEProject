@@ -1,7 +1,10 @@
 package eng.cpe.se.project.model.dto;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,11 +15,29 @@ import eng.cpe.se.project.security.validation.PasswordMatches;
 public class SignupDTO {
 	@Email
 	private String email;
+	@NotBlank(message = "May not be blank")
+	@NotEmpty(message = "May not be empty")
+	@Size(min = 2, max = 50, message = "Must be between 2 and 32 characters long") 
 	private String username;
+	@NotBlank(message = "May not be blank")
+	@NotEmpty(message = "May not be empty")
+	@Size(min = 2, max = 10, message = "Must be between 2 and 32 characters long") 
 	private String title;
+	@NotBlank(message = "May not be blank")
+	@NotEmpty(message = "May not be empty")
+	@Size(min = 2, max = 20, message = "Must be between 2 and 32 characters long") 
 	private String password;
+	@NotBlank(message = "May not be blank")
+	@NotEmpty(message = "May not be empty")
+	@Size(min = 2, max = 50, message = "Must be between 2 and 32 characters long") 
 	private String firstName;
+	@NotBlank(message = "May not be blank")
+	@NotEmpty(message = "May not be empty")
+	@Size(min = 2, max = 50, message = "Must be between 2 and 32 characters long") 
 	private String lastName;
+	@NotBlank(message = "May not be blank")
+	@NotEmpty(message = "May not be empty")
+	@Digits(message="Number should contain 10 digits.", fraction = 0, integer = 10)
 	private String phoneNumber;
 	private String imgPath;
 	private String backgroundPath;

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +22,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.RequestVerify;
 import eng.cpe.se.project.service.RequestVerifyService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
+@RequestMapping("/requestverifies")
 public class RequestVerifyRestController {
 	
 	@Autowired
@@ -47,7 +52,9 @@ public class RequestVerifyRestController {
 	
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Response<RequestVerify>> updateUser(@PathVariable("id")int id) {
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Staff') or hasRole('SystemAdmin')")
+	public ResponseEntity<Response<RequestVerify>> updateById(@PathVariable("id")int id) {
 		Response<RequestVerify> res = new Response<>();
 		try {
 			RequestVerify r = requestVerifyService.findById(id);
@@ -64,7 +71,9 @@ public class RequestVerifyRestController {
 	}
 	
 	@GetMapping("/page/{page}/value/{value}")
-	public ResponseEntity<Response<List<RequestVerify>>> findById(@PathVariable("page")int page,@PathVariable("value")int value) {
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Staff') or hasRole('SystemAdmin')")
+	public ResponseEntity<Response<List<RequestVerify>>> findAll(@PathVariable("page")int page,@PathVariable("value")int value) {
 		Response<List<RequestVerify>> res = new Response<>();
 		try {
 			List<RequestVerify> r = requestVerifyService.findAll(page,value);
@@ -80,6 +89,8 @@ public class RequestVerifyRestController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Staff') or hasRole('SystemAdmin')")
 	public ResponseEntity<Response<String>> deleteById(@PathVariable("id")int id){
 		Response<String> res = new Response<String>();
 		try {

@@ -27,38 +27,38 @@ import eng.cpe.se.project.service.UserService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
-	
+
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
 		return new AuthTokenFilter();
 	}
-	
+
 	@Bean
-	  public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
-	  }
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 //	@Override
 //	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		// TODO Auto-generated method stub
 //		auth.userDetailsService(userDetailsImpl).passwordEncoder(bCryptPasswordEncoder);
 //	}
-	
+
 	@Bean
-	  public DaoAuthenticationProvider authenticationProvider() {
-	      DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-	       
-	      authProvider.setUserDetailsService(userDetailsService);
-	      authProvider.setPasswordEncoder(passwordEncoder());
-	   
-	      return authProvider;
-	  }
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+		authProvider.setUserDetailsService(userDetailsService);
+		authProvider.setPasswordEncoder(passwordEncoder());
+
+		return authProvider;
+	}
 
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -77,21 +77,19 @@ public class SecurityConfig {
 //		
 //		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 //	}
-	
-	@Bean
-	  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http.cors().and().csrf().disable()
-	        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-	        .authorizeRequests().antMatchers("/auth/**").permitAll()
-	        .antMatchers("/**")/*edit by path to see*/.permitAll()
-	        .anyRequest().authenticated();
-	    
-	    http.authenticationProvider(authenticationProvider());
 
-	    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-	    
-	    return http.build();
-	  }
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				.antMatchers("/auth/**").permitAll().antMatchers("/**")/* edit by path to see */.permitAll()
+				.anyRequest().authenticated();
+
+		http.authenticationProvider(authenticationProvider());
+
+		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
 
 }

@@ -10,13 +10,13 @@
             <column name="userId" not-null="true"/>
         </many-to-one>
         <many-to-one class="eng.cpe.se.project.model.User" fetch="select" name="userByStaffId">
-            <column name="staffId" not-null="true"/>
+            <column name="staffId"/>
         </many-to-one>
         <property name="verifyHeader" type="string">
             <column name="verifyHeader" not-null="true"/>
         </property>
         <property name="verifyDetail" type="string">
-            <column name="verifyDetail" not-null="true"/>
+            <column length="65535" name="verifyDetail" not-null="true"/>
         </property>
         <property name="approveStatus" type="string">
             <column length="8" name="approveStatus" not-null="true"/>

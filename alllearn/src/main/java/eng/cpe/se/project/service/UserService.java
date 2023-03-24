@@ -87,7 +87,13 @@ public class UserService implements IUserService, UserDetailsService{
 		return UserDetailsImpl.build(user);
 	}
 
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 	
+	public User findByUserName(String userName) {
+		return userRepository.findByUserName(userName);
+	}
 	
 	
 }

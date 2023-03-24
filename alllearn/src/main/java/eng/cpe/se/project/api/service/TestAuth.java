@@ -1,6 +1,7 @@
 package eng.cpe.se.project.api.service;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +27,14 @@ public class TestAuth {
 	}
 
 	@GetMapping("/staff")
+	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('Staff') or hasRole('SystemAdmin')")
 	public String moderatorAccess() {
 		return "Moderator Board.";
 	}
 
 	@GetMapping("/admin")
+	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('SystemAdmin')")
 	public String adminAccess() {
 		return "Admin Board.";

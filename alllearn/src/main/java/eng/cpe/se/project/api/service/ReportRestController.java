@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Report;
 import eng.cpe.se.project.service.ReportService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/reports")
@@ -48,7 +50,9 @@ public class ReportRestController {
     }
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Response<Report>> updateReportById(@PathVariable("id")int id) {
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Staff') or hasRole('SystemAdmin')")
+	public ResponseEntity<Response<Report>> updateById(@PathVariable("id")int id) {
 		Response<Report> res = new Response<>();
 		try {
 			Report re = reportService.findById(id);
@@ -65,7 +69,9 @@ public class ReportRestController {
 	}
 	
 	@GetMapping("/page/{page}/value/{value}")
-	public ResponseEntity<Response<List<Report>>> findAllReport(@PathVariable("page")int page,@PathVariable("value")int value) {
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Staff') or hasRole('SystemAdmin')")
+	public ResponseEntity<Response<List<Report>>> findAll(@PathVariable("page")int page,@PathVariable("value")int value) {
 		Response<List<Report>> res = new Response<>();
 		try {
 			List<Report> re = reportService.findAll(page,value);
@@ -81,7 +87,9 @@ public class ReportRestController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Response<String>> deleteReportById(@PathVariable("id")int id){
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('Staff') or hasRole('SystemAdmin')")
+	public ResponseEntity<Response<String>> deleteById(@PathVariable("id")int id){
 		Response<String> res = new Response<String>();
 		try {
 			reportService.delete(id);
