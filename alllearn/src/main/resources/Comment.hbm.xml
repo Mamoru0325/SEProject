@@ -18,7 +18,7 @@
         <property name="reportStatus" type="string">
             <column length="8" name="reportStatus"/>
         </property>
-        <property name="createDate" type="date">
+        <property name="createDate" type="timestamp">
             <column length="10" name="createDate" not-null="true"/>
         </property>
         <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">

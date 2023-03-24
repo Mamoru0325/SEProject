@@ -42,10 +42,10 @@
         <property name="eventDate" type="date">
             <column length="10" name="eventDate" not-null="true"/>
         </property>
-        <property name="startDate" type="date">
+        <property name="startDate" type="timestamp">
             <column length="10" name="startDate" not-null="true"/>
         </property>
-        <property name="endDate" type="date">
+        <property name="endDate" type="timestamp">
             <column length="10" name="endDate" not-null="true"/>
         </property>
         <bag fetch="select" inverse="true" lazy="true" name="reports" table="report">
