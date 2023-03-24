@@ -16,6 +16,7 @@ public class JoinCourse implements java.io.Serializable {
 	private Integer joinCourseId;
 	@JsonIgnore
 	private Course course;
+	@JsonIgnore
 	private List<PaymentCheck> paymentChecks = new ArrayList<PaymentCheck>();
 
 	public JoinCourse() {

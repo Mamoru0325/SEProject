@@ -53,6 +53,12 @@ public class Comment implements java.io.Serializable {
 		this.imgComments = imgComments;
 		this.likeComments = likeComments;
 	}
+	
+	public void clone(Comment other) {
+		this.commentDetail = other.commentDetail;
+		this.reportStatus = other.reportStatus;
+		this.createDate = other.createDate;
+	}
 
 	public Integer getCommentId() {
 		return commentId;

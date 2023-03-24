@@ -62,6 +62,13 @@ public class Post implements java.io.Serializable {
 		this.comments = comments;
 		this.likePosts = likePosts;
 	}
+	
+	public void clone(Post other) {
+		this.postTopic = other.postTopic;
+		this.postDetail = other.postDetail;
+		this.reportStatus = other.reportStatus;
+		this.createDate = other.createDate;
+	}
 
 	public Integer getPostId() {
 		return postId;

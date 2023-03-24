@@ -41,6 +41,12 @@ public class RequestVerify implements java.io.Serializable {
 		this.dateApprove = dateApprove;
 		this.imgVerifies = imgVerifies;
 	}
+	
+	public void clone(RequestVerify other) {
+		this.verifyHeader = other.verifyHeader;
+		this.verifyDetail = other.verifyDetail;
+		this.approveStatus = other.approveStatus;
+	}
 
 	public Integer getRequestVerifyId() {
 		return requestVerifyId;

@@ -65,6 +65,20 @@ public class Course implements java.io.Serializable {
 		this.imgCourses = imgCourses;
 		this.joinCourses = joinCourses;
 	}
+	public void clone(Course other) {
+		this.courseTopic = other.courseTopic;
+		this.courseDetail = other.courseDetail;
+		this.minimum = other.minimum;
+		this.maximum = other.maximum;
+		this.price = other.price;
+		this.status = other.status;
+		this.reportStatus = other.reportStatus;
+		this.firstEnrollDate = other.firstEnrollDate;
+		this.lastEnrollDate = other.lastEnrollDate;
+		this.eventDate = other.eventDate;
+		this.startDate = other.startDate;
+		this.endDate = other.endDate;
+	}
 
 	public Integer getCourseId() {
 		return courseId;
