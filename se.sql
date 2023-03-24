@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2023 at 01:16 PM
+-- Generation Time: Mar 24, 2023 at 05:17 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -46,7 +46,7 @@ CREATE TABLE `comment` (
   `userId` int(11) NOT NULL,
   `commentDetail` text NOT NULL,
   `reportStatus` enum('Waiting') DEFAULT 'Waiting',
-  `createDate` date NOT NULL DEFAULT current_timestamp()
+  `createDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -92,7 +92,7 @@ CREATE TABLE `course` (
   `firstEnrollDate` date NOT NULL,
   `lastEnrollDate` date NOT NULL,
   `eventDate` date NOT NULL,
-  `startDate` date NOT NULL,
+  `startDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `endDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -101,7 +101,7 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`courseId`, `contentTypeId`, `courseTopic`, `userId`, `courseDetail`, `minimum`, `maximum`, `price`, `status`, `reportStatus`, `firstEnrollDate`, `lastEnrollDate`, `eventDate`, `startDate`, `endDate`) VALUES
-(1, 1, 'service', 6, 'service', 5, 30, 100, 'Available', 'Done', '2023-03-24', '2023-03-24', '2023-03-24', '2023-03-24', '2023-03-24');
+(1, 1, 'service', 6, 'service', 5, 30, 100, 'Available', 'Done', '2023-03-24', '2023-03-24', '2023-03-24', '2023-03-23 17:00:00', '2023-03-24');
 
 -- --------------------------------------------------------
 
@@ -224,7 +224,7 @@ CREATE TABLE `post` (
   `postTopic` varchar(255) NOT NULL,
   `postDetail` text NOT NULL,
   `reportStatus` enum('Waiting','Done') DEFAULT 'Done',
-  `createDate` date NOT NULL DEFAULT current_timestamp()
+  `createDate` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`postId`, `userId`, `contentTypeId`, `postTopic`, `postDetail`, `reportStatus`, `createDate`) VALUES
-(1, 3, 1, 'service', 'do it pokpong', 'Done', '2023-03-24');
+(1, 3, 1, 'service', 'do it pokpong', 'Done', '2023-03-24 00:00:00');
 
 -- --------------------------------------------------------
 
