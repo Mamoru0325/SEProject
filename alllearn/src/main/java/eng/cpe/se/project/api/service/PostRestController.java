@@ -26,10 +26,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Comment;
+import eng.cpe.se.project.model.LikePost;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Report;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.service.CommentService;
+import eng.cpe.se.project.service.LikePostService;
 import eng.cpe.se.project.service.PostService;
 import eng.cpe.se.project.service.ReportService;
 import eng.cpe.se.project.service.UserService;
@@ -47,6 +49,8 @@ public class PostRestController {
 	private CommentService commentService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private LikePostService likePostService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -72,6 +76,38 @@ public class PostRestController {
 		Response<List<Post>> res = new Response<>();
 		try {
 			List<Post> posts = postService.findAll(page, value);
+			res.setMessage("find success");
+			res.setBody(posts);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/lastestdate/page/{page}/value/{value}")
+	public ResponseEntity<Response<List<Post>>> findAllByDate(@PathVariable("page")int page,@PathVariable("value")int value) {
+		Response<List<Post>> res = new Response<>();
+		try {
+			List<Post> posts = postService.findAllByDate(page, value);
+			res.setMessage("find success");
+			res.setBody(posts);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/population/page/{page}/value/{value}")
+	public ResponseEntity<Response<List<Post>>> findAllByPopulation(@PathVariable("page")int page,@PathVariable("value")int value) {
+		Response<List<Post>> res = new Response<>();
+		try {
+			List<Post> posts = postService.findAllByDate(page, value);
 			res.setMessage("find success");
 			res.setBody(posts);
 			res.setHttpStatus(HttpStatus.OK);
@@ -181,6 +217,28 @@ public class PostRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<List<Comment>>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@PostMapping("/{id}/likepost")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<LikePost>> likePost(@PathVariable("id")int id){
+		Response<LikePost> res = new Response<LikePost>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		Post post = postService.findById(id);
+		User user = userService.findByEmail(email);
+		LikePost likePost = new LikePost(post, user);
+		try {
+			likePostService.save(likePost);
+			res.setMessage("create report Success");
+			res.setBody(likePost);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<LikePost>>(res, res.getHttpStatus());
+		}catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<LikePost>>(res, res.getHttpStatus());
 		}
 	}
 

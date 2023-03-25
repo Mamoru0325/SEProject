@@ -15,4 +15,11 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
 	
 	@Query("from Post p")
 	public List<Post> findAll(Pageable pageable);
+	
+	@Query("from Post p order by p.createDate desc")
+	public List<Post> findAllByDate(Pageable pageable);
+	
+	@Query("select p from Post p inner join p.likePosts lp group by lp.post order by count(lp.post) desc")
+	public List<Post> findAllByPopulation(Pageable pageable);
+	
 }

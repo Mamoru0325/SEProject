@@ -35,4 +35,14 @@ public class PostService {
 		Pageable pageable = PageRequest.of(page-1, value);
 		return postRepository.findAll(pageable);
 	}
+	
+	public List<Post> findAllByDate(int page,int value){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return postRepository.findAllByDate(pageable);
+	}
+	
+	public List<Post> findAllByPopulation(int page,int value){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return postRepository.findAllByPopulation(pageable);
+	}
 }

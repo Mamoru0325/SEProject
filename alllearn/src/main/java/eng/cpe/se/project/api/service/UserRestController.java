@@ -72,11 +72,11 @@ public class UserRestController {
 	@PutMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<User>> updateUserById(@PathVariable("id")int id) {
+	public ResponseEntity<Response<User>> updateUserById(@PathVariable("id")int id,@RequestBody User user) {
 		Response<User> res = new Response<>();
 		try {
 			User u = userService.findById(id);
-			u.setFirstName("ppppp");
+			u.clone(user);
 			userService.save(u);
 			res.setMessage("update "+id+"success");
 			res.setBody(u);
