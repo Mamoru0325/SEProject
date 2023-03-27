@@ -26,10 +26,14 @@
 /* กลุ่ม link */
 .menu{
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
     /* padding: 20px; */
-    margin: 18px;
-    
-    
+    width: 40%;
+    /* margin: 18px;
+    margin-inline: 20px; */
+
     /* background-color: aquamarine; */
 }
 

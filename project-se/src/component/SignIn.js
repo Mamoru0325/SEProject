@@ -55,9 +55,10 @@ export default function Signin() {
     <Grid container className={classes.root}>
       <CssBaseline />
 
-      <Grid item xs={false} md={7} className={classes.image} />
-
-      <Grid item xs={12} md={5} component={Paper} elevation={6} square>
+     {/* <Grid item xs={false} md={4} className={classes.image} /> */}
+      {/* <Grid item xs={12} md={4} component={Paper} elevation={10} square> */}
+      <Grid item xs={12} md={4}>
+      
         <div className={classes.paper}>
 
           <Avatar className={classes.avatar}>
@@ -127,27 +128,43 @@ export default function Signin() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    
+    height: '100%',
+    display:'flex',
+    justifyContent:'center',
+    
+   
+    // backgroundColor:'green',
   },
   image: {
-
     backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundSize: 'cover',
   },
   paper: {
-    margin: theme.spacing(8, 4),
+    backgroundColor:'white',
+    margin: theme.spacing(8,4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+
+    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+    padding:'40px',
+    borderRadius:'20px',
+   
+    
+
   },
   avatar: {
+   
     margin: theme.spacing(1),
     // borderRadius :10,
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
+
     width: '100%',
     marginTop: theme.spacing(1),
+
 
   },
   submit: {

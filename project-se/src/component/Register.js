@@ -44,7 +44,7 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [avatar, setPassword] = useState('');
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="xs" >
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5" >
                     Sing up
@@ -126,13 +126,13 @@ export default function Register() {
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(5),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor :'#ffc300',
+        backgroundColor :'white',
       
-        // opacity:'0.8',
+        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
         padding:'40px',
         borderRadius:'20px'
         

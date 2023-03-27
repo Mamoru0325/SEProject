@@ -13,28 +13,8 @@ import Register from './Register'
 import Profile from './Profile'
 import MyProfile from './MyProfile'
 import BoardPage from './BoardPage'
+import DropdownMenu from './DropMenu'
 
-const DropdownMenu = () => {
-
-    const DropdownItem = (props) => {
-        return (
-            <a href='#' className='menu-item'>
-                <span className='icon-button'>{props.leftIcon}</span>
-                {props.children}
-
-                <span className='icon-right'>{props.rightIcon}</span>
-
-            </a>
-        );
-
-    }
-
-    return (
-        <div className='dropdown'>
-            <DropdownItem>My Profile</DropdownItem>
-        </div>
-    )
-}
 
 function Header() {
     return (
@@ -56,10 +36,7 @@ function Header() {
 
                         <li className='menu'>
 
-                            <NavLink className="menu-link" to="/homepage">
-                                HomePage
-                            </NavLink>
-
+                    
                             <NavLink className="menu-link" to="/write">
                                 Write
                             </NavLink>
@@ -71,6 +48,8 @@ function Header() {
                             <NavLink className="menu-link" to="/">
                                 Login
                             </NavLink>
+
+                            <DropdownMenu/>
 
                         </li>
                     </nav>
