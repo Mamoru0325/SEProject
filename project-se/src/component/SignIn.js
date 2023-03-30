@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
+// import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -53,7 +53,7 @@ export default function Signin() {
 
   return (
     <Grid container className={classes.root}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
 
      {/* <Grid item xs={false} md={4} className={classes.image} /> */}
       {/* <Grid item xs={12} md={4} component={Paper} elevation={10} square> */}
@@ -127,11 +127,13 @@ export default function Signin() {
 }
 
 const useStyles = makeStyles((theme) => ({
+
   root: {
-    
-    height: '100%',
+
+    height: '768px',
     display:'flex',
     justifyContent:'center',
+    background: 'linear-gradient(#003566, #fff)',
     
    
     // backgroundColor:'green',

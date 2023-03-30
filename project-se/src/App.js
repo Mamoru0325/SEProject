@@ -2,6 +2,7 @@ import React from "react"
 import Header from "./component/Header"
 import Register from "./component/Register";
 import Signin from "./component/SignIn";
+import HomePage from "./component/HomePage"
 
 
 

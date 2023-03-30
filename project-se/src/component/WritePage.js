@@ -45,7 +45,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelectChip() {
+export default function WritePage() {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
@@ -139,25 +139,25 @@ export default function MultipleSelectChip() {
               variant="filled"
 
             />
-
+            <div className='post-button'>
+              <Button
+                variant="contained"
+                color='primary'
+                size="large"
+              >
+                Post
+              </Button>
+            </div>
           </div>
 
-          <div className='post-button'>
-            <Button
-              variant="contained"
-              color='primary'
-              size="large"
-            >
-              Post
-            </Button>
-          </div>
+
 
         </div>
 
       </div>
     </div>
 
-   );
+  );
 }
 
 

@@ -27,7 +27,7 @@ export default function DropdownMenu() {
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Tooltip title="Account settings">
+                <Tooltip title="Menu">
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -60,7 +60,7 @@ export default function DropdownMenu() {
                         },
                         '&:before': {
                             content: '""',
-                            display: 'block',
+                            display: 'flex',
                             position: 'absolute',
                             top: 0,
                             right: 14,
@@ -92,14 +92,14 @@ export default function DropdownMenu() {
                 </MenuItem>
 
                 <MenuItem onClick={handleClose}>
-                    <NavLink to="/favPost" className="choice">
-                        Favorite Post
+                    <NavLink to="/fav" className="choice">
+                        Favorite 
                     </NavLink>
                 </MenuItem>
 
                 <MenuItem onClick={handleClose}>
-                    <NavLink to="/favCourse" className="choice">
-                        Favorite Course
+                    <NavLink to="/verify" className="choice">
+                        Send Verify
                     </NavLink>
                 </MenuItem>
 
