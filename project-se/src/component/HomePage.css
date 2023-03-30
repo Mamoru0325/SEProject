@@ -10,11 +10,11 @@
 .allContent{
     display: flex; 
     justify-content: space-around;
-    
+    padding-top: 20px;
     height: 1000px;
     width: 1000px;
     flex-wrap: wrap;
-    background-color: #001d3d;
+    background-color: #ffffff;
     
 }
 /* ส่วน content แต่ละอัน */
@@ -22,15 +22,30 @@
     display: flex;
     height: 300px;
     width: 350px;
-    margin-top: 20px;
-    background-color:rgb(255, 255, 255);
+    /* margin-top: 20px; */
+    background-color:rgb(51, 73, 122);
+    border-radius:20px;
     
 }
 
 .search-box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     height: 800px;
     width: 300px;
     margin-inline:50px;
-    background-color: #003566;
+    background-color: #727b83;
+    padding: 5px;
+
+}
+
+.toggleBut{
+    display: flex; 
+    justify-content: space-around;
+    margin-left: 350px;
+    margin-right: 105px;
+    
+
 
 }

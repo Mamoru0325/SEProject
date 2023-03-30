@@ -14,7 +14,7 @@ function Banner() {
       border: '3px solid black'
       
     }}>
-      <img src="./pic04.png" alt="bug" height={300} width={'100%'} />
+      <img src="./bannerPic.png" alt="bug" height={300} width={'100%'} />
       
     </div>
   )

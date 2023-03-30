@@ -5,19 +5,29 @@ import "./HomePage.css"
 function FeedBoardPage() {
   return (
 
-    <div className='HomePage'>
-      <div className='search-box'>
-        <p>searchBox</p>
-      </div>
+
+
       <div className='allContent'>
-        <NavLink to="/write">
+        <NavLink to="/BoardPage">
           <div className='content'>
-           
+           test
           </div>
         </NavLink>
 
         <div className='content'>
-          <div>content 02</div>
+          <div>Blog content 02</div>
+        </div>
+
+        <div className='content'>
+          <div>Blog content 03</div>
+        </div>
+
+        <div className='content'>
+          <div>Blog content 03</div>
+        </div>
+
+        <div className='content'>
+          <div>content 03</div>
         </div>
 
         <div className='content'>
@@ -25,7 +35,7 @@ function FeedBoardPage() {
         </div>
       </div>
 
-    </div>
+
 
   )
 }
