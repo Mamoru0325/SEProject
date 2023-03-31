@@ -2,7 +2,7 @@ import React from "react"
 import Header from "./component/Header/Header.js"
 import Register from "./component/Register";
 import Signin from "./component/SignIn";
-import HomePage from "./component/HomePage"
+import HomePage from "./component/Home/HomePage"
 
 
 

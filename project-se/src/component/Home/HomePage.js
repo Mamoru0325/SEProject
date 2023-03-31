@@ -2,10 +2,11 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Banner from './Banner'
-import FeedCoursePage from './FeedCoursePage';
-import FeedBoardPage from './FeedBoardPage'
-import "./HomePage.css"
+import Banner from '../Home/Banner'
+
+import FeedCoursePage from '../Home/FeedCoursePage';
+import FeedBoardPage from '../Home/FeedBoardPage'
+import "../Home/HomePage.css"
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
@@ -61,7 +62,7 @@ export default function HomePage() {
             />
 
           </Paper>
-          
+
           <div className='button-s'>
             <button className='but-a'>ยอดนิยม</button>
             <button className='but-a'>ล่าสุด</button>

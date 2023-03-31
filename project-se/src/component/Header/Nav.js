@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Header.css"
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom"
-import DropdownMenu from '../DropMenu'
+import DropdownMenu from './DropMenu'
 
 export default function Nav() {
     return (

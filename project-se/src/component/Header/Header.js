@@ -6,13 +6,13 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom"
 //Page import
 import Nav from './Nav'
 import SignIn from "../SignIn"
-import HomePage from "../HomePage"
+import HomePage from "../Home/HomePage"
 import ErrorPage from '../ErrorPage'
 import WritePage from '../WritePage'
 import CreateCoursePage from '../CreateCoursePage'
 import Register from '../Register'
-import Profile from '../Profile'
-import MyProfile from '../MyProfile'
+import Profile from '../Profile/Profile'
+import MyProfile from '../Profile/MyProfile'
 import BoardPage from '../BoardPage'
 // import DropdownMenu from './DropMenu'
 import { display } from '@mui/system'
