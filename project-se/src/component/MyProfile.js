@@ -1,7 +1,7 @@
 import React from 'react'
 import './Profile.css'
 import './MyProfile.css'
-import "./Header.css"
+import "./Header/Header.css"
 import Button from '@material-ui/core/Button';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';

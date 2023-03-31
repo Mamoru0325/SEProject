@@ -1,5 +1,5 @@
 import React from "react"
-import Header from "./component/Header"
+import Header from "./component/Header/Header.js"
 import Register from "./component/Register";
 import Signin from "./component/SignIn";
 import HomePage from "./component/HomePage"

@@ -45,10 +45,10 @@ export default function HomePage() {
 
       <div className='HomePage'>
         <div className='search-box'>
-          
+
           <Paper
             component="form"
-            sx={{display: 'flex',alignItems: 'center', width: 150 }}
+            sx={{ display: 'flex', alignItems: 'center', width: '100%'}}
           >
             <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
               <SearchIcon />
@@ -61,12 +61,15 @@ export default function HomePage() {
             />
 
           </Paper>
+          
+          <div className='button-s'>
+            <button className='but-a'>ยอดนิยม</button>
+            <button className='but-a'>ล่าสุด</button>
+            <button className='but-a'>ที่ติดตาม</button>
+            <div style={{backgroundColor : "white" , height : "1px" , marginBlock : '10px'}}></div>
+          </div>
 
-          <button>ยอดนิยม</button>
-          <button>ล่าสุด</button>
-          <button>สำรวจ</button>
-
-          <div className='line'></div>
+          
         </div>
 
         <div>

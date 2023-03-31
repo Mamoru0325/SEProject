@@ -5,6 +5,8 @@ import { Button } from 'bootstrap';
 import { IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
+
 const CourseColumns = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'TitleName', headerName: 'Title Name', width: 600 },
@@ -171,6 +173,7 @@ const CheckShowPage=(props)=>{
   }
   return null
 }
+import React from 'react'
 
 const AdminManagementPage = () => {
   const [NowPage,setNowPage] = useState('Course')
@@ -191,7 +194,6 @@ const AdminManagementPage = () => {
         </div>
       </div>
     </div>
+    
   )
 }
-
-export default AdminManagementPage
