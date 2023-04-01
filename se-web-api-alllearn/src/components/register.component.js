@@ -46,21 +46,21 @@ const vpassword = (value) => {
   }
 };
 
-const mpassword = (value) => {
-  // if (new String(value).valueOf() != new String(valueCheck).valueOf()) {
-  //   return (
-  //     <div className="alert alert-danger" role="alert">
-  //       Try Again...
-  //     </div>
-  //   );
-  // }
-  if (value.length < 6 || value.length > 40) {
+const mpassword = (value, valueCheck) => {
+  if (value === valueCheck) {
     return (
       <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
+        Try Again...
       </div>
     );
   }
+  // if (value.length < 6 || value.length > 40) {
+  //   return (
+  //     <div className="alert alert-danger" role="alert">
+  //       The password must be between 6 and 40 characters.
+  //     </div>
+  //   );
+  //}
 };
 
 export default class Register extends Component {
@@ -70,7 +70,7 @@ export default class Register extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    
+
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeFirstName = this.onChangeFirstName.bind(this);
     this.onChangeLastName = this.onChangeLastName.bind(this);
@@ -97,74 +97,73 @@ export default class Register extends Component {
     };
   }
 
-  onChangeEmail= (e) => {
+  onChangeEmail = (e) => {
     this.setState({
       email: e.target.value,
     });
-  }
+  };
 
-  onChangeUsername= (e) =>  {
+  onChangeUsername = (e) => {
     this.setState({
       username: e.target.value,
     });
-  }
+  };
 
-  onChangeTitle= (e) =>  {
+  onChangeTitle = (e) => {
     this.setState({
       title: e.target.value,
     });
-  }
-  
-  onChangePassword= (e) =>  {
+  };
+
+  onChangePassword = (e) => {
     this.setState({
       password: e.target.value,
     });
-  }
+  };
 
-  onChangeFirstName= (e) =>  {
+  onChangeFirstName = (e) => {
     this.setState({
       firstName: e.target.value,
     });
-  }
+  };
 
-  onChangeLastName= (e) =>  {
+  onChangeLastName = (e) => {
     this.setState({
       lastName: e.target.value,
     });
-  }
+  };
 
-  onChangePhoneNumber= (e) =>  {
+  onChangePhoneNumber = (e) => {
     this.setState({
       phoneNumber: e.target.value,
     });
-  }
+  };
 
-  onChangeImgPath= (e) =>  {
+  onChangeImgPath = (e) => {
     this.setState({
       imgPath: e.target.value,
     });
-  }
-  
-  onChangeBackgroundPath= (e) =>  {
+  };
+
+  onChangeBackgroundPath = (e) => {
     this.setState({
       backgroundPath: e.target.value,
     });
-  }
+  };
 
-  onChangeVerifyStatus= (e) =>  {
+  onChangeVerifyStatus = (e) => {
     this.setState({
       verifyStatus: e.target.value,
     });
-  }
+  };
 
-  onChangeMatchingPassword= (e) =>  {
+  onChangeMatchingPassword = (e) => {
     this.setState({
       matchingPassword: e.target.value,
     });
-  }
-  
+  };
 
-  handleRegister= (e) =>  {
+  handleRegister = (e) => {
     e.preventDefault();
 
     this.setState({
@@ -209,7 +208,7 @@ export default class Register extends Component {
         }
       );
     }
-  }
+  };
 
   render() {
     return (
@@ -320,6 +319,7 @@ export default class Register extends Component {
                     className="form-control"
                     name="matchingPassword"
                     value={this.state.matchingPassword}
+                    valueCheck={this.password}
                     // valueCheck={this.state.password}
                     onChange={this.onChangeMatchingPassword}
                     validations={[required, mpassword]}
