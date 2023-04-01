@@ -11,15 +11,24 @@ function Save() {
 
 function Aptitude() {
     return (
-        <dev>
-            <dev><Setting />
-                <dev >
-                    <dev className="container">
-                        <dev ><h1 className="font">Aptitude Tags</h1>
-                            <a className='b'>การขอเครื่องหมายยืนยันความถนัด<IoIosPricetag /> เพื่อบ่งบอกว่าคุณเป็นกูรูด้านอะไร</a><br></br>
-                            <a className='b'>โปรดอัปโหลดเอกสารและกรอกรายละเอียดเกี่ยวกับตัวคุณ</a><br></br><br></br>
-                            <a className='c'>เอกสารมีรายละเอียดดังนี้ 1.ใบประกาศยืนยันความสามารถความถนัด 2.หลักฐานยืนยันด้านความถนัด รวมเป็นไฟล์PDF</a><br></br><br></br>
-                            <dev >
+        <div>
+
+            <div style={{ display: 'flex'}}>
+
+                <div >
+                    <Setting />
+                </div>
+                
+                <div className="Ap-container">
+                    <div className='Ap-content'>
+
+                        <div >
+                            <h1 className="Ap-font">Aptitude Tags</h1>
+                            <div className='Ap-b'>การขอเครื่องหมายยืนยันความถนัด<IoIosPricetag /> เพื่อบ่งบอกว่าคุณเป็นกูรูด้านอะไร</div>
+                            <div className='Ap-b'>โปรดอัปโหลดเอกสารและกรอกรายละเอียดเกี่ยวกับตัวคุณ</div>
+                            <div className='Ap-c'>เอกสารมีรายละเอียดดังนี้ 1.ใบประกาศยืนยันความสามารถความถนัด 2.หลักฐานยืนยันด้านความถนัด รวมเป็นไฟล์PDF</div>
+                           
+                            <div style={{marginBlockStart:'10px' , marginBlockEnd:'20px'}}>
                                 <Button
                                     variant="outlined"
                                     component="label"
@@ -29,45 +38,42 @@ function Aptitude() {
                                     UpLoad certificate:  .
                                     <input accept="pdf/*" multiple type="file" />
                                 </Button>
-                            </dev>
-                        </dev>
-
-                        <div className='topic'>
-
-                            <a className='a'>Tag ความถนัดของคุณ</a>
-
-                            <TextField
-                                id="outlined-basi"
-                                label="คำนิยามความถนัดสั้นๆ"
-                                variant="outlined"
-                            />
-
-                        </div>
-                        <div className='content'>
-
-                            <a className='a'>About Me</a>
-
-                            <TextField
-                                id="outlined-basi"
-                                label="write about yourself"
-                                multiline
-                                variant="outlined"
-
-                            />
-                            <dev>
-                                <button className="buttonsave" onClick={Save}>Sent</button>
-                            </dev>
+                            </div>
                         </div>
 
 
+                        <a className='Ap-a'>Tag ความถนัดของคุณ</a>
+
+                        <TextField
+                            id="outlined-basi"
+                            label="คำนิยามความถนัดสั้นๆ"
+                            variant="outlined"
+                        />
+
+                        <a className='Ap-a'>About Me</a>
+
+                        <TextField
+                            id="outlined-basi"
+                            label="write about yourself"
+                            multiline
+                            variant="outlined"
+
+                        />
+                        
+                            <button className="buttonsave" onClick={Save}>Sent</button>
+                        
+
+                    </div>
 
 
-                    </dev>
-                </dev>
-            </dev>
 
 
-        </dev>
+                </div>
+
+            </div>
+
+
+        </div>
     )
 
 

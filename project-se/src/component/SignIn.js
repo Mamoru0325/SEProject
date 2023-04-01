@@ -23,7 +23,7 @@ async function loginUser(credentials) {
     .then(data => data.json())
 }
 
-export default function Signin() {
+export default function SignIn() {
   const classes = useStyles();
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();

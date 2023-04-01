@@ -106,7 +106,7 @@ export default function DropdownMenu() {
                 <Divider />
 
                 <MenuItem onClick={handleClose}>
-                    <NavLink to="setting" className="choice">
+                    <NavLink to="/Setting" className="choice">
                         Settings
                     </NavLink>
 

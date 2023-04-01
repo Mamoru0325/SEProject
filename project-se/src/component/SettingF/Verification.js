@@ -12,31 +12,38 @@ function Save() {
 
 function Verification() {
     return (
-        <dev>
-            <dev><Setting />
-            <dev >
-                <dev className="container">
-                    <dev ><h1 className="font">Verification</h1>
-                    <a className='b'>การขอเครื่องหมายยืนยัน<IoIosCheckmarkCircle/> เพื่อเป็นการยืนยันสิทธิ์ของคุณ</a><br></br>
-                    <a className='b'>โปรดอัปโหลดเอกสารและกรอกรายละเอียดเกี่ยวกับตัวคุณ</a><br></br><br></br>
-                    <a className='c'>เอกสารมีรายละเอียดดังนี้ 1. สำเนาบัตรประชาชน 2. รูปถ่ายปัจจุบัน 2 รูป รวมเป็นไฟล์PDF</a><br></br><br></br>
-                    <dev >
-                        <Button
-                            variant="outlined"
-                            component="label"
-                            color='secondary'
-                            size="medium"
-                        >
-                            UpLoad certificate:  .  
-                            <input  accept="pdf/*"  type="file" />
-                        </Button>
-                    </dev>
-                    </dev>
-                    
-                    
-                    <div className='content'>
+        <div>
 
-                        <a className='a'>About Me</a>
+
+            <div style={{ display: 'flex' }}>
+
+                <Setting />
+
+                <div className="Ap-container">
+                    <div className='Ap-content'>
+                        <div>
+                            <h1 className="Ap-font">Verification</h1>
+                            <div className='Ap-b'>การขอเครื่องหมายยืนยัน<IoIosCheckmarkCircle /> เพื่อเป็นการยืนยันสิทธิ์ของคุณ</div>
+                            <div className='Ap-b'>โปรดอัปโหลดเอกสารและกรอกรายละเอียดเกี่ยวกับตัวคุณ</div>
+                            <div className='Ap-c'>เอกสารมีรายละเอียดดังนี้ 1. สำเนาบัตรประชาชน 2. รูปถ่ายปัจจุบัน 2 รูป รวมเป็นไฟล์PDF</div>
+                            
+                            <div style={{marginBlockStart:'10px' , marginBlockEnd:'20px'}}>
+                                <Button
+                                    variant="outlined"
+                                    component="label"
+                                    color='secondary'
+                                    size="medium"
+                                >
+                                    UpLoad certificate:  .
+                                    <input accept="pdf/*" type="file" />
+                                </Button>
+                            </div>
+                        </div>
+
+
+
+
+                        <a className='Ap-a'>About Me</a>
 
                         <TextField
                             id="outlined-basi"
@@ -45,20 +52,20 @@ function Verification() {
                             variant="outlined"
 
                         />
-                        <dev>
+                        
                             <button className="buttonsave" onClick={Save}>Sent</button>
-                        </dev>
+                        
                     </div>
 
 
 
 
-                </dev>
-            </dev>
-            </dev>
+                </div>
+
+            </div>
 
 
-        </dev>
+        </div>
     )
 
 

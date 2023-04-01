@@ -29,13 +29,16 @@ function EProfile() {
 
 
     return (
-        <dev>
-            <dev><Setting />
-                <dev >
-                    <dev className="container">
-                        <dev ><h1 className="font">Edit your Profile</h1>
-                            <dev >
-                                
+        <div>
+
+            <div style={{ display: 'flex' }}>
+
+                <Setting />
+                <div className="Ap-container">
+                    <div className='Ap-content'>
+                        <div ><h1 className="Ap-font">Edit your Profile</h1>
+                            <div >
+
                                 <Button
                                     variant="outlined"
                                     component="label"
@@ -48,37 +51,37 @@ function EProfile() {
 
                                 </Button><br></br><br></br>
 
-                            </dev>
-                            <dev className="pic">{imageURLs.map((imageSrc, idx) => (
+                            </div>
+                            <div className="pic">{imageURLs.map((imageSrc, idx) => (
                                 <img key={idx} width="320" height="320" src={imageSrc} />
-                            ))}</dev>
-                        </dev>
-
-                        <div className='content'>
-
-                            <a className='a'>About Me</a>
-
-                            <TextField
-                                id="outlined-basi"
-                                label="แก้ไขคำแนะนำตัว"
-                                multiline
-                                variant="outlined"
-
-                            />
-                            <dev>
-                                <button className="buttonsave" onClick={Save}>Save</button>
-                            </dev>
+                            ))}</div>
                         </div>
 
 
 
+                        <a className='a'>About Me</a>
 
-                    </dev>
-                </dev>
-            </dev>
+                        <TextField
+                            id="outlined-basi"
+                            label="แก้ไขคำแนะนำตัว"
+                            multiline
+                            variant="outlined"
+
+                        />
+                        
+                        <button className="buttonsave" onClick={Save}>Save</button>
+                        
+                    </div>
 
 
-        </dev>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
     )
 
 

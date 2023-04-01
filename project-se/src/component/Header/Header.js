@@ -17,12 +17,13 @@ import BoardPage from '../BoardPage'
 // import DropdownMenu from './DropMenu'
 import { display } from '@mui/system'
 import VerifyPage from '../VerifyPage'
-import Setting from './SettingF/Setting'
-import Aptitude from './SettingF/Aptitude'
-import Verification from './SettingF/Verification'
-import EProfile from './SettingF/EProfile'
+import Setting from '../SettingF/Setting'
+import Aptitude from '../SettingF/Aptitude'
+import Verification from '../SettingF/Verification'
+import EProfile from '../SettingF/EProfile'
 
-function Header() {
+
+export default function Header() {
     return (
         <BrowserRouter >
 
@@ -33,7 +34,9 @@ function Header() {
             <Routes>
                 
              
-                <Route path="/" element={<SignIn />} />
+                {/* <Route path="/" element={<SignIn />} /> */}
+                <Route path="/singIn" element={<SignIn />} />
+
                 <Route path="/homepage" element={<HomePage />} />
                 <Route path="/write" element={<WritePage />} />
                 <Route path="/Profile" element={<Profile />} />
@@ -43,11 +46,12 @@ function Header() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/verify" element={<VerifyPage />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/*" element={<ErrorPage />} />
+
                 <Route path="/Setting" element={<Setting />} />
                 <Route path="/Aptitude" element={<Aptitude />} />
                 <Route path="/Verification" element={<Verification />} />
                 <Route path="/EProfile" element={<EProfile />} />
-                <Route path="/*" element={<ErrorPage />} />
 
 
                 ///////////////////////
@@ -58,4 +62,3 @@ function Header() {
     )
 }
 
-export default Header

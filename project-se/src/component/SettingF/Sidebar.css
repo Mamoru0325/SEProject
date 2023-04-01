@@ -4,7 +4,7 @@
 }
 
  .sidebar{
-    position:fixed;
+    /* position:fixed; */
     background-color:#fff;
     height:100vh;
     width:250px;
@@ -60,12 +60,6 @@
      
 }
  
-
-.container .content{
-    
-    padding-left:75px;
-}
-
 .link {
     color: rgb(0, 0, 0);
 }

@@ -2,17 +2,19 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Banner from '../Home/Banner'
-
 import FeedCoursePage from '../Home/FeedCoursePage';
 import FeedBoardPage from '../Home/FeedBoardPage'
-import "../Home/HomePage.css"
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
+
+import "../Home/HomePage.css"
+import Banner from '../Home/Banner'
+
+
 
 
 

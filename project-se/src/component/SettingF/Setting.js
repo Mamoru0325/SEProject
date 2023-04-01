@@ -13,17 +13,20 @@ function Setting() {
         <div>
             <div >
                 <ul className="sidebar">
+
                     <li><span>AllLearn Setting</span></li>
                     <li ><span ><span>
                         <Link className="link" href="/EProfile">
                             <IoMdPerson />{"   Profile"}
                         </Link>
                     </span></span></li>
+
                     <li ><span ><span> 
                         <Link className="link" href="./Verification">
                             <IoIosCheckmarkCircle />{"  Verification "}
                         </Link>
                     </span></span></li>
+
                     <li ><span ><span>
                         <Link className="link" href="/Aptitude">
                             <IoIosPricetag />{"   Aptitude Tags"}
