@@ -14,14 +14,18 @@ public class PaymentCheck implements java.io.Serializable {
 	@JsonIgnore
 	private User user;
 	private String imgPath;
+	private String status;
 
 	public PaymentCheck() {
 	}
 
-	public PaymentCheck(JoinCourse joincourse, User user, String imgPath) {
-		this.joinCourse = joincourse;
+	public PaymentCheck(Integer paymentCheckId, JoinCourse joinCourse, User user, String imgPath, String status) {
+		super();
+		this.paymentCheckId = paymentCheckId;
+		this.joinCourse = joinCourse;
 		this.user = user;
 		this.imgPath = imgPath;
+		this.status = status;
 	}
 
 	public Integer getPaymentCheckId() {
@@ -56,5 +60,13 @@ public class PaymentCheck implements java.io.Serializable {
 		this.imgPath = imgPath;
 	}
 
+	public String getStatus() {
+		return status;
+	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	
 }
