@@ -32,7 +32,9 @@
     margin-block: 30px;
 }
 
-.cp-info {}
+.cp-info {
+    
+}
 
 .cp-detail {
     display: flex;
@@ -54,4 +56,10 @@
 .cp-font{
     font-size: 20px;
     font-weight: bold;
+}
+
+.small-profile{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
 }

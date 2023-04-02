@@ -7,7 +7,10 @@ export default function CoursePage() {
       <div className='cp-content'>
 
         <div className='cp-profile'>
-          <h1>สรยุท</h1>
+        
+            <img className='small-profile' src='./proImg.jpg' alt='avatar'/>
+      
+          <span> ชื่อ นามสกุล</span>
         </div>
 
         <div className='cp-img'>

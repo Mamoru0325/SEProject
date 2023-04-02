@@ -32,7 +32,7 @@ export default function Nav() {
                                 Create Course
                             </NavLink>
 
-                            <NavLink className="menu-link" to="/">
+                            <NavLink className="menu-link" to="/singIn">
                                 Login
                             </NavLink>
 
