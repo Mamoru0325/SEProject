@@ -1,0 +1,30 @@
+.fontCourseR{
+    font-family: 36;
+    color: #003566;
+    margin-left: 50%;
+    align-self: center
+
+}
+
+.buttonDetail {
+    background-color: #003566;
+    color: white;
+    font-size: 20px;
+    padding: 10px 60px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 3%;
+    margin-left: 21.5%;
+    margin-right: 21.5%;
+}
+.buttonDetail:hover {
+    background-color: #FFC300;
+    color: #003566;
+    font-size: 20px;
+    padding: 10px 60px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 3%;
+    margin-left: 21.5%;
+    margin-right: 21.5%;
+}

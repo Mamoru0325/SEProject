@@ -1,0 +1,69 @@
+
+.buttonAccept {
+    background-color: #5dca6c;
+    color: white;
+    font-size: 20px;
+    padding: 3px 26px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 3%;
+    margin-left: 21.5%;
+    margin-right: 21.5%;
+}
+.buttonAccept:hover {
+    background-color: #FFC300;
+    color: #003566;
+    font-size: 20px;
+    padding: 3px 26px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 3%;
+    margin-left: 21.5%;
+    margin-right: 21.5%;
+}
+.buttonDeny {
+    background-color: #ca5d5d;
+    color: white;
+    font-size: 20px;
+    padding: 3px 26px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 3%;
+    margin-left: 21.5%;
+    margin-right: 21.5%;
+}
+.buttonDeny:hover {
+    background-color: #FFC300;
+    color: #003566;
+    font-size: 20px;
+    padding: 3px 26px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 3%;
+    margin-left: 21.5%;
+    margin-right: 21.5%;
+}
+
+.boxPeople{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.textnameCourse{
+    width: 100%;
+    height: 60px;
+    background-color: #FFC300;
+    color: #003566;
+    font-size: 30px;
+    align-self: center;
+    padding: 15px;
+    
+}
+
+
+.buttonbackC {
+    padding-left: 270px;
+    padding-right: 25%;
+    cursor: pointer;
+}
+
