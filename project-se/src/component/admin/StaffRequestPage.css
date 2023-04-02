@@ -11,3 +11,10 @@
     height: 100%;
     font-weight: bold;
 }
+.LinkStyle{
+    color: aqua;
+}
+.LinkStyle :hover{
+    background-color: yellow;
+    cursor: crosshair;
+}
