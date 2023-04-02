@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< Updated upstream
--- Generation Time: Apr 02, 2023 at 07:45 AM
-=======
--- Generation Time: Apr 02, 2023 at 10:49 AM
->>>>>>> Stashed changes
+-- Generation Time: Apr 02, 2023 at 10:51 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -104,13 +100,10 @@ CREATE TABLE `course` (
 -- Dumping data for table `course`
 --
 
-<<<<<<< Updated upstream
-=======
 INSERT INTO `course` (`courseId`, `contentTypeId`, `courseTopic`, `userId`, `courseDetail`, `minimum`, `maximum`, `price`, `status`, `reportStatus`, `firstEnrollDate`, `lastEnrollDate`, `eventDate`, `startDate`, `endDate`) VALUES
 (1, 1, 'service', 6, 'service', 5, 30, 100, 'Available', 'Done', '2023-03-24', '2023-03-24', '2023-03-24', '2023-03-23 17:00:00', '2023-03-23 17:00:00'),
 (2, 1, 'service2', 6, 'service2', 5, 30, 100, 'Available', 'Done', '2023-03-24', '2023-03-24', '2023-03-24', '2023-03-23 17:00:00', '2023-03-23 17:00:00');
 
->>>>>>> Stashed changes
 -- --------------------------------------------------------
 
 --
@@ -185,8 +178,6 @@ CREATE TABLE `joincourse` (
 --
 -- Dumping data for table `joincourse`
 --
-<<<<<<< Updated upstream
-=======
 
 INSERT INTO `joincourse` (`joinCourseId`, `courseId`) VALUES
 (5, 1),
@@ -194,7 +185,6 @@ INSERT INTO `joincourse` (`joinCourseId`, `courseId`) VALUES
 (7, 1),
 (8, 2);
 
->>>>>>> Stashed changes
 -- --------------------------------------------------------
 
 --
@@ -222,8 +212,6 @@ CREATE TABLE `likepost` (
 --
 -- Dumping data for table `likepost`
 --
-<<<<<<< Updated upstream
-=======
 
 INSERT INTO `likepost` (`likePostId`, `postId`, `userId`) VALUES
 (1, 1, 3),
@@ -233,7 +221,6 @@ INSERT INTO `likepost` (`likePostId`, `postId`, `userId`) VALUES
 (4, 2, 6),
 (6, 2, 8);
 
->>>>>>> Stashed changes
 -- --------------------------------------------------------
 
 --
@@ -245,19 +232,13 @@ CREATE TABLE `paymentcheck` (
   `payBy` int(11) NOT NULL,
   `joinCourseId` int(11) NOT NULL,
   `status` enum('Paid','Unpaid','Waiting') NOT NULL DEFAULT 'Waiting',
-<<<<<<< Updated upstream
-  `imgPath` varchar(150) NOT NULL
-=======
   `qrCodePath` varchar(150) NOT NULL,
   `slipPath` varchar(150) DEFAULT NULL
->>>>>>> Stashed changes
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `paymentcheck`
 --
-<<<<<<< Updated upstream
-=======
 
 INSERT INTO `paymentcheck` (`paymentCheckId`, `payBy`, `joinCourseId`, `status`, `qrCodePath`, `slipPath`) VALUES
 (1, 3, 5, 'Waiting', '../image\\Qrcode\\courseId1\\5.png', ''),
@@ -265,7 +246,6 @@ INSERT INTO `paymentcheck` (`paymentCheckId`, `payBy`, `joinCourseId`, `status`,
 (3, 4, 8, 'Waiting', '../image\\Qrcode\\courseId1\\5.png', ''),
 (4, 5, 7, 'Waiting', '../image\\Qrcode\\courseId1\\5.png', '');
 
->>>>>>> Stashed changes
 -- --------------------------------------------------------
 
 --
@@ -287,11 +267,7 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`postId`, `userId`, `contentTypeId`, `postTopic`, `postDetail`, `reportStatus`, `createDate`) VALUES
-<<<<<<< Updated upstream
-(1, 3, 1, 'service', 'do it pokpong', 'Done', '2023-03-21 00:00:00'),
-=======
 (1, 3, 1, 'service', 'do it pokpong', 'Waiting', '2023-03-21 00:00:00'),
->>>>>>> Stashed changes
 (2, 3, 1, 'service1', 'do it pokpong', 'Done', '2023-03-22 11:00:00'),
 (3, 3, 1, 'service2', 'do it pokpong', 'Done', '2023-03-23 11:00:00'),
 (4, 3, 1, 'service3', 'do it pokpong', 'Done', '2023-03-24 11:00:00');
@@ -659,11 +635,7 @@ ALTER TABLE `contenttype`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-<<<<<<< Updated upstream
-  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT;
-=======
   MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
->>>>>>> Stashed changes
 
 --
 -- AUTO_INCREMENT for table `follower`
