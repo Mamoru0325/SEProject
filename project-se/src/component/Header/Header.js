@@ -25,7 +25,7 @@ import CoursePage from '../CoursePage'
 import AdminListPage from '../admin/AdminListPage'
 import AdminManagementPage from '../admin/AdminManagementPage'
 import StaffRequestPage from '../admin/StaffRequestPage'
-
+import StaffRequestDetailPage from '../admin/StaffRequestDetailPage'
 
 export default function Header() {
     return (
@@ -61,7 +61,7 @@ export default function Header() {
                 <Route path="/AdminManage" element={<AdminManagementPage />} />
                 <Route path="/StaffRequest" element={<StaffRequestPage />} />
                 <Route path="/AdminListPage" element={<AdminListPage />} />
-
+                <Route path="/StaffRequestDetail" element={<StaffRequestDetailPage />} />
 
                 ///////////////////////
 
