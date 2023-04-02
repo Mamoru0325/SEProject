@@ -47,7 +47,7 @@ function AcceptPeople_Course() {
         <dev>
             <dev>
                 <Paper sx={{ ml: "80px", width: "700px", overflow: "hidden" }}>
-                    <TableContainer sx={{ maxHeight: 650 }}>
+                    <TableContainer sx={{ maxHeight: 900 }}>
                         <Table stickyHeader aria-label="sticky table">
                             <TableHead >
                                 <TableRow>
