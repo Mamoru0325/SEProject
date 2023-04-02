@@ -23,8 +23,8 @@ const CourseColumns = [
         </IconButton>
       )
     },
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    // valueGetter: (params) =>
+    //   `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
   {
     field: 'warn',
@@ -56,8 +56,6 @@ const PostColumns = [
         </IconButton>
       )
     },
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
   {
     field: 'warn',
@@ -89,8 +87,6 @@ const ReportColumns = [
         </IconButton>
       )
     },
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
   {
     field: 'warn',
