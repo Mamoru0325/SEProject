@@ -14,6 +14,8 @@ import Register from '../Register'
 import Profile from '../Profile/Profile'
 import MyProfile from '../Profile/MyProfile'
 import BoardPage from '../BoardPage'
+import AdminManagementPage from '../admin/AdminManagementPage'
+import StaffRequestPage from '../admin/StaffRequestPage'
 // import DropdownMenu from './DropMenu'
 import { display } from '@mui/system'
 import VerifyPage from '../VerifyPage'
@@ -53,6 +55,8 @@ export default function Header() {
                 <Route path="/Verification" element={<Verification />} />
                 <Route path="/EProfile" element={<EProfile />} />
 
+                <Route path="/AdminManage" element={<AdminManagementPage />} />
+                <Route path="/StaffRequest" element={<StaffRequestPage />} />
 
                 ///////////////////////
 

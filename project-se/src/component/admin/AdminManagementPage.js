@@ -173,13 +173,13 @@ const CheckShowPage=(props)=>{
   }
   return null
 }
-import React from 'react'
 
 const AdminManagementPage = () => {
   const [NowPage,setNowPage] = useState('Course')
   return (
     <div className='AdminManagementPage-Con'>
       <div className='AdminManagement-Con'>
+        <h1>{NowPage}Page</h1>
         <div className='AdminManagementHeadButt-con'>
           <div className='AdminManagementButt-con'>
             <button type="button" className='SwapPageButt' onClick={()=>setNowPage((NowPage)=>'Course')}>Course</button>
@@ -197,3 +197,5 @@ const AdminManagementPage = () => {
     
   )
 }
+
+export default AdminManagementPage
