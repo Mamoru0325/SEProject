@@ -15,9 +15,39 @@ import EventBus from "../../common/EventBus";
 import Logo from "../../assets/LogoV1.png";
 import HomePage from "../Home/HomePage";
 import Profile from "../Profile/MyProfile";
-import WritePage from "../Write/WritePage";
+// import WritePage from "../Write/WritePage";
 
 import DropdownMenu from "../Header/DropMenu";
+
+//Add
+//Page import
+// import Nav from "./Nav";
+// import SignIn from "../../components/Board/SignIn";
+// import HomePage from "../Home/HomePage";
+import ErrorPage from "../../components/Board/ErrorPage";
+import WritePage from "../../components/Board/WritePage";
+import CreateCoursePage from "../../components/Board/CreateCoursePage";
+// import Register from "../../components/Board/Register";
+// import Profile from "../Profile/Profile";
+// import MyProfile from "../Profile/MyProfile";
+import BoardPage from "../../components/Board/BoardPage";
+// import DropdownMenu from './DropMenu'
+// import { display } from "@mui/system";
+import VerifyPage from "../../components/Board/VerifyPage";
+import Setting from "../SettingF/Setting";
+import Aptitude from "../SettingF/Aptitude";
+import Verification from "../SettingF/Verification";
+import EProfile from "../SettingF/EProfile";
+import CoursePage from "../../components/Board/CoursePage";
+import AdminListPage from "../admin/AdminListPage";
+import AdminManagementPage from "../admin/AdminManagementPage";
+import StaffRequestPage from "../admin/StaffRequestPage";
+import StaffRequestDetailPage from "../admin/StaffRequestDetailPage";
+
+import CourseMenu from "../CourseF/CourseMenu";
+import MyCourse_All from "../CourseF/MyCourse_All";
+import Course_Registration from "../CourseF/Course_Registration";
+import AllPeople_Course from "../CourseF/AllPeople_Course";
 
 class Navbar extends Component {
   constructor(props) {
@@ -36,7 +66,7 @@ class Navbar extends Component {
 
     if (user) {
       this.setState({
-        currentUser: user,
+        currentUser: user.body.roles,
         // showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
         // showAdminBoard: user.roles.includes("ROLE_ADMIN"),
       });
@@ -84,12 +114,19 @@ class Navbar extends Component {
               </li>
             )}
 
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
+            {currentUser == "ROLE_SystemAdmin" && (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <a href="/AdminManage" className="nav-link">
+                    Management
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a href="/login" className="nav-link" onClick={this.logOut}>
+                    LogOut
+                  </a>
+                </li>
+              </div>
             )}
 
             {/* {currentUser && (
@@ -101,21 +138,26 @@ class Navbar extends Component {
             )} */}
           </div>
 
-          {currentUser ? (
+          {currentUser != "ROLE_SystemAdmin" && currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <a href="/" className="nav-link">
                   Home
                 </a>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a href="/myprofile" className="nav-link">
                   MyProfile
                 </a>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <a href="/write" className="nav-link">
                   Write
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="/createCourse" className="nav-link">
+                  Create Course
                 </a>
               </li>
               <li className="nav-item">
@@ -151,6 +193,39 @@ class Navbar extends Component {
             <Route path="/myprofile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+
+            {/* <Route path="/homepage" element={<HomePage />} /> */}
+            {/* <Route path="/write" element={<WritePage />} /> */}
+            <Route path="/Profile" element={<Profile />} />
+            {/* <Route path="/MyProfile" element={<MyProfile />} /> */}
+            <Route path="/createCourse" element={<CreateCoursePage />} />
+            <Route path="/BoardPage" element={<BoardPage />} />
+            <Route path="/coursePage" element={<CoursePage />} />
+            {/* <Route path="/register" element={<Register />} /> */}
+            <Route path="/verify" element={<VerifyPage />} />
+            {/* <Route path="/register" element={<Register />} /> */}
+            <Route path="/*" element={<ErrorPage />} />
+
+            <Route path="/Setting" element={<Setting />} />
+            <Route path="/Aptitude" element={<Aptitude />} />
+            <Route path="/Verification" element={<Verification />} />
+            <Route path="/EProfile" element={<EProfile />} />
+
+            <Route path="/AdminManage" element={<AdminManagementPage />} />
+            <Route path="/StaffRequest" element={<StaffRequestPage />} />
+            <Route path="/AdminListPage" element={<AdminListPage />} />
+            <Route
+              path="/StaffRequestDetail"
+              element={<StaffRequestDetailPage />}
+            />
+
+            <Route path="/MyCourse" element={<CourseMenu />} />
+            <Route path="/MyCourse_All" element={<MyCourse_All />} />
+            <Route
+              path="/Course_Registration"
+              element={<Course_Registration />}
+            />
+            <Route path="/AllPeople_Course" element={<AllPeople_Course />} />
           </Routes>
         </div>
 
