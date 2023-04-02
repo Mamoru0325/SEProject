@@ -8,7 +8,7 @@ export default function Nav() {
     
             <div className="header">
 
-                <div className="container">
+                <div className="w-100">
 
                     <nav className="header-con">
 

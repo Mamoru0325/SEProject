@@ -8,7 +8,7 @@ function FeedCoursePage() {
 
 
     <div className='allContent'>
-      <NavLink to="/BoardPage">
+      <NavLink to="/coursePage">
         <div className='content'>
           Courseeeeeeeeeeeeeeeee
         </div>

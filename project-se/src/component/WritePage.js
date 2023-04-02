@@ -120,7 +120,7 @@ export default function WritePage() {
           </div>
           <div className='write-up-img'>
 
-            <a className='a'>Cover image</a>
+            <div className='a'>Cover image</div>
 
             <Button
               variant="contained"
@@ -142,7 +142,7 @@ export default function WritePage() {
 
           <div className='write-topic'>
 
-            <a className='a'>Title</a>
+            <div className='a'>Title</div>
 
             <TextField
               id="filled-basic"
@@ -154,7 +154,7 @@ export default function WritePage() {
 
           <div className='write-content'>
 
-            <a className='a'>Paragrap</a>
+            <div className='a'>Paragrap</div>
 
             <TextField
               id="filled-textarea"
