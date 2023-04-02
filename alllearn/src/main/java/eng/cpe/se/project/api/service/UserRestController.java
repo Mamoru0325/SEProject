@@ -2,6 +2,7 @@ package eng.cpe.se.project.api.service;
 
 import javax.validation.Valid;
 
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -69,6 +70,15 @@ public class UserRestController {
         return new ResponseEntity<Response<ObjectNode>>(res,res.getHttpStatus());
     }
 	
+	 @ExceptionHandler(MaxUploadSizeExceededException.class)
+	  public ResponseEntity<Response<String>> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+		 Response<String> res = new Response<String>();
+		 res.setHttpStatus(HttpStatus.EXPECTATION_FAILED);
+		 res.setBody("File too large!");
+		 res.setMessage("File too large!");
+	    return new ResponseEntity<Response<String>>(res,res.getHttpStatus());
+	  }
+	
 	@PutMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
@@ -89,7 +99,7 @@ public class UserRestController {
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Response<User>> findUserById(@PathVariable("id")int id) {
 		Response<User> res = new Response<>();
 		try {
@@ -105,11 +115,27 @@ public class UserRestController {
 		}
 	}
 	
-	@GetMapping("/{username}")
-	public ResponseEntity<Response<User>> findUserById(@PathVariable("username")String username) {
+	@GetMapping("/username/{username}")
+	public ResponseEntity<Response<User>> findUserByName(@PathVariable("username")String username) {
 		Response<User> res = new Response<>();
 		try {
 			User u = userService.findByUserName(username);
+			res.setMessage("find success");
+			res.setBody(u);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/email/{email}")
+	public ResponseEntity<Response<User>> findUserByEmail(@PathVariable("email")String email) {
+		Response<User> res = new Response<>();
+		try {
+			User u = userService.findByEmail(email);
 			res.setMessage("find success");
 			res.setBody(u);
 			res.setHttpStatus(HttpStatus.OK);

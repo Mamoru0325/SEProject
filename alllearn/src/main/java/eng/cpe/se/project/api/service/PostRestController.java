@@ -20,21 +20,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import eng.cpe.se.project.api.util.Response;
+import eng.cpe.se.project.model.Bookmark;
 import eng.cpe.se.project.model.Comment;
 import eng.cpe.se.project.model.LikePost;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Report;
+import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.model.User;
+import eng.cpe.se.project.service.BookmarkService;
 import eng.cpe.se.project.service.CommentService;
 import eng.cpe.se.project.service.LikePostService;
 import eng.cpe.se.project.service.PostService;
 import eng.cpe.se.project.service.ReportService;
+import eng.cpe.se.project.service.ReportTypeService;
 import eng.cpe.se.project.service.UserService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
@@ -51,6 +57,10 @@ public class PostRestController {
 	private UserService userService;
 	@Autowired
 	private LikePostService likePostService;
+	@Autowired
+	private BookmarkService bookmarkService;
+	@Autowired
+	private ReportTypeService reportTypeService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -70,6 +80,15 @@ public class PostRestController {
         res.setBody(responObject);
         return new ResponseEntity<Response<ObjectNode>>(res,res.getHttpStatus());
     }
+	
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	  public ResponseEntity<Response<String>> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+		 Response<String> res = new Response<String>();
+		 res.setHttpStatus(HttpStatus.EXPECTATION_FAILED);
+		 res.setBody("File too large!");
+		 res.setMessage("File too large!");
+	    return new ResponseEntity<Response<String>>(res,res.getHttpStatus());
+	  }
 	
 	@GetMapping("/page/{page}/value/{value}")
 	public ResponseEntity<Response<List<Post>>> findAll(@PathVariable("page")int page,@PathVariable("value")int value) {
@@ -156,16 +175,21 @@ public class PostRestController {
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@PostMapping("/{postid}/report")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Report>> createReportByPost(@PathVariable("postid")int postid, @Valid@RequestBody Report report){
+	public ResponseEntity<Response<Report>> createReportByPost(@PathVariable("postid")int postid,
+			@Parameter(name="reportTypeId")int reportTypeId,@Valid@RequestBody Report report){
 		Response<Report> res = new Response<Report>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = postService.findById(postid);
 		User user = userService.findByEmail(email);
+		ReportType reportType = reportTypeService.findById(reportTypeId);
 		try {
+			post.setReportStatus("Waiting");
+			postService.save(post);
+			report.setReportType(reportType);
 			report.setUser(user);
 			report.setPost(post);
 			reportService.save(report);
@@ -177,6 +201,29 @@ public class PostRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Report>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@PostMapping("/{postid}/bookmark")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<Bookmark>> createBookmarkByPost(@PathVariable("postid")int postid, @Valid@RequestBody Bookmark bookmark){
+		Response<Bookmark> res = new Response<Bookmark>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		Post post = postService.findById(postid);
+		User user = userService.findByEmail(email);
+		try {
+			bookmark.setUser(user);
+			bookmark.setPost(post);
+			bookmarkService.save(bookmark);
+			res.setMessage("create report Success");
+			res.setBody(bookmark);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Bookmark>>(res, res.getHttpStatus());
+		}catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Bookmark>>(res, res.getHttpStatus());
 		}
 	}
 	

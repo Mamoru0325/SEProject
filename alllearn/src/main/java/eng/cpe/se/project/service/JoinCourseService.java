@@ -3,8 +3,11 @@ package eng.cpe.se.project.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.JoinCourse;
 import eng.cpe.se.project.repository.JoinCourseRepository;
 
@@ -13,6 +16,8 @@ import eng.cpe.se.project.repository.JoinCourseRepository;
 public class JoinCourseService {
 	@Autowired
 	private JoinCourseRepository joinCourseRepository;
+	@Autowired
+	private CourseService courseService;
 	
 	public void save(JoinCourse joinCourse) {
 		joinCourseRepository.save(joinCourse);
@@ -29,4 +34,5 @@ public class JoinCourseService {
 	public void delete(int id) {
 		joinCourseRepository.deleteById(id);
 	}
+	
 }

@@ -1,10 +1,14 @@
 package eng.cpe.se.project.api.service;
 
+import java.io.File;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,29 +24,48 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.pheerathach.ThaiQRPromptPay;
 
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Course;
+import eng.cpe.se.project.model.JoinCourse;
+import eng.cpe.se.project.model.PaymentCheck;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Report;
+import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.service.CourseService;
+import eng.cpe.se.project.service.JoinCourseService;
+import eng.cpe.se.project.service.PaymentCheckService;
 import eng.cpe.se.project.service.ReportService;
+import eng.cpe.se.project.service.ReportTypeService;
 import eng.cpe.se.project.service.UserService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/courses")
 public class CourseRestController {
+	
+	@Value("${external.resoures.path}")
+	private String externalPath;
+	private File file = new File(externalPath+File.separator+"Qrcode"+File.separator);
 	@Autowired
 	private CourseService courseService;
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private JoinCourseService joinCourseService;
+	@Autowired
+	private PaymentCheckService paymentCheckService;
+	@Autowired
+	private ReportTypeService reportTypeService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -63,15 +86,29 @@ public class CourseRestController {
         return new ResponseEntity<Response<ObjectNode>>(res,res.getHttpStatus());
     }
 	
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	  public ResponseEntity<Response<String>> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+		 Response<String> res = new Response<String>();
+		 res.setHttpStatus(HttpStatus.EXPECTATION_FAILED);
+		 res.setBody("File too large!");
+		 res.setMessage("File too large!");
+	    return new ResponseEntity<Response<String>>(res,res.getHttpStatus());
+	  }
+	
 	@PostMapping("/{courseId}/report")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Report>> createReportByCourse(@PathVariable("courseId")int courseId, @Valid@RequestBody Report report){
+	public ResponseEntity<Response<Report>> createReportByCourse(@PathVariable("courseId")int courseId,
+			@Parameter(name="reportTypeId")int reportTypeId,@Valid@RequestBody Report report){
 		Response<Report> res = new Response<Report>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Course course = courseService.findById(courseId);
 		User user = userService.findByEmail(email);
+		ReportType reportType = reportTypeService.findById(reportTypeId);
 		try {
+			course.setReportStatus("Waiting");
+			courseService.save(course);
+			report.setReportType(reportType);
 			report.setUser(user);
 			report.setCourse(course);
 			reportService.save(report);
@@ -83,6 +120,40 @@ public class CourseRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Report>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@PostMapping("/{courseId}/payment")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<PaymentCheck>> createPaymentByCourse(@PathVariable("courseId")int courseId){
+		Response<PaymentCheck> res = new Response<PaymentCheck>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println(email);
+		Course course = courseService.findById(courseId);
+		User courseCreator = userService.findById(course.getUser().getUserId());
+		JoinCourse joinCourse = new JoinCourse(course);
+		User user = userService.findByEmail(email);
+		System.out.println(user.getEmail());
+		PaymentCheck paymentCheck = new PaymentCheck();
+		System.out.println(externalPath);
+		System.out.println(file.getPath());
+		try {
+			joinCourseService.save(joinCourse);
+			paymentCheck.setImgPath(paymentCheckService.createQrcode(courseId,courseCreator,course,joinCourse)); 
+			
+			paymentCheck.setJoinCourse(joinCourse);
+			paymentCheck.setUser(user);
+			paymentCheck.setStatus("Waiting");
+			paymentCheckService.save(paymentCheck);
+			res.setMessage("create payment Success");
+			res.setBody(paymentCheck);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<PaymentCheck>>(res, res.getHttpStatus());
+		}catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<PaymentCheck>>(res, res.getHttpStatus());
 		}
 	}
 	
@@ -139,4 +210,22 @@ public class CourseRestController {
 			return new ResponseEntity<Response<List<Course>>>(res, res.getHttpStatus());
 		}
 	}
+	
+//	@GetMapping("/{courseId}/joincourses/page/{page}/value/{value}")
+//	@SecurityRequirement(name = "Bearer Authentication")
+//	@PreAuthorize("hasRole('CourseCreator')")
+//	public ResponseEntity<Response<List<User>>> findAll(@PathVariable("courseId")int courseId,@PathVariable("page")int page,@PathVariable("value")int value) {
+//		Response<List<User>> res = new Response<>();
+//		try {
+//			List<User> user = userService.findAllByCourse(courseId, page, value);
+//			res.setMessage("find success");
+//			res.setBody(user);
+//			res.setHttpStatus(HttpStatus.OK);
+//			return new ResponseEntity<Response<List<User>>>(res, res.getHttpStatus());
+//		} catch (Exception ex) {
+//			res.setBody(null);
+//			res.setHttpStatus(HttpStatus.NOT_FOUND);
+//			return new ResponseEntity<Response<List<User>>>(res, res.getHttpStatus());
+//		}
+//	}
 }

@@ -1,11 +1,13 @@
 package eng.cpe.se.project.api.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,11 +37,14 @@ import eng.cpe.se.project.security.jwt.JwtUtils;
 import eng.cpe.se.project.security.payload.response.JwtResponse;
 import eng.cpe.se.project.security.service.UserDetailsImpl;
 import eng.cpe.se.project.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 public class AuthRestController {
+	@Value("${external.resoures.path}")
+	private String externalPath;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -76,6 +81,8 @@ public class AuthRestController {
 			User _user = new User();
 			_user.signup(user);
 			_user.setPassword(encoder.encode(_user.getPassword()));
+			_user.setBackgroundPath(externalPath+File.separator+"Userprofile"+File.separator+"Background"+File.separator+"basic.jpg");
+			_user.setImgPath(externalPath+File.separator+"Userprofile"+File.separator+"Profile"+File.separator+"basic.png");
 			userService.registerNewAccount(_user, roleName);
 			res.setMessage("Register Success");
 			res.setBody(user);
@@ -93,15 +100,16 @@ public class AuthRestController {
 	}
 	
 	@PostMapping("/signup/staff")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('SystemAdmin')")
 	public ResponseEntity<Response<SignupDTO>> registerStaff(@Valid @RequestBody SignupDTO user) {
 		Response<SignupDTO> res = new Response<>();
 		try {
-			String roleName = "ROLE_User";
-			String roleName1 = "ROLE_Staff";
+			String roleName = "ROLE_Staff";
 			User _user = new User();
 			_user.signup(user);
 			_user.setPassword(encoder.encode(_user.getPassword()));
-			userService.registerNewStaff(_user, roleName, roleName1);
+			userService.registerNewAccount(_user, roleName);
 			res.setMessage("Register Success");
 			res.setBody(user);
 			res.setHttpStatus(HttpStatus.OK);

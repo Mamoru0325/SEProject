@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -26,11 +27,14 @@ import eng.cpe.se.project.model.Comment;
 import eng.cpe.se.project.model.LikeComment;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Report;
+import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.service.CommentService;
 import eng.cpe.se.project.service.LikeCommentService;
 import eng.cpe.se.project.service.ReportService;
+import eng.cpe.se.project.service.ReportTypeService;
 import eng.cpe.se.project.service.UserService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
@@ -45,6 +49,8 @@ public class CommentRestController {
 	private UserService userService;
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private ReportTypeService reportTypeService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -64,6 +70,15 @@ public class CommentRestController {
         res.setBody(responObject);
         return new ResponseEntity<Response<ObjectNode>>(res,res.getHttpStatus());
     }
+	
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	  public ResponseEntity<Response<String>> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+		 Response<String> res = new Response<String>();
+		 res.setHttpStatus(HttpStatus.EXPECTATION_FAILED);
+		 res.setBody("File too large!");
+		 res.setMessage("File too large!");
+	    return new ResponseEntity<Response<String>>(res,res.getHttpStatus());
+	  }
 	
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('User') or hasRole('Staff') or hasRole('SystemAdmin')")
@@ -109,12 +124,17 @@ public class CommentRestController {
 	@PostMapping("/{commentid}/report")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Report>> createReportByPost(@PathVariable("commentid")int commentid, @Valid@RequestBody Report report){
+	public ResponseEntity<Response<Report>> createReportByPost(@PathVariable("commentid")int commentid, 
+			@Parameter(name="reportTypeId")int reportTypeId,@Valid@RequestBody Report report){
 		Response<Report> res = new Response<Report>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Comment comment = commentService.findById(commentid);
 		User user = userService.findByEmail(email);
+		ReportType reportType = reportTypeService.findById(reportTypeId);
 		try {
+			comment.setReportStatus("Waiting");
+			commentService.save(comment);
+			report.setReportType(reportType);
 			report.setUser(user);
 			report.setComment(comment);
 			reportService.save(report);
