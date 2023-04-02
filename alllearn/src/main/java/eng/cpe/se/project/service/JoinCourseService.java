@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.JoinCourse;
+import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.repository.JoinCourseRepository;
 
 
@@ -34,5 +35,7 @@ public class JoinCourseService {
 	public void delete(int id) {
 		joinCourseRepository.deleteById(id);
 	}
+	
+	
 	
 }

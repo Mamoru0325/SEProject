@@ -288,5 +288,45 @@ public class PostRestController {
 			return new ResponseEntity<Response<LikePost>>(res, res.getHttpStatus());
 		}
 	}
+	
+	@GetMapping("/follower/lastestdate/page/{page}/value/{value}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<List<Post>>> findAllByFollowerandDate(@PathVariable("page")int page,@PathVariable("value")int value) {
+		Response<List<Post>> res = new Response<>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		try {
+			List<Post> posts = postService.findAllByFollowerandDate(page, value, user);
+			res.setMessage("find success");
+			res.setBody(posts);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/follower/population/page/{page}/value/{value}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<List<Post>>> findAllByPopulationfromFollower(@PathVariable("page")int page,@PathVariable("value")int value) {
+		Response<List<Post>> res = new Response<>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		try {
+			List<Post> posts = postService.findAllByPopulationfromFollower(page, value, user);
+			res.setMessage("find success");
+			res.setBody(posts);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		}
+	}
 
 }

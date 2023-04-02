@@ -211,21 +211,24 @@ public class CourseRestController {
 		}
 	}
 	
-//	@GetMapping("/{courseId}/joincourses/page/{page}/value/{value}")
-//	@SecurityRequirement(name = "Bearer Authentication")
-//	@PreAuthorize("hasRole('CourseCreator')")
-//	public ResponseEntity<Response<List<User>>> findAll(@PathVariable("courseId")int courseId,@PathVariable("page")int page,@PathVariable("value")int value) {
-//		Response<List<User>> res = new Response<>();
-//		try {
-//			List<User> user = userService.findAllByCourse(courseId, page, value);
-//			res.setMessage("find success");
-//			res.setBody(user);
-//			res.setHttpStatus(HttpStatus.OK);
-//			return new ResponseEntity<Response<List<User>>>(res, res.getHttpStatus());
-//		} catch (Exception ex) {
-//			res.setBody(null);
-//			res.setHttpStatus(HttpStatus.NOT_FOUND);
-//			return new ResponseEntity<Response<List<User>>>(res, res.getHttpStatus());
-//		}
-//	}
+	@GetMapping("/byuser/page/{page}/value/{value}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<List<Course>>> findAllByUser(@PathVariable("page")int page,@PathVariable("value")int value) {
+		Response<List<Course>> res = new Response<>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		try {
+			List<Course> courses = courseService.findAllByUser(page, value,user);
+			res.setMessage("find success");
+			res.setBody(courses);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Course>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Course>>>(res, res.getHttpStatus());
+		}
+	}
+
 }
