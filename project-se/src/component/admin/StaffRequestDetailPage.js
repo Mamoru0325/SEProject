@@ -5,9 +5,6 @@ import FilePresentIcon from '@mui/icons-material/FilePresent';
 import { Input, Link, SvgIcon, TextField } from '@mui/material';
 
 const StaffRequestDetailPage = () => {
-    const handleWheel = (event) => {
-    event.preventDefault();
-  };
   return (
     <div className='RequestDetailPage-con'>
         <div className='container'>
