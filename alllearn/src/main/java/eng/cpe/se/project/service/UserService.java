@@ -125,6 +125,7 @@ public class UserService implements IUserService, UserDetailsService{
 		File folder = new File(externalPath+File.separator+"Userprofile"+File.separator);
 		File profile = new File(externalPath+File.separator+"Userprofile"+File.separator+"Profile"+File.separator);
 		File background = new File(externalPath+File.separator+"Userprofile"+File.separator+"Background"+File.separator);
+		System.out.println(folder);
 		if (!folder.exists()) {
 			folder.mkdirs();
 		}
