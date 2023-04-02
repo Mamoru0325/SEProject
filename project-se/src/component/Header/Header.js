@@ -14,9 +14,6 @@ import Register from '../Register'
 import Profile from '../Profile/Profile'
 import MyProfile from '../Profile/MyProfile'
 import BoardPage from '../BoardPage'
-import AdminManagementPage from '../admin/AdminManagementPage'
-import StaffRequestPage from '../admin/StaffRequestPage'
-import AdminListPage from '../admin/AdminListPage'
 // import DropdownMenu from './DropMenu'
 import { display } from '@mui/system'
 import VerifyPage from '../VerifyPage'
@@ -24,6 +21,10 @@ import Setting from '../SettingF/Setting'
 import Aptitude from '../SettingF/Aptitude'
 import Verification from '../SettingF/Verification'
 import EProfile from '../SettingF/EProfile'
+import CoursePage from '../CoursePage'
+import AdminListPage from '../admin/AdminListPage'
+import AdminManagementPage from '../admin/AdminManagementPage'
+import StaffRequestPage from '../admin/StaffRequestPage'
 
 
 export default function Header() {
@@ -46,6 +47,7 @@ export default function Header() {
                 <Route path="/MyProfile" element={<MyProfile />} />
                 <Route path="/createCourse" element={<CreateCoursePage />} />
                 <Route path="/BoardPage" element={<BoardPage />} />
+                <Route path="/coursePage" element={<CoursePage/>}/>
                 <Route path="/register" element={<Register />} />
                 <Route path="/verify" element={<VerifyPage />} />
                 <Route path="/register" element={<Register />} />
@@ -59,6 +61,7 @@ export default function Header() {
                 <Route path="/AdminManage" element={<AdminManagementPage />} />
                 <Route path="/StaffRequest" element={<StaffRequestPage />} />
                 <Route path="/AdminListPage" element={<AdminListPage />} />
+
 
                 ///////////////////////
 

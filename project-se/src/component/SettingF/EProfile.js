@@ -45,7 +45,7 @@ function EProfile() {
                                     color='secondary'
                                     size="medium"
                                 >
-                                    UpLoad Profile:  .
+                                    Upload Profile:  .
 
                                     <input hidden accept="image/*" type="file" onChange={onImageChange} />
 
@@ -54,7 +54,8 @@ function EProfile() {
                             </div>
                             <div className="pic">{imageURLs.map((imageSrc, idx) => (
                                 <img key={idx} width="320" height="320" src={imageSrc} />
-                            ))}</div>
+                            ))}
+                            </div>
                         </div>
 
 
@@ -68,9 +69,9 @@ function EProfile() {
                             variant="outlined"
 
                         />
-                        
+
                         <button className="buttonsave" onClick={Save}>Save</button>
-                        
+
                     </div>
 
 

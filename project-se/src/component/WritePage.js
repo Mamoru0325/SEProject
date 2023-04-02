@@ -1,5 +1,6 @@
 // ======หน้าเขียนบอร์ดใหม่=========
 import React from 'react'
+import { useState, useEffect } from "react";
 import "./WritePage.css"
 import TextField from '@material-ui/core/TextField';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -48,6 +49,8 @@ function getStyles(name, personName, theme) {
 export default function WritePage() {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+  const [images, setImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([]);
 
   const handleChange = (event) => {
     const {
@@ -58,6 +61,20 @@ export default function WritePage() {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+
+  useEffect(() => {
+    if (images.length < 1) return;
+    const newImageUrls = [];
+    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImageURLs(newImageUrls);
+  }, [images]);
+
+  function onImageChange(e) {
+    setImages([...e.target.files]);
+  }
+
+  console.log("Images : ", images);
+  console.log("imageURLs : ", imageURLs);
 
   return (
     <div>
@@ -112,10 +129,17 @@ export default function WritePage() {
               size="small"
             >
               Upload
-              <input hidden accept="image/*" multiple type="file" />
+              <input hidden accept="image/*" type="file" onChange={onImageChange} />
+              {/* <input hidden accept="image/*" multiple type="file" /> */}
             </Button>
 
+
           </div>
+          <div className="pic">{imageURLs.map((imageSrc, idx) => (
+            <img key={idx} width="320" height="200" src={imageSrc} />
+          ))}
+          </div>
+
           <div className='write-topic'>
 
             <a className='a'>Title</a>
@@ -147,6 +171,8 @@ export default function WritePage() {
               >
                 Post
               </Button>
+
+
             </div>
           </div>
 
