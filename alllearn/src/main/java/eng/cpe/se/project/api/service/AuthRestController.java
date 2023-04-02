@@ -39,9 +39,10 @@ import eng.cpe.se.project.security.service.UserDetailsImpl;
 import eng.cpe.se.project.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-@CrossOrigin(maxAge = 3600)
+
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin("http://localhost:8081/")
 public class AuthRestController {
 	@Value("${external.resoures.path}")
 	private String externalPath;

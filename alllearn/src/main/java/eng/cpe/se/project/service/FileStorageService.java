@@ -39,7 +39,6 @@ public class FileStorageService {
 		// TODO Auto-generated method stub
 		try {
 			File file = new File(externalPath);
-			System.out.println(file);
 			Resource resource = new UrlResource(file.toURI());
 
 			if (resource.exists() || resource.isReadable()) {
