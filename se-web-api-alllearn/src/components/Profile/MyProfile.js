@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import "../Profile/MyProfile.css";
 import "../Header/Header.css";
@@ -9,8 +9,37 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SvgIcon from "@mui/material/SvgIcon";
 import EmailIcon from "@mui/icons-material/Email";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import axios from "axios";
 
 function Profile() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("user");
+    let user = JSON.parse(localStorageData);
+    // console.log("===== " + user.body.userName);
+    // if (localStorageData) {
+    //   setData(JSON.parse(localStorageData));
+    // }
+    const fetchData = async () => {
+      setTimeout(async () => {
+        const response = await axios.get(
+          `http://localhost:8080/alllearn/users/email/${user.body.userName}`
+        );
+        setData(response.data);
+        // console.log(data);
+        setIsLoading(false);
+      }, 2000); // set delay to 2 seconds
+    };
+    // console.log(data);
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="profile">
       <div className="container">
@@ -49,7 +78,7 @@ function Profile() {
                   <li className="desc-icon">
                     <SvgIcon component={EmailIcon} inheritViewBox />
                   </li>
-                  <li className="text">xxx@gmail.com</li>
+                  <li className="text">{data.body.email}</li>
                 </li>
                 <li className="desc-text">
                   <li className="desc-icon">
@@ -69,8 +98,8 @@ function Profile() {
           <div className="nameCourse-con">
             <ul className="nameTab-con">
               <li className="name-Big">
-                <li className="fname">นายก</li>
-                <li className="lname">นามสมมุติ</li>
+                <li className="fname">{data.body.firstName}</li>
+                <li className="lname">{data.body.lastName}</li>
               </li>
               <li className="moreTab">
                 <SvgIcon component={VerifiedIcon} inheritViewBox />
