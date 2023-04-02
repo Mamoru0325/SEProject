@@ -17,6 +17,8 @@ import HomePage from "../Home/HomePage";
 import Profile from "../Profile/MyProfile";
 import WritePage from "../Write/WritePage";
 
+import DropdownMenu from "../Header/DropMenu";
+
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -120,6 +122,9 @@ class Navbar extends Component {
                 <a href="/login" className="nav-link" onClick={this.logOut}>
                   LogOut
                 </a>
+              </li>
+              <li>
+                <DropdownMenu />
               </li>
             </div>
           ) : (

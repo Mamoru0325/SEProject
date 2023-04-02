@@ -1,0 +1,87 @@
+.RequestDetailPage-con{
+    width: 100%;
+    background: lightblue;
+}
+.RequestDetailHead-con{
+    width: 100%;
+    background: lightcoral;
+    margin-top: 20px;
+    height: 50px;
+}
+.RequestDetailBackButt-con{
+    width: 50px;
+    background: lightgreen;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.RequestDetail-con{
+    background: lightcyan;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+}
+.RequestDetailData-con{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.RequestDetailDataName-con{
+    display: flex;
+    flex-direction: row;
+    background: lightgreen;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 40px;
+}
+.RequestDetailName-con{
+    background: lightblue;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+.RequestDetailNameFrame{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+.RequestDetailNameFrame p{
+    height: 100%;
+    width: 100%;
+    margin:0;
+}
+.RequestDetailName-con{
+    background: lightblue;
+    width: 50%;
+}
+.RequestDetailFile-con{
+    margin-bottom: 40px;
+    width: 100%;
+    background: lightblue;
+}
+.RequestDetailDesc-con{
+    margin-bottom: 100px;
+    width: 100%;
+    background: lightblue;
+}
+.RequestDetailButt-con{
+    display: flex;
+    flex-direction: row;
+    background: lightpink;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+}
+.RequestDetailButt{
+    margin-right: 10px;
+}
+.RequestDetailButt button{
+    width: 100px;
+}

@@ -32,9 +32,9 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 800px;
-    width: 300px;
-    margin-inline:50px;
+    height: 100;
+    width: 100;
+    margin-left:50px;
     background-color: #001d3d;
     padding: 20px;
     border-radius: 8px;
@@ -44,8 +44,9 @@
 .toggleBut{
     display: flex; 
     justify-content: space-around;
-    margin-left: 350px;
-    margin-right: 105px;
+    margin-inline: 20px;
+    /* margin-left: 350px;
+    margin-right: 105px; */
     
 
 

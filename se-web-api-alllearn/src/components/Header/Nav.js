@@ -8,7 +8,7 @@ export default function Nav() {
     
             <div className="header">
 
-                <div className="container">
+                <div className="w-100">
 
                     <nav className="header-con">
 
@@ -32,7 +32,7 @@ export default function Nav() {
                                 Create Course
                             </NavLink>
 
-                            <NavLink className="menu-link" to="/">
+                            <NavLink className="menu-link" to="/singIn">
                                 Login
                             </NavLink>
 
