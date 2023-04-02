@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2023 at 05:17 PM
+-- Generation Time: Apr 02, 2023 at 07:45 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -45,7 +45,7 @@ CREATE TABLE `comment` (
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `commentDetail` text NOT NULL,
-  `reportStatus` enum('Waiting') DEFAULT 'Waiting',
+  `reportStatus` enum('Waiting','Done') DEFAULT 'Done',
   `createDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -99,9 +99,6 @@ CREATE TABLE `course` (
 --
 -- Dumping data for table `course`
 --
-
-INSERT INTO `course` (`courseId`, `contentTypeId`, `courseTopic`, `userId`, `courseDetail`, `minimum`, `maximum`, `price`, `status`, `reportStatus`, `firstEnrollDate`, `lastEnrollDate`, `eventDate`, `startDate`, `endDate`) VALUES
-(1, 1, 'service', 6, 'service', 5, 30, 100, 'Available', 'Done', '2023-03-24', '2023-03-24', '2023-03-24', '2023-03-23 17:00:00', '2023-03-24');
 
 -- --------------------------------------------------------
 
@@ -174,6 +171,9 @@ CREATE TABLE `joincourse` (
   `courseId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `joincourse`
+--
 -- --------------------------------------------------------
 
 --
@@ -198,6 +198,9 @@ CREATE TABLE `likepost` (
   `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `likepost`
+--
 -- --------------------------------------------------------
 
 --
@@ -208,9 +211,13 @@ CREATE TABLE `paymentcheck` (
   `paymentCheckId` int(11) NOT NULL,
   `payBy` int(11) NOT NULL,
   `joinCourseId` int(11) NOT NULL,
+  `status` enum('Paid','Unpaid','Waiting') NOT NULL DEFAULT 'Waiting',
   `imgPath` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `paymentcheck`
+--
 -- --------------------------------------------------------
 
 --
@@ -232,7 +239,10 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`postId`, `userId`, `contentTypeId`, `postTopic`, `postDetail`, `reportStatus`, `createDate`) VALUES
-(1, 3, 1, 'service', 'do it pokpong', 'Done', '2023-03-24 00:00:00');
+(1, 3, 1, 'service', 'do it pokpong', 'Done', '2023-03-21 00:00:00'),
+(2, 3, 1, 'service1', 'do it pokpong', 'Done', '2023-03-22 11:00:00'),
+(3, 3, 1, 'service2', 'do it pokpong', 'Done', '2023-03-23 11:00:00'),
+(4, 3, 1, 'service3', 'do it pokpong', 'Done', '2023-03-24 11:00:00');
 
 -- --------------------------------------------------------
 
@@ -362,7 +372,9 @@ INSERT INTO `user` (`userId`, `email`, `password`, `title`, `firstName`, `lastNa
 (7, 'user4@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user4', 'user4', '0896345911', 'user4', 'dd', 'dd', 'Y'),
 (8, 'user5@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user5', 'user5', '0896345911', 'user5', 'dd', 'dd', 'N'),
 (9, 'user6@hotmail.com', '$2a$10$qeU5VmKnI8HsbfMjb46ZTe.jnv4HmYp0zx5eAqLFyStK943oacfYG', 'Mr', 'user6', 'user6', '0896345911', 'user6', 'hh', 'hh', 'N'),
-(10, 'staff1@hotmail.com', '$2a$10$gj3kH.iUN146bbMMnupkZeuDboCS.6jpphZHHT64Ibh7SR9e/eI92', 'Mr', 'staff1', 'staff1', '0896345911', 'staff1', 'hh', 'hh', 'Y');
+(10, 'staff1@hotmail.com', '$2a$10$gj3kH.iUN146bbMMnupkZeuDboCS.6jpphZHHT64Ibh7SR9e/eI92', 'Mr', 'staff1', 'staff1', '0896345911', 'staff1', 'hh', 'hh', 'Y'),
+(11, 'user7@hhotmail.com', '$2a$10$3MfJ8pQU7mlqXRISN5R7hOredd4JHfHDGEPdLPXiKhzDfwQGFJcd2', 'mr', 'user7', 'user7', '0896345911', 'user7', 'D:/image\\Userprofile\\Profile\\basic.png\n', 'D:/image\\Userprofile\\Background\\basic.jpg', 'N'),
+(12, 'user8@hotmail.com', '$2a$10$bGmf3MBNd/1GRZcXt0ln4.bw6brB5t6Wp9xjU7meNPaJUU.Y6CQy.', 'mr', 'user8', 'user8', '0896345911', 'user8', 'D:/image\\Userprofile\\Profile\\basic.png', 'D:/image\\Userprofile\\Background\\basic.jpg', 'N');
 
 -- --------------------------------------------------------
 
@@ -381,10 +393,7 @@ CREATE TABLE `userrole` (
 --
 
 INSERT INTO `userrole` (`userRoleId`, `userId`, `roleId`) VALUES
-(1, 1, 1),
-(2, 1, 2),
 (3, 1, 3),
-(4, 2, 1),
 (5, 2, 2),
 (6, 3, 1),
 (7, 4, 1),
@@ -395,8 +404,9 @@ INSERT INTO `userrole` (`userRoleId`, `userId`, `roleId`) VALUES
 (12, 7, 4),
 (13, 8, 1),
 (14, 9, 1),
-(15, 10, 1),
-(16, 10, 2);
+(16, 10, 2),
+(17, 11, 1),
+(18, 12, 1);
 
 --
 -- Indexes for dumped tables
@@ -488,6 +498,7 @@ ALTER TABLE `likecomment`
 --
 ALTER TABLE `likepost`
   ADD PRIMARY KEY (`likePostId`),
+  ADD UNIQUE KEY `postId` (`postId`,`userId`),
   ADD KEY `TC_LikePost328` (`postId`),
   ADD KEY `TC_LikePost327` (`userId`);
 
@@ -589,7 +600,7 @@ ALTER TABLE `contenttype`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `follower`
@@ -649,7 +660,7 @@ ALTER TABLE `paymentcheck`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `report`
@@ -685,13 +696,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `userrole`
 --
 ALTER TABLE `userrole`
-  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
