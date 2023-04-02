@@ -25,14 +25,14 @@ function Profile() {
     const fetchData = async () => {
       setTimeout(async () => {
         const response = await axios.get(
-          `http://localhost:8080/alllearn/users/email/${user.body.userName}`
+          `http://localhost:8080/users/email/${user.body.userName}`
         );
         setData(response.data);
         // console.log(data);
         setIsLoading(false);
       }, 2000); // set delay to 2 seconds
     };
-    // console.log(data);
+    console.log(data);
     fetchData();
   }, []);
 
@@ -78,7 +78,7 @@ function Profile() {
                   <li className="desc-icon">
                     <SvgIcon component={EmailIcon} inheritViewBox />
                   </li>
-                  <li className="text">{data.body.email}</li>
+                  <li className="text">{data.body.userName}</li>
                 </li>
                 <li className="desc-text">
                   <li className="desc-icon">
