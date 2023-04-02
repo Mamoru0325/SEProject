@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom"
 import "./HomePage.css"
+import Course from './Course'
 
 function FeedCoursePage() {
   return (
@@ -10,26 +11,34 @@ function FeedCoursePage() {
     <div className='allContent'>
       <NavLink to="/coursePage">
         <div className='content'>
-          Courseeeeeeeeeeeeeeeee
+          <Course/>
         </div>
       </NavLink>
 
       <div className='content'>
-        <div>Course content 05</div>
+      <Course/>
       </div>
 
       <div className='content'>
-        <div>Course content 05</div>
+      <Course/>
       </div>
 
       <div className='content'>
-        <div>Course content 05</div>
+      <Course/>
+      </div>
+
+      <div className='content'>
+      <Course/>
       </div>
 
       <div className='content'>
         <div>content 05</div>
       </div>
 
+      <div className='content'>
+        <div>content 05</div>
+      </div>
+      
       <div className='content'>
         <div>content 05</div>
       </div>

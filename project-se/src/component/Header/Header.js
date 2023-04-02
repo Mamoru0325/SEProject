@@ -25,12 +25,7 @@ import CoursePage from '../CoursePage'
 import AdminListPage from '../admin/AdminListPage'
 import AdminManagementPage from '../admin/AdminManagementPage'
 import StaffRequestPage from '../admin/StaffRequestPage'
-import StaffRequestDetailPage from '../admin/StaffRequestDetailPage'
 
-import CourseMenu from '../CourseF/CourseMenu'
-import MyCourse_All from '../CourseF/MyCourse_All'
-import Course_Registration from '../CourseF/Course_Registration'
-import AllPeople_Course from '../CourseF/AllPeople_Course'
 
 export default function Header() {
     return (
@@ -66,12 +61,7 @@ export default function Header() {
                 <Route path="/AdminManage" element={<AdminManagementPage />} />
                 <Route path="/StaffRequest" element={<StaffRequestPage />} />
                 <Route path="/AdminListPage" element={<AdminListPage />} />
-                <Route path="/StaffRequestDetail" element={<StaffRequestDetailPage />} />
 
-                <Route path="/MyCourse" element={<CourseMenu />} />
-                <Route path="/MyCourse_All" element={<MyCourse_All />} />
-                <Route path="/Course_Registration" element={<Course_Registration />} />
-                <Route path="/AllPeople_Course" element={<AllPeople_Course />} />
 
                 ///////////////////////
 

@@ -1,18 +1,11 @@
 import React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import {} from './StaffRequestPage.css'
-import { Link} from '@mui/material';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
 
 const RequestColumns = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'UserName', headerName: 'User Name', width: 180 },
-  { field: 'Detail', headerName: 'DetailDesc', width: 500 },
-  { field: 'File', headerName: 'File', width: 180,
-    renderCell: (params) => (
-      <Link href='/StaffRequestDetail'><FilePresentIcon/></Link>
-    )
-  },
+  { field: 'Detail', headerName: 'DetailDesc', width: 700 },
   {
     field: 'Approve',
     description: 'This column has a value getter and is not sortable.',
