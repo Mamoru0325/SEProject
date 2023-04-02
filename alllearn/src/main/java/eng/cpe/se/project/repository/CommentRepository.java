@@ -14,7 +14,8 @@ import eng.cpe.se.project.model.Post;
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Integer> {
 	
-	@Query("select c from Comment c inner join c.post p where p = :post")
+	@Query("select c from Comment c inner join c.post p where p = :post and c.reportStatus = 'Done'")
 	public List<Comment> findAllByPost(@Param("post")Post post,Pageable pageable);
+
 
 }

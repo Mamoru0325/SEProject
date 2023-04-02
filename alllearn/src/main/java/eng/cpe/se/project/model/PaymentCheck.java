@@ -13,19 +13,22 @@ public class PaymentCheck implements java.io.Serializable {
 	private JoinCourse joinCourse;
 	@JsonIgnore
 	private User user;
-	private String imgPath;
+	private String qrCodePath;
 	private String status;
+	private String slipPath;
 
 	public PaymentCheck() {
 	}
 
-	public PaymentCheck(Integer paymentCheckId, JoinCourse joinCourse, User user, String imgPath, String status) {
+	public PaymentCheck(Integer paymentCheckId, JoinCourse joinCourse, User user, String qrCodePath, String status,
+			String slipPath) {
 		super();
 		this.paymentCheckId = paymentCheckId;
 		this.joinCourse = joinCourse;
 		this.user = user;
-		this.imgPath = imgPath;
+		this.qrCodePath = qrCodePath;
 		this.status = status;
+		this.slipPath = slipPath;
 	}
 
 	public Integer getPaymentCheckId() {
@@ -52,12 +55,12 @@ public class PaymentCheck implements java.io.Serializable {
 		this.user = user;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public String getQrCodePath() {
+		return qrCodePath;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
+	public void setQrCodePath(String qrCodePath) {
+		this.qrCodePath = qrCodePath;
 	}
 
 	public String getStatus() {
@@ -68,5 +71,14 @@ public class PaymentCheck implements java.io.Serializable {
 		this.status = status;
 	}
 
+	public String getSlipPath() {
+		return slipPath;
+	}
+
+	public void setSlipPath(String slipPath) {
+		this.slipPath = slipPath;
+	}
+	
+	
 	
 }

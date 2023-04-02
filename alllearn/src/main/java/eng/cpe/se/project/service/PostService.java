@@ -37,14 +37,19 @@ public class PostService {
 		return postRepository.findAll(pageable);
 	}
 	
-	public List<Post> findAllByDate(int page,int value){
+	public List<Post> findAllByDateAndDoneReportStatus(int page,int value){
 		Pageable pageable = PageRequest.of(page-1, value);
-		return postRepository.findAllByDate(pageable);
+		return postRepository.findAllByDateAndDoneReportStatus(pageable);
 	}
 	
-	public List<Post> findAllByPopulation(int page,int value){
+	public List<Post> findAllByPopulationAndDoneReportStatus(int page,int value){
 		Pageable pageable = PageRequest.of(page-1, value);
-		return postRepository.findAllByPopulation(pageable);
+		return postRepository.findAllByPopulationAndDoneReportStatus(pageable);
+	}
+	
+	public List<Post> findAllByWaitingReportStatus(int page,int value){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return postRepository.findAllByWaitingReportStatus(pageable);
 	}
 	
 	public List<Post> findAllByFollowerandDate(int page,int value,User user){

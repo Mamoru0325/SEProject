@@ -22,4 +22,13 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Query("select u from JoinCourse jc inner join jc.paymentChecks pc inner join pc.user u where jc.course = :course and pc.status = 'Waiting' order by pc.user ASC")
 	public List<User> findUserInCourseByWaitingStatus(@Param("course")Course course);
+	
+	@Query("select u from JoinCourse jc inner join jc.paymentChecks pc inner join pc.user u where jc.course = :course and pc.status = 'Paid' order by pc.user ASC")
+	public List<User> findUserInCourseByPaidStatus(@Param("course")Course course);
+	
+	@Query("select count(u) from JoinCourse jc inner join jc.paymentChecks pc inner join pc.user u where jc.course = :course and pc.status = 'Paid'")
+	public int countUserByPaidStatus(@Param("course")Course course);
+	
+	@Query("select count(u) from JoinCourse jc inner join jc.paymentChecks pc inner join pc.user u where jc.course = :course and pc.status = 'Waiting'")
+	public int countUserByWaitingStatus(@Param("course")Course course);
 }

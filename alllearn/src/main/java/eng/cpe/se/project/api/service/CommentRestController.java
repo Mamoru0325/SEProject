@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
@@ -125,7 +126,7 @@ public class CommentRestController {
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
 	public ResponseEntity<Response<Report>> createReportByPost(@PathVariable("commentid")int commentid, 
-			@Parameter(name="reportTypeId")int reportTypeId,@Valid@RequestBody Report report){
+			@RequestParam("reportTypeId")int reportTypeId,@Valid@RequestBody Report report){
 		Response<Report> res = new Response<Report>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Comment comment = commentService.findById(commentid);

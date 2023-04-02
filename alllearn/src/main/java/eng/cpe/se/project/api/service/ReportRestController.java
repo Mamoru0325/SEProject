@@ -20,7 +20,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import eng.cpe.se.project.api.util.Response;
+import eng.cpe.se.project.model.Course;
+import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Report;
+import eng.cpe.se.project.service.CourseService;
+import eng.cpe.se.project.service.PostService;
 import eng.cpe.se.project.service.ReportService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
@@ -29,6 +33,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 public class ReportRestController {
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private CourseService courseService;
+	@Autowired
+	private PostService postService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -57,6 +65,18 @@ public class ReportRestController {
 		try {
 			Report re = reportService.findById(id);
 			reportService.save(re);
+			if(re.getCourse() != null) {
+				int cid = re.getCourse().getCourseId();
+				Course course = courseService.findById(cid);
+				course.setReportStatus("Done");
+				courseService.save(course);
+			}
+			if(re.getPost() != null) {
+				int pid = re.getPost().getPostId();
+				Post post = postService.findById(pid);
+				post.setReportStatus("Done");
+				postService.save(post);
+			}
 			res.setMessage("update "+id+"success");
 			res.setBody(re);
 			res.setHttpStatus(HttpStatus.OK);

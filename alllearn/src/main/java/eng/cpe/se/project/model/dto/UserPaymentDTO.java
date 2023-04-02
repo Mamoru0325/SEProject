@@ -1,37 +1,42 @@
 package eng.cpe.se.project.model.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eng.cpe.se.project.model.PaymentCheck;
 import eng.cpe.se.project.model.User;
 
 public class UserPaymentDTO {
-	private User user;
-	private PaymentCheck paymentCheck;
+	private List<User> user =  new ArrayList<User>();
+	private int count;
 	
 	public UserPaymentDTO() {
 	
 	}
 
-	public UserPaymentDTO(User user, PaymentCheck paymentCheck) {
+	public UserPaymentDTO(List<User> user, int count) {
 		super();
 		this.user = user;
-		this.paymentCheck = paymentCheck;
+		this.count = count;
 	}
 
-	public User getUser() {
+	public List<User> getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(List<User> user) {
 		this.user = user;
 	}
 
-	public PaymentCheck getPaymentCheck() {
-		return paymentCheck;
+	public int getCount() {
+		return count;
 	}
 
-	public void setPaymentCheck(PaymentCheck paymentCheck) {
-		this.paymentCheck = paymentCheck;
+	public void setCount(int count) {
+		this.count = count;
 	}
+
+	
 	
 	
 }

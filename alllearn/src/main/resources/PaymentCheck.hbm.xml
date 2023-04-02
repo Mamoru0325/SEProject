@@ -15,11 +15,14 @@
 			fetch="select" name="user">
 			<column name="payBy" not-null="true" />
 		</many-to-one>
-		<property name="imgPath" type="string">
-			<column length="150" name="imgPath" not-null="true" />
+		<property name="qrCodePath" type="string">
+			<column length="150" name="qrCodePath" not-null="true" />
 		</property>
 		<property name="status" type="string">
 			<column length="10" name="status" not-null="true" />
+		</property>
+		<property name="slipPath" type="string">
+			<column length="150" name="slipPath"/>
 		</property>
 	</class>
 </hibernate-mapping>

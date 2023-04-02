@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mysql.fabric.xmlrpc.base.Array;
 
@@ -22,6 +23,7 @@ public class Comment implements java.io.Serializable {
 	private User user;
 	private String commentDetail;
 	private String reportStatus;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm a")
 	private Date createDate;
 	@JsonIgnore
 	private List<Report> reports = new ArrayList<Report>();

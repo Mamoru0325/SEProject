@@ -12,6 +12,6 @@ import eng.cpe.se.project.model.RequestVerify;
 
 @Repository
 public interface ReportRepository extends CrudRepository<Report, Integer> {
-	@Query("from Report re")
+	@Query("from Report re where re.status = 'Waiting'")
 	public List<Report>findAll(Pageable pageable);
 }

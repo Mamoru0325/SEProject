@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.JoinCourse;
-import eng.cpe.se.project.model.Post;
-import eng.cpe.se.project.model.User;
 
 @Repository
 public interface JoinCourseRepository extends CrudRepository<JoinCourse, Integer> {

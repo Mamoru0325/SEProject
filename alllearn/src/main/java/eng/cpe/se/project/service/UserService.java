@@ -1,7 +1,10 @@
 package eng.cpe.se.project.service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -122,7 +125,6 @@ public class UserService implements IUserService, UserDetailsService{
 		File folder = new File(externalPath+File.separator+"Userprofile"+File.separator);
 		File profile = new File(externalPath+File.separator+"Userprofile"+File.separator+"Profile"+File.separator);
 		File background = new File(externalPath+File.separator+"Userprofile"+File.separator+"Background"+File.separator);
-		System.out.println(folder.getPath()+" "+profile.getPath()+" "+background);
 		if (!folder.exists()) {
 			folder.mkdirs();
 		}
@@ -135,8 +137,33 @@ public class UserService implements IUserService, UserDetailsService{
 	}
 
 
-	public void save(MultipartFile file) {
+	public void saveProfile(MultipartFile file,int userId) throws IOException {
 		// TODO Auto-generated method stub
+		User user = findById(userId);
+		String filename = externalPath+File.separator+"Userprofile"+File.separator+"Profile"+File.separator+userId+File.separator+"Profile";
+		String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+		filename = filename + "." + type;
+		
+		OutputStream outputStream = new FileOutputStream(filename);
+		outputStream.write(file.getBytes());
+		outputStream.close();
+		user.setImgPath(filename);
+		save(user);
+		
+	}
+	
+	public void saveBackground(MultipartFile file,int userId) throws IOException {
+		// TODO Auto-generated method stub
+		User user = findById(userId);
+		String filename = externalPath+File.separator+"Userprofile"+File.separator+"Background"+File.separator+userId+File.separator+"background";
+		String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+		filename = filename + "." + type;
+		
+		OutputStream outputStream = new FileOutputStream(filename);
+		outputStream.write(file.getBytes());
+		outputStream.close();
+		user.setBackgroundPath(filename);
+		save(user);
 		
 	}
 
@@ -157,16 +184,24 @@ public class UserService implements IUserService, UserDetailsService{
 		    }
 	}	
 	
-//	public List<UserPaymentDTO> findUserInCourseByWaitingStatus(int courseId){
-//		List<UserPaymentDTO> userPaymentDTOs = new ArrayList<UserPaymentDTO>
-//		Course course = courseService.findById(courseId);
-//		List<User> users = userRepository.findUserInCourseByWaitingStatus(course);
-//		List<PaymentCheck> paymentChecks = paymentCheckService.findInCourseByWaitingStatus(courseId);
-//		int i = users.size();
-//		int
-//		for(int j = 0;j<i;j++) {
-//			userPaymentDTOs[j]
-//		}
-//	}
+	public List<User> findUserInCourseByWaitingStatus(int courseId){
+		Course course = courseService.findById(courseId);
+		return userRepository.findUserInCourseByWaitingStatus(course);
+	}
+	
+	public List<User> findUserInCourseByPaidStatus(int courseId){
+		Course course = courseService.findById(courseId);
+		return userRepository.findUserInCourseByPaidStatus(course);
+	}
+	
+	public int countUserByPaidStatus(int courseId) {
+		Course course = courseService.findById(courseId);
+		return userRepository.countUserByPaidStatus(course);
+	}
+	
+	public int countUserByWaitingStatus(int courseId) {
+		Course course = courseService.findById(courseId);
+		return userRepository.countUserByWaitingStatus(course);
+	}
 
 }

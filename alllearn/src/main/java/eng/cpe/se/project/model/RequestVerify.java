@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -22,6 +23,7 @@ public class RequestVerify implements java.io.Serializable {
 	private String verifyHeader;
 	private String verifyDetail;
 	private String approveStatus;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dateApprove;
 	@JsonIgnore
 	private List<ImgVerify> imgVerifies = new ArrayList<ImgVerify>();

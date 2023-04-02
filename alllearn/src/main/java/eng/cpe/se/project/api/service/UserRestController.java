@@ -28,8 +28,10 @@ import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.RequestVerify;
 import eng.cpe.se.project.model.User;
+import eng.cpe.se.project.model.dto.UserCountDTO;
 import eng.cpe.se.project.service.ContentTypeService;
 import eng.cpe.se.project.service.CourseService;
+import eng.cpe.se.project.service.FollowerService;
 import eng.cpe.se.project.service.PostService;
 import eng.cpe.se.project.service.RequestVerifyService;
 import eng.cpe.se.project.service.UserService;
@@ -50,6 +52,8 @@ public class UserRestController {
 	private ContentTypeService contentTypeService;
 	@Autowired
 	private CourseService courseService;
+	@Autowired
+	private FollowerService followerService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -100,50 +104,56 @@ public class UserRestController {
 	}
 	
 	@GetMapping("/id/{id}")
-	public ResponseEntity<Response<User>> findUserById(@PathVariable("id")int id) {
-		Response<User> res = new Response<>();
+	public ResponseEntity<Response<UserCountDTO>> findUserById(@PathVariable("id")int id) {
+		Response<UserCountDTO> res = new Response<>();
 		try {
 			User u = userService.findById(id);
+			int count = followerService.countFollower(id);
+			UserCountDTO user = new UserCountDTO(u,count);
 			res.setMessage("find success");
-			res.setBody(u);
+			res.setBody(user);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<UserCountDTO>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<UserCountDTO>>(res, res.getHttpStatus());
 		}
 	}
 	
 	@GetMapping("/username/{username}")
-	public ResponseEntity<Response<User>> findUserByName(@PathVariable("username")String username) {
-		Response<User> res = new Response<>();
+	public ResponseEntity<Response<UserCountDTO>> findUserByName(@PathVariable("username")String username) {
+		Response<UserCountDTO> res = new Response<>();
 		try {
 			User u = userService.findByUserName(username);
+			int count = followerService.countFollower(u.getUserId());
+			UserCountDTO user = new UserCountDTO(u,count);
 			res.setMessage("find success");
-			res.setBody(u);
+			res.setBody(user);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<UserCountDTO>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<UserCountDTO>>(res, res.getHttpStatus());
 		}
 	}
 	
 	@GetMapping("/email/{email}")
-	public ResponseEntity<Response<User>> findUserByEmail(@PathVariable("email")String email) {
-		Response<User> res = new Response<>();
+	public ResponseEntity<Response<UserCountDTO>> findUserByEmail(@PathVariable("email")String email) {
+		Response<UserCountDTO> res = new Response<>();
 		try {
 			User u = userService.findByEmail(email);
+			int count = followerService.countFollower(u.getUserId());
+			UserCountDTO user = new UserCountDTO(u,count);
 			res.setMessage("find success");
-			res.setBody(u);
+			res.setBody(user);
 			res.setHttpStatus(HttpStatus.OK);
-			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<UserCountDTO>>(res, res.getHttpStatus());
 		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
-			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+			return new ResponseEntity<Response<UserCountDTO>>(res, res.getHttpStatus());
 		}
 	}
 	

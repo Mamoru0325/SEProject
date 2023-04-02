@@ -1,7 +1,10 @@
 package eng.cpe.se.project.service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
@@ -90,10 +93,23 @@ public class PaymentCheckService {
 		return path+".png";
 	}
 	
-	public List<PaymentCheck> findInCourseByWaitingStatus(int courseId){
-		Course course = courseService.findById(courseId);
-		return checkRepository.findInCourseByWaitingStatus(course);
-	}
+	public void saveimg(MultipartFile file,int paymentId) throws IOException {
+		Course course =  courseService.findByPayment(paymentId);
+		File folder = new File(externalPath+File.separator+"Slip"+File.separator+"courseId"+course.getCourseId());
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+		PaymentCheck payment = findById(paymentId);
+		String filename = externalPath+File.separator+"Slip"+File.separator+"courseId"+course.getCourseId()+File.separator+paymentId;
+		String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
+		filename = filename + "." + type;
+		
+		OutputStream outputStream = new FileOutputStream(filename);
+		outputStream.write(file.getBytes());
+		outputStream.close();
+		payment.setSlipPath(filename);
+		save(payment);
+	  }
 	
 //	public String writeFile(MultipartFile file,int courseId,int JoinId) throws IOException {
 //

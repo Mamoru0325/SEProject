@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
@@ -46,7 +47,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping("/posts")
 public class PostRestController {
-	
+
 	@Autowired
 	private PostService postService;
 	@Autowired
@@ -61,37 +62,38 @@ public class PostRestController {
 	private BookmarkService bookmarkService;
 	@Autowired
 	private ReportTypeService reportTypeService;
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
-        Response<ObjectNode> res = new Response<>();
-        res.setHttpStatus(HttpStatus.BAD_REQUEST);
+	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+		Response<ObjectNode> res = new Response<>();
+		res.setHttpStatus(HttpStatus.BAD_REQUEST);
 
-        ObjectMapper mapper = new ObjectMapper();
+		ObjectMapper mapper = new ObjectMapper();
 
-        ObjectNode responObject = mapper.createObjectNode();
+		ObjectNode responObject = mapper.createObjectNode();
 
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldname = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            responObject.put(fieldname, errorMessage);
-        });
-        res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
-        res.setBody(responObject);
-        return new ResponseEntity<Response<ObjectNode>>(res,res.getHttpStatus());
-    }
-	
+		ex.getBindingResult().getAllErrors().forEach((error) -> {
+			String fieldname = ((FieldError) error).getField();
+			String errorMessage = error.getDefaultMessage();
+			responObject.put(fieldname, errorMessage);
+		});
+		res.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+		res.setBody(responObject);
+		return new ResponseEntity<Response<ObjectNode>>(res, res.getHttpStatus());
+	}
+
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
-	  public ResponseEntity<Response<String>> handleMaxSizeException(MaxUploadSizeExceededException exc) {
-		 Response<String> res = new Response<String>();
-		 res.setHttpStatus(HttpStatus.EXPECTATION_FAILED);
-		 res.setBody("File too large!");
-		 res.setMessage("File too large!");
-	    return new ResponseEntity<Response<String>>(res,res.getHttpStatus());
-	  }
-	
+	public ResponseEntity<Response<String>> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+		Response<String> res = new Response<String>();
+		res.setHttpStatus(HttpStatus.EXPECTATION_FAILED);
+		res.setBody("File too large!");
+		res.setMessage("File too large!");
+		return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+	}
+
 	@GetMapping("/page/{page}/value/{value}")
-	public ResponseEntity<Response<List<Post>>> findAll(@PathVariable("page")int page,@PathVariable("value")int value) {
+	public ResponseEntity<Response<List<Post>>> findAll(@PathVariable("page") int page,
+			@PathVariable("value") int value) {
 		Response<List<Post>> res = new Response<>();
 		try {
 			List<Post> posts = postService.findAll(page, value);
@@ -105,12 +107,13 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@GetMapping("/lastestdate/page/{page}/value/{value}")
-	public ResponseEntity<Response<List<Post>>> findAllByDate(@PathVariable("page")int page,@PathVariable("value")int value) {
+	public ResponseEntity<Response<List<Post>>> findAllByDateAndDoneReportStatus(@PathVariable("page") int page,
+			@PathVariable("value") int value) {
 		Response<List<Post>> res = new Response<>();
 		try {
-			List<Post> posts = postService.findAllByDate(page, value);
+			List<Post> posts = postService.findAllByDateAndDoneReportStatus(page, value);
 			res.setMessage("find success");
 			res.setBody(posts);
 			res.setHttpStatus(HttpStatus.OK);
@@ -121,12 +124,13 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@GetMapping("/population/page/{page}/value/{value}")
-	public ResponseEntity<Response<List<Post>>> findAllByPopulation(@PathVariable("page")int page,@PathVariable("value")int value) {
+	public ResponseEntity<Response<List<Post>>> findAllByPopulationAndDoneReportStatus(@PathVariable("page") int page,
+			@PathVariable("value") int value) {
 		Response<List<Post>> res = new Response<>();
 		try {
-			List<Post> posts = postService.findAllByDate(page, value);
+			List<Post> posts = postService.findAllByPopulationAndDoneReportStatus(page, value);
 			res.setMessage("find success");
 			res.setBody(posts);
 			res.setHttpStatus(HttpStatus.OK);
@@ -137,17 +141,17 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@PutMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User') or hasRole('Staff') or hasRole('SystemAdmin')")
-	public ResponseEntity<Response<Post>> updateById(@PathVariable("id")int id,@RequestBody Post post){
+	public ResponseEntity<Response<Post>> updateById(@PathVariable("id") int id, @RequestBody Post post) {
 		Response<Post> res = new Response<>();
 		Post _post = postService.findById(id);
 		try {
 			_post.clone(post);
 			postService.save(_post);
-			res.setMessage("update "+id+"success");
+			res.setMessage("update " + id + "success");
 			res.setBody(_post);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Post>>(res, res.getHttpStatus());
@@ -157,15 +161,15 @@ public class PostRestController {
 			return new ResponseEntity<Response<Post>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('USER') or hasRole('Staff') or hasRole('SystemAdmin')")
-	public ResponseEntity<Response<String>> deleteById(@PathVariable("id")int id){
+	public ResponseEntity<Response<String>> deleteById(@PathVariable("id") int id) {
 		Response<String> res = new Response<String>();
 		try {
 			postService.delete(id);
-			res.setMessage("delete"+ id + "success");
+			res.setMessage("delete" + id + "success");
 			res.setBody("");
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
@@ -179,8 +183,8 @@ public class PostRestController {
 	@PostMapping("/{postid}/report")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Report>> createReportByPost(@PathVariable("postid")int postid,
-			@Parameter(name="reportTypeId")int reportTypeId,@Valid@RequestBody Report report){
+	public ResponseEntity<Response<Report>> createReportByPost(@PathVariable("postid") int postid,
+			@RequestParam("reportTypeId") int reportTypeId, @Valid @RequestBody Report report) {
 		Response<Report> res = new Response<Report>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = postService.findById(postid);
@@ -197,17 +201,18 @@ public class PostRestController {
 			res.setBody(report);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Report>>(res, res.getHttpStatus());
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Report>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@PostMapping("/{postid}/bookmark")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Bookmark>> createBookmarkByPost(@PathVariable("postid")int postid, @Valid@RequestBody Bookmark bookmark){
+	public ResponseEntity<Response<Bookmark>> createBookmarkByPost(@PathVariable("postid") int postid,
+			@Valid @RequestBody Bookmark bookmark) {
 		Response<Bookmark> res = new Response<Bookmark>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = postService.findById(postid);
@@ -220,17 +225,18 @@ public class PostRestController {
 			res.setBody(bookmark);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Bookmark>>(res, res.getHttpStatus());
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Bookmark>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@PostMapping("/{id}/comment")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Comment>> createCommentByPost(@PathVariable("id")int id, @Valid@RequestBody Comment comment){
+	public ResponseEntity<Response<Comment>> createCommentByPost(@PathVariable("id") int id,
+			@Valid @RequestBody Comment comment) {
 		Response<Comment> res = new Response<Comment>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = postService.findById(id);
@@ -243,19 +249,20 @@ public class PostRestController {
 			res.setBody(comment);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<Comment>>(res, res.getHttpStatus());
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<Comment>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@GetMapping("/{id}/page/{page}/value/{value}")
-	public ResponseEntity<Response<List<Comment>>> findAllcomment(@PathVariable("id")int id,@PathVariable("page")int page,@PathVariable("value")int value) {
+	public ResponseEntity<Response<List<Comment>>> findAllcomment(@PathVariable("id") int id,
+			@PathVariable("page") int page, @PathVariable("value") int value) {
 		Response<List<Comment>> res = new Response<>();
 		Post post = postService.findById(id);
 		try {
-			List<Comment> comments = commentService.findAllByPost(post,page, value);
+			List<Comment> comments = commentService.findAllByPost(post, page, value);
 			res.setMessage("find success");
 			res.setBody(comments);
 			res.setHttpStatus(HttpStatus.OK);
@@ -266,11 +273,11 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Comment>>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@PostMapping("/{id}/likepost")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<LikePost>> likePost(@PathVariable("id")int id){
+	public ResponseEntity<Response<LikePost>> likePost(@PathVariable("id") int id) {
 		Response<LikePost> res = new Response<LikePost>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = postService.findById(id);
@@ -282,17 +289,18 @@ public class PostRestController {
 			res.setBody(likePost);
 			res.setHttpStatus(HttpStatus.OK);
 			return new ResponseEntity<Response<LikePost>>(res, res.getHttpStatus());
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<LikePost>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@GetMapping("/follower/lastestdate/page/{page}/value/{value}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<List<Post>>> findAllByFollowerandDate(@PathVariable("page")int page,@PathVariable("value")int value) {
+	public ResponseEntity<Response<List<Post>>> findAllByFollowerandDate(@PathVariable("page") int page,
+			@PathVariable("value") int value) {
 		Response<List<Post>> res = new Response<>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByEmail(email);
@@ -308,11 +316,12 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@GetMapping("/follower/population/page/{page}/value/{value}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<List<Post>>> findAllByPopulationfromFollower(@PathVariable("page")int page,@PathVariable("value")int value) {
+	public ResponseEntity<Response<List<Post>>> findAllByPopulationfromFollower(@PathVariable("page") int page,
+			@PathVariable("value") int value) {
 		Response<List<Post>> res = new Response<>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByEmail(email);
