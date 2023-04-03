@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./LoadingPage.css";
 // import HomePage from "./HomePage";
 // import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import "../Home/FeedBoardPage.css";
@@ -41,7 +42,21 @@ function FeedBoardPage() {
         <div key={index}>{item.postTopic}</div>
       ))} */}
         <div className="container py-2 m-4">
-          <article className="postcard light blue">Loading...</article>
+          <div className="lds-spinner">
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+          Loading
         </div>
       </section>
     );
@@ -73,34 +88,30 @@ function FeedBoardPage() {
                 <div className="postcard__subtitle small">
                   <time dateTime="2020-05-25 12:00:00">
                     <i className="fas fa-calendar-alt mr-2" />
-                    Mon, May 25th 2020
+                    {item.createDate}
                   </time>
                 </div>
                 <div className="postcard__bar" />
-                <div className="postcard__preview-txt">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Eligendi, fugiat asperiores inventore beatae accusamus odit
-                  minima enim, commodi quia, doloribus eius! Ducimus nemo
-                  accusantium maiores velit corrupti tempora reiciendis
-                  molestiae repellat vero. Eveniet ipsam adipisci illo iusto
-                  quibusdam, sunt neque nulla unde ipsum dolores nobis enim
-                  quidem excepturi, illum quos!
-                </div>
+                <div className="postcard__preview-txt">{item.postDetail}</div>
                 <ul className="postcard__tagbox">
                   <li className="tag__item">
                     <i className="fas fa-tag mr-2" />
-                    Podcast
+                    {item.contentType == "1" ? (
+                      <p>Welcome back, user!</p>
+                    ) : (
+                      <p>Please log in to continue.</p>
+                    )}
                   </li>
-                  <li className="tag__item">
+                  {/* <li className="tag__item">
                     <i className="fas fa-clock mr-2" />
                     55 mins.
-                  </li>
-                  <li className="tag__item play blue">
+                  </li> */}
+                  {/* <li className="tag__item play blue">
                     <a href="#">
                       <i className="fas fa-play mr-2" />
                       Play Episode
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </article>
