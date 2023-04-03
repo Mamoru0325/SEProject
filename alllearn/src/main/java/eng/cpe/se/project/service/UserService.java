@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -210,6 +212,11 @@ public class UserService implements IUserService, UserDetailsService{
 	public User findBycomment(int id) {
 		Comment comment = commentService.findById(id);
 		return userRepository.findByComment(comment);
+	}
+	
+	public List<User> findByStaffRole(int page,int value){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return userRepository.findByStaffRole(pageable);
 	}
 
 }

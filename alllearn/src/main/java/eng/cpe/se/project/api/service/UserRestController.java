@@ -269,11 +269,12 @@ public class UserRestController {
 	}
 
 	@PostMapping("/{id}/requestcourse")
-	public ResponseEntity<Response<RequestCourse>> createRequestCourse(@PathVariable("id") int id,@Valid@RequestBody RequestCourse requestCourse) {
+	public ResponseEntity<Response<RequestCourse>> createRequestCourse(@PathVariable("id") int id,
+			@Valid @RequestBody RequestCourse requestCourse) {
 		Response<RequestCourse> res = new Response<>();
 		try {
 			User u = userService.findById(id);
-			requestCourse.setUser(u);	
+			requestCourse.setUser(u);
 			res.setMessage("find success");
 			res.setBody(requestCourse);
 			res.setHttpStatus(HttpStatus.OK);
@@ -284,13 +285,13 @@ public class UserRestController {
 			return new ResponseEntity<Response<RequestCourse>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@GetMapping("/{id}/requestcourse")
 	public ResponseEntity<Response<List<RequestCourse>>> findRequestCourseByUser(@PathVariable("id") int id) {
 		Response<List<RequestCourse>> res = new Response<>();
 		try {
 			User u = userService.findById(id);
-			List<RequestCourse> requestCourses = requestCourseService.findByUser(u)	;
+			List<RequestCourse> requestCourses = requestCourseService.findByUser(u);
 			res.setMessage("find success");
 			res.setBody(requestCourses);
 			res.setHttpStatus(HttpStatus.OK);
@@ -299,6 +300,23 @@ public class UserRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<List<RequestCourse>>>(res, res.getHttpStatus());
+		}
+	}
+
+	@GetMapping("/staff/page/{page}/value/{value}")
+	public ResponseEntity<Response<List<User>>> findUserByStaffRole(@PathVariable("page") int page,
+			@PathVariable("value") int value) {
+		Response<List<User>> res = new Response<>();
+		try {
+			List<User> users = userService.findByStaffRole(page,value);
+			res.setMessage("find success");
+			res.setBody(users);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<User>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<User>>>(res, res.getHttpStatus());
 		}
 	}
 

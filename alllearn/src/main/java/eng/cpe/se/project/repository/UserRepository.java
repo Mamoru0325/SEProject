@@ -35,4 +35,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Query("select u from User u inner join u.comments c where c = :comment")
 	public User findByComment(@Param("comment")Comment comment);
+
+	@Query("select u from User u inner join u.userRoles ur inner join ur.role r where r.roleName = 'ROLE_Staff'")
+	public List<User> findByStaffRole(Pageable pageable);
+	
 }
