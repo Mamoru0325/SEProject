@@ -393,7 +393,7 @@ public class PostRestController {
 	}
 	
 	@GetMapping("/{postId}/contenttype")
-	public ResponseEntity<Response<ContentType>> findContentTypeByCourse(@PathVariable("postId") int postId) {
+	public ResponseEntity<Response<ContentType>> findContentTypeByPost(@PathVariable("postId") int postId) {
 		Response<ContentType> res = new Response<>();
 		Post post = postService.findById(postId);
 		try {

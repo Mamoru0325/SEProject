@@ -13,6 +13,7 @@ import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import axios from 'axios';
 // import PhotoCamera from '@material-ui/core/PhotoCamera';
 
 
@@ -51,6 +52,56 @@ export default function WritePage() {
   const [personName, setPersonName] = React.useState([]);
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  // On file select (from the pop up)
+  const onFileChange = event => {
+    // Update the state
+    setSelectedFile(event.target.files[0]);
+  };
+
+  // On file upload (click the upload button)
+  const onFileUpload = () => {
+    // Create an object of formData
+    const formData = new FormData();
+
+    // Update the formData object
+    formData.append('myFile', selectedFile, selectedFile.name);
+
+    // Details of the uploaded file
+    console.log(selectedFile);
+
+    // Request made to the backend api
+    // Send formData object
+    axios.post('http://localhost:8080/users/post', formData);
+  };
+
+  // File content to be displayed after
+  // file upload is complete
+  const fileData = () => {
+    if (selectedFile) {
+      return (
+        <div>
+          <h2>File Details:</h2>
+          <p>File Name: {selectedFile.name}</p>
+          <p>File Type: {selectedFile.type}</p>
+          <p>Last Modified: {selectedFile.lastModifiedDate.toDateString()}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <br />
+          <h4>Choose before Pressing the Upload button</h4>
+        </div>
+      );
+    }
+  };
+
+  useEffect(() => {
+    fileData();
+  }, [selectedFile]);
+
 
   const handleChange = (event) => {
     const {
@@ -85,7 +136,7 @@ export default function WritePage() {
 
           <div className='write-tag'>
 
-            <FormControl sx={{ m: 1, width: 300 }}>
+            {/* <FormControl sx={{ m: 1, width: 300 }}>
 
               <InputLabel id="demo-multiple-chip-label">Tag</InputLabel>
 
@@ -115,14 +166,25 @@ export default function WritePage() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
           </div>
           <div className='write-up-img'>
 
             <div className='a'>Cover image</div>
 
-            <Button
+
+            <div>
+
+      <div>
+        <input type="file" onChange={onFileChange} />
+        
+      </div>
+      {fileData()}
+    </div>
+
+
+             {/* <Button
               variant="contained"
               component="label"
               color='tertiary'
@@ -130,8 +192,8 @@ export default function WritePage() {
             >
               Upload
               <input hidden accept="image/*" type="file" onChange={onImageChange} />
-              {/* <input hidden accept="image/*" multiple type="file" /> */}
-            </Button>
+             
+            </Button>  */}
 
 
           </div>
@@ -164,14 +226,14 @@ export default function WritePage() {
 
             />
             <div className='post-button'>
-              <Button
+              {/* <Button
                 variant="contained"
                 color='primary'
                 size="large"
               >
                 Post
-              </Button>
-
+              </Button> */}
+<button onClick={onFileUpload}>Upload!</button>
 
             </div>
           </div>
@@ -185,10 +247,3 @@ export default function WritePage() {
 
   );
 }
-
-
-
-
-
-
-
