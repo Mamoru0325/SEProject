@@ -10,8 +10,8 @@ function FeedBoardPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const localStorageData = localStorage.getItem("user");
-    let user = JSON.parse(localStorageData);
+    // const localStorageData = localStorage.getItem("user");
+    // let user = JSON.parse(localStorageData);
     // console.log("===== " + user.body.userName);
     // if (localStorageData) {
     //   setData(JSON.parse(localStorageData));
