@@ -24,7 +24,7 @@ import eng.cpe.se.project.model.dto.UserCountDTO;
 import eng.cpe.se.project.service.ContentTypeService;
 
 @RestController
-@RequestMapping("/conntentType")
+@RequestMapping("/contenttypes")
 @CrossOrigin("http://localhost:8081/")
 public class ContentTypeRestController {
 	@Autowired

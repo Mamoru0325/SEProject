@@ -198,6 +198,8 @@ public class CommentRestController {
 		}
 	}
 	
+	
+	
 	@GetMapping("/{commentId}/imgcourse")
 	public ResponseEntity<Response<ImgComment>> findImgPostByPost(@PathVariable("commentId") int commentId) {
 		Response<ImgComment> res = new Response<>();
@@ -233,6 +235,23 @@ public class CommentRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{commentId}/likecomment")
+	public ResponseEntity<Response<Integer>> countLikeCommentByComment(@PathVariable("commentId") int commentId) {
+		Response<Integer> res = new Response<>();
+		Comment comment = commentService.findById(commentId);
+		try {
+			int likeComment = likeCommentService.countLikeComment(comment);
+			res.setMessage("find sucess");
+			res.setBody(likeComment);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
 		}
 	}
 

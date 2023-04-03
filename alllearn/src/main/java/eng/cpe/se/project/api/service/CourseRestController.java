@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.pheerathach.ThaiQRPromptPay;
 
 import eng.cpe.se.project.api.util.Response;
+import eng.cpe.se.project.model.ContentType;
 import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.ImgCourse;
 import eng.cpe.se.project.model.ImgPost;
@@ -44,6 +45,7 @@ import eng.cpe.se.project.model.Report;
 import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.model.dto.UserPaymentDTO;
+import eng.cpe.se.project.service.ContentTypeService;
 import eng.cpe.se.project.service.CourseService;
 import eng.cpe.se.project.service.ImgCommentService;
 import eng.cpe.se.project.service.ImgCourseService;
@@ -77,6 +79,8 @@ public class CourseRestController {
 	private ReportTypeService reportTypeService;
 	@Autowired
 	private ImgCourseService imgCourseService;
+	@Autowired
+	private ContentTypeService contentTypeService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -291,7 +295,7 @@ public class CourseRestController {
 	}
 	
 	@GetMapping("/{courseId}/imgcourse")
-	public ResponseEntity<Response<ImgCourse>> findImgPostByPost(@PathVariable("courseId") int courseId) {
+	public ResponseEntity<Response<ImgCourse>> findImgCourseByCourse(@PathVariable("courseId") int courseId) {
 		Response<ImgCourse> res = new Response<>();
 		try {
 			ImgCourse img = imgCourseService.findByCourse(courseId);
@@ -303,6 +307,23 @@ public class CourseRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<ImgCourse>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{courseId}/contenttype")
+	public ResponseEntity<Response<ContentType>> findContentTypeByCourse(@PathVariable("courseId") int courseId) {
+		Response<ContentType> res = new Response<>();
+		Course course = courseService.findById(courseId);
+		try {
+			ContentType contentType = contentTypeService.findByCourse(course);
+			res.setMessage("find sucess");
+			res.setBody(contentType);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<ContentType>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<ContentType>>(res, res.getHttpStatus());
 		}
 	}
 
