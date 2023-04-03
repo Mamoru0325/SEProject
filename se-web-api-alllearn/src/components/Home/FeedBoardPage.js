@@ -8,6 +8,7 @@ import "../Home/FeedBoardPage.css";
 // import Board from "./Board";
 function FeedBoardPage() {
   const [data, setData] = useState([]);
+  const [id, setId] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,8 +29,22 @@ function FeedBoardPage() {
         setIsLoading(false);
       }, 2000); // set delay to 2 seconds
     };
-    console.log(data);
+
+    // const fetchDataContentType = async () => {
+    //   setTimeout(async () => {
+    //     const response = await axios.get(
+    //       `http://localhost:8080/posts/${id}/contenttype`
+    //       // `http://localhost:8080/users/email/${user.body.userName}`
+    //     );
+    //     setId(response.data);
+    //     console.log(id);
+    //     setIsLoading(false);
+    //   }, 2000); // set delay to 2 seconds
+    // };
+
+    // console.log(data);
     fetchData();
+    // fetchDataContentType();
   }, []);
 
   if (isLoading) {
@@ -96,11 +111,7 @@ function FeedBoardPage() {
                 <ul className="postcard__tagbox">
                   <li className="tag__item">
                     <i className="fas fa-tag mr-2" />
-                    {item.contentType == "1" ? (
-                      <p>Welcome back, user!</p>
-                    ) : (
-                      <p>Please log in to continue.</p>
-                    )}
+                    {/* {id.body.typeName} */}
                   </li>
                   {/* <li className="tag__item">
                     <i className="fas fa-clock mr-2" />

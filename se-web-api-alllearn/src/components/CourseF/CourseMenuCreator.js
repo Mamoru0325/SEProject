@@ -11,15 +11,20 @@ function CourseMenu() {
         <li>
           <span>AllLearn Course</span>
         </li>
-        {/* <li ><span ><span>
-                        <Link className="link" href="/MyCourse_All">
-                            <IoIosAlbums />{"  คอร์สของคุณ "}
-                        </Link>
-                    </span></span></li> */}
         <li>
           <span>
             <span>
-              <Link className="link" href="/Course_registration">
+              <Link className="link" href="/MyCourse_AllCreator">
+                <IoIosAlbums />
+                {"  คอร์สของคุณ "}
+              </Link>
+            </span>
+          </span>
+        </li>
+        <li>
+          <span>
+            <span>
+              <Link className="link" href="/Course_registrationCreator">
                 <IoIosBookmarks />
                 {"   คอร์สที่ลงทะเบียน"}
               </Link>

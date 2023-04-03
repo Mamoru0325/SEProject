@@ -47,9 +47,13 @@ import StaffRequestPage from "../admin/StaffRequestPage";
 import StaffRequestDetailPage from "../admin/StaffRequestDetailPage";
 
 import CourseMenu from "../CourseF/CourseMenu";
+import CourseMenuCreator from "../CourseF/CourseMenuCreator";
+import MyCourse_AllCreator from "../CourseF/MyCourse_AllCreator";
 import MyCourse_All from "../CourseF/MyCourse_All";
 import Course_Registration from "../CourseF/Course_Registration";
 import AllPeople_Course from "../CourseF/AllPeople_Course";
+
+import Course_RegistrationCreator from "../../components/CourseF/Course_RegistrationCreator";
 
 class Navbar extends Component {
   constructor(props) {
@@ -202,7 +206,7 @@ class Navbar extends Component {
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <a href="/AdminListPage" className="nav-link">
-                  Management Staff/Admin
+                  Management Staff
                 </a>
               </li>
               {/* <li className="nav-item">
@@ -321,7 +325,17 @@ class Navbar extends Component {
             />
 
             <Route path="/MyCourse" element={<CourseMenu />} />
+            <Route path="/myCourseCreator" element={<CourseMenuCreator />} />
             <Route path="/MyCourse_All" element={<MyCourse_All />} />
+            <Route
+              path="/MyCourse_AllCreator"
+              element={<MyCourse_AllCreator />}
+            />
+            <Route
+              path="/Course_RegistrationCreator"
+              element={<Course_RegistrationCreator />}
+            />
+
             <Route
               path="/Course_Registration"
               element={<Course_Registration />}

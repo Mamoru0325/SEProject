@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {} from "./AdminListPage.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { AddAdminPage } from "./AddAdminPage";
+import AddAdminPage from "../../components/admin/AddAdminPage";
 
 const AdminListColumns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -68,10 +69,57 @@ const CheckShowPage = (props) => {
 
 const AdminManagementPage = () => {
   const [NowPage, setNowPage] = useState("AdminList");
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setTimeout(async () => {
+        const response = await axios.get(
+          "http://localhost:8080/posts/lastestdate/page/1/value/10"
+        );
+        setData(response.data);
+        console.log(data);
+        setIsLoading(false);
+      }, 2000); // set delay to 2 seconds
+    };
+
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section className="light">
+        {/* <div className="h1 text-center text-dark" id="pageHeaderTitle">
+          My Cards Light
+        </div> */}
+        {/* {data.body.map((item, index) => (
+        <div key={index}>{item.postTopic}</div>
+      ))} */}
+        <div className="container py-2 m-4">
+          <div className="lds-spinner">
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+          Loading
+        </div>
+      </section>
+    );
+  }
   return (
     <div className="AdminManagementPage-Con">
       <div className="AdminManagement-Con">
-        <h1>หน้า{NowPage}</h1>
+        {/* <h1>หน้า{NowPage}</h1> */}
         <div className="AdminManagementHeadButt-con">
           <div className="AdminManagementButt-con">
             <button

@@ -48,6 +48,34 @@ class AuthService {
     });
   }
 
+  registerStaff(
+    email,
+    username,
+    title,
+    password,
+    firstName,
+    lastName,
+    phoneNumber,
+    imgPath,
+    backgroundPath,
+    verifyStatus,
+    matchingPassword
+  ) {
+    return axios.post(API_URL + "signup/staff", {
+      email,
+      username,
+      title,
+      password,
+      firstName,
+      lastName,
+      phoneNumber,
+      imgPath,
+      backgroundPath,
+      verifyStatus,
+      matchingPassword,
+    });
+  }
+
   getCurrentUser() {
     return JSON.parse(localStorage.getItem("user"));
   }
