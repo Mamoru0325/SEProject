@@ -32,6 +32,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Bookmark;
 import eng.cpe.se.project.model.Comment;
+import eng.cpe.se.project.model.ContentType;
+import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.ImgPost;
 import eng.cpe.se.project.model.LikePost;
 import eng.cpe.se.project.model.Post;
@@ -40,6 +42,7 @@ import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.service.BookmarkService;
 import eng.cpe.se.project.service.CommentService;
+import eng.cpe.se.project.service.ContentTypeService;
 import eng.cpe.se.project.service.ImgCommentService;
 import eng.cpe.se.project.service.ImgPostService;
 import eng.cpe.se.project.service.LikePostService;
@@ -72,6 +75,8 @@ public class PostRestController {
 	private ImgPostService imgPostService;
 	@Autowired
 	private ImgCommentService imgCommentService;
+	@Autowired
+	private ContentTypeService contentTypeService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -384,6 +389,23 @@ public class PostRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{postId}/contenttype")
+	public ResponseEntity<Response<ContentType>> findContentTypeByCourse(@PathVariable("postId") int postId) {
+		Response<ContentType> res = new Response<>();
+		Post post = postService.findById(postId);
+		try {
+			ContentType contentType = contentTypeService.findByPost(post);
+			res.setMessage("find sucess");
+			res.setBody(contentType);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<ContentType>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<ContentType>>(res, res.getHttpStatus());
 		}
 	}
 

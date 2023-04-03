@@ -14,10 +14,6 @@ import eng.cpe.se.project.repository.ContentTypeRepository;
 public class ContentTypeService {
 	@Autowired
 	private ContentTypeRepository contentTypeRepository;
-	@Autowired
-	private PostService postService;
-	@Autowired
-	private CourseService courseService;
 	
 	public void save(ContentType contentType) {
 		contentTypeRepository.save(contentType);
@@ -35,13 +31,11 @@ public class ContentTypeService {
 		contentTypeRepository.deleteById(id);
 	}
 	
-	public ContentType findByPost(int postId) {
-		Post post = postService.findById(postId);
+	public ContentType findByPost(Post post) {
 		return contentTypeRepository.findByPost(post);
 	}
 	
-	public ContentType findByCourse(int courseId) {
-		Course course = courseService.findById(courseId);
+	public ContentType findByCourse(Course course) {
 		return contentTypeRepository.findByCourse(course);
 	}
 }
