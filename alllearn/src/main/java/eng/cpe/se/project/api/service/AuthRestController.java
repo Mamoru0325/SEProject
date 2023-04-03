@@ -101,8 +101,6 @@ public class AuthRestController {
 	}
 	
 	@PostMapping("/signup/staff")
-	@SecurityRequirement(name = "Bearer Authentication")
-	@PreAuthorize("hasRole('SystemAdmin')")
 	public ResponseEntity<Response<SignupDTO>> registerStaff(@Valid @RequestBody SignupDTO user) {
 		Response<SignupDTO> res = new Response<>();
 		try {
