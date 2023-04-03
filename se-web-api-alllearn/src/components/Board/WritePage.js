@@ -14,46 +14,30 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import axios from 'axios';
+import moment from 'moment/moment';
 // import PhotoCamera from '@material-ui/core/PhotoCamera';
 
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const names = [
-  'กีฬา',
-  'เศรฐกิจ',
-  'คอมพิวเตอร์',
-  'ศิลปะ',
-  'ความงาม',
-  'กีฬา',
-  'อสังหาทรัพย์',
-];
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 
 export default function WritePage() {
-  const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [items, setItems] = useState([]);
+	const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get('YOUR_API_URL');
+      setItems(result.data);
+    };
+    fetchData();
+  }, []);
+
+
+  
   // On file select (from the pop up)
   const onFileChange = event => {
     // Update the state
@@ -127,6 +111,58 @@ export default function WritePage() {
   console.log("Images : ", images);
   console.log("imageURLs : ", imageURLs);
 
+useEffect(() => {
+    const localStorageData = localStorage.getItem("user");
+    let user = JSON.parse(localStorageData);
+    console.log("===== " + user.body.userName);
+    // if (localStorageData) {
+    //   setData(JSON.parse(localStorageData));
+    // }
+    const fetchData = async () => {
+      setTimeout(async () => {
+        const response = await axios.get(
+          `http://localhost:8080/users/email/${user.body.userName}`
+        );
+        setData(response.data);
+        //console.log(data.body);
+        setIsLoading(false);
+      }, 2000); // set delay to 2 seconds
+    };
+    console.log(data);
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const createPo = () => {
+    const localStorageData = localStorage.getItem("user");
+    let user = JSON.parse(localStorageData);
+    const token = user.body.token;
+  axios
+    .post(`http://localhost:8080/users/post`, {
+      postTopic: "string",
+      postDetail: "string",
+      createDate: moment().format("YYYY-MM-DD HH:mm a"),
+    }
+    ,{
+       headers: {
+        Authorization: `Bearer ${token}`
+      },
+      params: {
+        contentId: 1,
+      },
+    })
+    .then((response) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+  if(!data) return "No Course";
+
   return (
     <div>
 
@@ -135,38 +171,14 @@ export default function WritePage() {
         <div className='write-con'>
 
           <div className='write-tag'>
-
-            {/* <FormControl sx={{ m: 1, width: 300 }}>
-
-              <InputLabel id="demo-multiple-chip-label">Tag</InputLabel>
-
-              <Select
-                labelId="demo-multiple-chip-label"
-                id="demo-multiple-chip"
-                multiple
-                value={personName}
-                onChange={handleChange}
-                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                renderValue={(selected) => (
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    {selected.map((value) => (
-                      <Chip key={value} label={value} />
-                    ))}
-                  </Box>
-                )}
-                MenuProps={MenuProps}
-              >
-                {names.map((name) => (
-                  <MenuItem
-                    key={name}
-                    value={name}
-                    style={getStyles(name, personName, theme)}
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl> */}
+          <div>
+      <select>
+        {items.map(item => (
+          <option key={item.id} value={item.id}>{item.name}</option>
+        ))}
+      </select>
+    </div>
+            
 
           </div>
           <div className='write-up-img'>
@@ -233,7 +245,7 @@ export default function WritePage() {
               >
                 Post
               </Button> */}
-<button onClick={onFileUpload}>Upload!</button>
+<button onClick={createPo}>Upload!</button>
 
             </div>
           </div>
@@ -247,3 +259,10 @@ export default function WritePage() {
 
   );
 }
+
+
+
+
+
+
+
