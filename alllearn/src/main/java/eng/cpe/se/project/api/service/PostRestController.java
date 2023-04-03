@@ -1,5 +1,6 @@
 package eng.cpe.se.project.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -30,6 +32,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Bookmark;
 import eng.cpe.se.project.model.Comment;
+import eng.cpe.se.project.model.ImgPost;
 import eng.cpe.se.project.model.LikePost;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Report;
@@ -37,12 +40,13 @@ import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.service.BookmarkService;
 import eng.cpe.se.project.service.CommentService;
+import eng.cpe.se.project.service.ImgCommentService;
+import eng.cpe.se.project.service.ImgPostService;
 import eng.cpe.se.project.service.LikePostService;
 import eng.cpe.se.project.service.PostService;
 import eng.cpe.se.project.service.ReportService;
 import eng.cpe.se.project.service.ReportTypeService;
 import eng.cpe.se.project.service.UserService;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
@@ -64,6 +68,10 @@ public class PostRestController {
 	private BookmarkService bookmarkService;
 	@Autowired
 	private ReportTypeService reportTypeService;
+	@Autowired
+	private ImgPostService imgPostService;
+	@Autowired
+	private ImgCommentService imgCommentService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -141,6 +149,22 @@ public class PostRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		}
+	}
+
+	@GetMapping("/{postId}/imgpost")
+	public ResponseEntity<Response<ImgPost>> findImgPostByPost(@PathVariable("postId") int postId) {
+		Response<ImgPost> res = new Response<>();
+		try {
+			ImgPost img = imgPostService.findByPost(postId);
+			res.setMessage("find sucess");
+			res.setBody(img);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<ImgPost>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<ImgPost>>(res, res.getHttpStatus());
 		}
 	}
 
@@ -237,8 +261,8 @@ public class PostRestController {
 	@PostMapping("/{id}/comment")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Comment>> createCommentByPost(@PathVariable("id") int id,
-			@Valid @RequestBody Comment comment) {
+	public ResponseEntity<Response<Comment>> createCommentByPost(@RequestParam("file") MultipartFile file,
+			@PathVariable("id") int id, @Valid @RequestBody Comment comment) {
 		Response<Comment> res = new Response<Comment>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = postService.findById(id);
@@ -247,6 +271,7 @@ public class PostRestController {
 			comment.setPost(post);
 			comment.setUser(user);
 			commentService.save(comment);
+			imgCommentService.saveimg(file, comment);
 			res.setMessage("create report Success");
 			res.setBody(comment);
 			res.setHttpStatus(HttpStatus.OK);
@@ -339,5 +364,30 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
 		}
 	}
+
+//	@GetMapping("/{postId}/page/{page}/value/{value}")
+//	public ResponseEntity<Response<List<UserCommentDTO>>> findAllByPost(@PathVariable("postId") int postId,
+//			@PathVariable("page") int page, @PathVariable("value") int value) {
+//		Response<List<UserCommentDTO>> res = new Response<>();
+//		List<UserCommentDTO> dtos = new ArrayList<UserCommentDTO>();
+//		Post post = postService.findById(postId);
+//		List<Comment> comments = commentService.findAllByPost(post, page, value);
+//		for(int i=0 ; i < comments.size();i++) {
+//			int cid = comments.get(i).getCommentId();
+//			User _user = userService.findBycomment(cid);
+//			UserCommentDTO dto = new UserCommentDTO(_user, comments.get(i));
+//			dtos.add(dto);
+//		}
+//		try {
+//			res.setMessage("find success");
+//			res.setBody(dtos);
+//			res.setHttpStatus(HttpStatus.OK);
+//			return new ResponseEntity<Response<List<UserCommentDTO>>>(res, res.getHttpStatus());
+//		} catch (Exception ex) {
+//			res.setBody(null);
+//			res.setHttpStatus(HttpStatus.NOT_FOUND);
+//			return new ResponseEntity<Response<List<UserCommentDTO>>>(res, res.getHttpStatus());
+//		}
+//	}
 
 }

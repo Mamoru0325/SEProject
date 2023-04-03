@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import eng.cpe.se.project.model.Comment;
 import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.model.dto.UserPaymentDTO;
@@ -31,4 +32,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Query("select count(u) from JoinCourse jc inner join jc.paymentChecks pc inner join pc.user u where jc.course = :course and pc.status = 'Waiting'")
 	public int countUserByWaitingStatus(@Param("course")Course course);
+	
+	@Query("select u from User u inner join u.comments c where c = :comment")
+	public User findByComment(@Param("comment")Comment comment);
 }

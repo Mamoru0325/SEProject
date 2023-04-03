@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import eng.cpe.se.project.model.Comment;
 import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.PaymentCheck;
 import eng.cpe.se.project.model.Role;
@@ -54,6 +55,8 @@ public class UserService implements IUserService, UserDetailsService{
 	private CourseService courseService;
 	@Autowired
 	private PaymentCheckService paymentCheckService;
+	@Autowired
+	private CommentService commentService;
 	
 	public void save(User user) {
 		userRepository.save(user);
@@ -202,6 +205,11 @@ public class UserService implements IUserService, UserDetailsService{
 	public int countUserByWaitingStatus(int courseId) {
 		Course course = courseService.findById(courseId);
 		return userRepository.countUserByWaitingStatus(course);
+	}
+	
+	public User findBycomment(int id) {
+		Comment comment = commentService.findById(id);
+		return userRepository.findByComment(comment);
 	}
 
 }
