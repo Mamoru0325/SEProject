@@ -27,8 +27,6 @@ public class ImgVerifyService {
 	private String externalPath;
 	@Autowired
 	private ImgVerifyRepository imgVerifyRepository;
-	@Autowired
-	private RequestVerifyService requestVerifyService;
 
 	public void save(ImgVerify imgVerify) {
 		imgVerifyRepository.save(imgVerify);
@@ -93,8 +91,7 @@ public class ImgVerifyService {
 		save(img);
 	}
 	
-	public ImgVerify findByRequestVerify(int requestVerifyId) {
-		RequestVerify verify = requestVerifyService.findById(requestVerifyId);
+	public ImgVerify findByRequestVerify(RequestVerify verify) {
 		return imgVerifyRepository.findByRequestVerify(verify);
 	}
 }

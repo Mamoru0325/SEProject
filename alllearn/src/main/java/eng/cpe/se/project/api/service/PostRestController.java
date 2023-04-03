@@ -160,8 +160,9 @@ public class PostRestController {
 	@GetMapping("/{postId}/imgpost")
 	public ResponseEntity<Response<ImgPost>> findImgPostByPost(@PathVariable("postId") int postId) {
 		Response<ImgPost> res = new Response<>();
+		Post post = postService.findById(postId);
 		try {
-			ImgPost img = imgPostService.findByPost(postId);
+			ImgPost img = imgPostService.findByPost(post);
 			res.setMessage("find sucess");
 			res.setBody(img);
 			res.setHttpStatus(HttpStatus.OK);

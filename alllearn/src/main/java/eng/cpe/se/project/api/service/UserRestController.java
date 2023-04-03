@@ -198,8 +198,8 @@ public class UserRestController {
 	@PostMapping("/post")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Post>> createPostByUser(@RequestParam("file") MultipartFile file,
-			@RequestParam("contentId") int contentId, @Valid @RequestBody Post post) {
+	public ResponseEntity<Response<Post>> createPostByUser(@RequestParam("contentId") int contentId,
+			@Valid @RequestBody Post post) {
 		Response<Post> res = new Response<Post>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByEmail(email);
@@ -208,6 +208,26 @@ public class UserRestController {
 			post.setUser(user);
 			post.setContentType(contentType);
 			postService.save(post);
+			res.setMessage("create Post Success");
+			res.setBody(post);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Post>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Post>>(res, res.getHttpStatus());
+		}
+	}
+
+	@PostMapping("/post/imgpost")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<Post>> createPostByUser(@RequestParam(value = "file") MultipartFile file) {
+		Response<Post> res = new Response<Post>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		Post post = postService.findByDateAndDoneReportStatus(user);
+		try {
 			imgPostService.saveimg(file, post);
 			res.setMessage("create Post Success");
 			res.setBody(post);
@@ -308,7 +328,7 @@ public class UserRestController {
 			@PathVariable("value") int value) {
 		Response<List<User>> res = new Response<>();
 		try {
-			List<User> users = userService.findByStaffRole(page,value);
+			List<User> users = userService.findByStaffRole(page, value);
 			res.setMessage("find success");
 			res.setBody(users);
 			res.setHttpStatus(HttpStatus.OK);

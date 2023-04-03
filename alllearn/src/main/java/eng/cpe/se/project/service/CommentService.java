@@ -1,5 +1,6 @@
 package eng.cpe.se.project.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import eng.cpe.se.project.model.Comment;
+import eng.cpe.se.project.model.ImgComment;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.repository.CommentRepository;
 
@@ -15,6 +17,8 @@ import eng.cpe.se.project.repository.CommentRepository;
 public class CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
+	@Autowired
+	private ImgCommentService imgCommentService;
 
 	public void save(Comment comment) {
 		commentRepository.save(comment);
@@ -29,6 +33,10 @@ public class CommentService {
 	}
 	
 	public void delete(int id) {
+		Comment comment = findById(id);
+		ImgComment imgComment = imgCommentService.findByComment(comment);
+		File img = new File(imgComment.getImgPath());
+		img.deleteOnExit();
 		commentRepository.deleteById(id);
 	}
 	
