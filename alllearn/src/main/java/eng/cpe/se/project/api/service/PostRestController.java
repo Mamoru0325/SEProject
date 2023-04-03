@@ -408,6 +408,23 @@ public class PostRestController {
 			return new ResponseEntity<Response<ContentType>>(res, res.getHttpStatus());
 		}
 	}
+	
+	@GetMapping("/{postId}/likepost")
+	public ResponseEntity<Response<Integer>> countLikePostByPost(@PathVariable("postId") int postId) {
+		Response<Integer> res = new Response<>();
+		Post post = postService.findById(postId);
+		try {
+			int likePost = likePostService.countLikePost(post);
+			res.setMessage("find sucess");
+			res.setBody(likePost);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
+		}
+	}
 
 //	@GetMapping("/{postId}/page/{page}/value/{value}")
 //	public ResponseEntity<Response<List<UserCommentDTO>>> findAllByPost(@PathVariable("postId") int postId,

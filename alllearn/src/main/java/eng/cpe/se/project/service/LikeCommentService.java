@@ -35,8 +35,7 @@ public class LikeCommentService {
 		likeCommentRepository.deleteById(id);
 	}
 
-	public int countLikeComment(int commentId) {
-		Comment comment = commentService.findById(commentId);
+	public int countLikeComment(Comment comment) {
 		return likeCommentRepository.countLikeComment(comment);
 	}
 	

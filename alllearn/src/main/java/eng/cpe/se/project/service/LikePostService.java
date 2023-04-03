@@ -35,8 +35,7 @@ public class LikePostService {
 		likePostRepository.deleteById(id);
 	}
 	
-	public int countLikePost(int postId) {
-		Post post = postService.findById(postId);
+	public int countLikePost(Post post) {
 		return likePostRepository.countLikePost(post);
 	}
 	
