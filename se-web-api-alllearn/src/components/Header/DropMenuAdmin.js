@@ -37,7 +37,7 @@ export default function DropdownMenu() {
           </IconButton>
         </Tooltip>
       </Box>
-      <Menu
+      {/* <Menu
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
@@ -71,44 +71,44 @@ export default function DropdownMenu() {
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        <MenuItem onClick={handleClose}>
+      > */}
+      {/* <MenuItem onClick={handleClose}>
           <NavLink to="/myProfile" className="choice">
             My Profile
           </NavLink>
-        </MenuItem>
+        </MenuItem> */}
 
-        {/* <MenuItem onClick={handleClose}>
+      {/* <MenuItem onClick={handleClose}>
           <NavLink to="/myCourse" className="choice">
             My Course
           </NavLink>
         </MenuItem> */}
 
-        {/* <MenuItem onClick={handleClose}>
+      {/* <MenuItem onClick={handleClose}>
                     <NavLink to="/fav" className="choice">
                         Favorite 
                     </NavLink>
                 </MenuItem> */}
 
-        {/* <MenuItem onClick={handleClose}>
+      {/* <MenuItem onClick={handleClose}>
                     <NavLink to="/verify" className="choice">
                         Send Verify
                     </NavLink>
                 </MenuItem> */}
 
-        <Divider />
+      {/* <Divider /> */}
 
-        <MenuItem onClick={handleClose}>
+      {/* <MenuItem onClick={handleClose}>
           <NavLink to="/Setting" className="choice">
             Settings
           </NavLink>
-        </MenuItem>
-        {/* <MenuItem onClick={handleClose}>
+        </MenuItem> */}
+      {/* <MenuItem onClick={handleClose}>
           <NavLink to="/" className="choice">
             Logout
           </NavLink>
         </MenuItem> */}
-      </Menu>
+      {/* </Menu> */}
     </React.Fragment>
   );
 }

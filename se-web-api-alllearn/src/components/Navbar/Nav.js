@@ -18,6 +18,8 @@ import Profile from "../Profile/MyProfile";
 // import WritePage from "../Write/WritePage";
 
 import DropdownMenu from "../Header/DropMenu";
+import DropdownMenuCreator from "../Header/DropMenuCreator";
+import DropdownMenuAdmin from "../Header/DropMenuAdmin";
 
 //Add
 //Page import
@@ -55,9 +57,10 @@ class Navbar extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showModeratorBoard: false,
-      showAdminBoard: false,
-      currentUser: undefined,
+      staffUser: false,
+      adminSystem: false,
+      creatorUser: false,
+      currentUser: false,
     };
   }
 
@@ -66,9 +69,10 @@ class Navbar extends Component {
 
     if (user) {
       this.setState({
-        currentUser: user.body.roles,
-        // showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        // showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        currentUser: user.body.roles.includes("ROLE_User"),
+        creatorUser: user.body.roles.includes("ROLE_CourseCreator"),
+        adminSystem: user.body.roles.includes("ROLE_SystemAdmin"),
+        staffUser: user.body.roles.includes("ROLE_Staff"),
       });
     }
 
@@ -84,14 +88,15 @@ class Navbar extends Component {
   logOut() {
     AuthService.logout();
     this.setState({
-      showModeratorBoard: false,
-      showAdminBoard: false,
-      currentUser: undefined,
+      staffUser: false,
+      adminSystem: false,
+      creatorUser: false,
+      currentUser: false,
     });
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser, creatorUser, adminSystem, staffUser } = this.state;
 
     return (
       <div>
@@ -99,22 +104,14 @@ class Navbar extends Component {
           <Link to={"/"} className="navbar-brand">
             <img src={Logo} alt="" height={40} width={45} />
           </Link>
-          <div className="navbar-nav mr-auto">
+          <div className="navbar-nav ml-auto">
             {/* <li className="nav-item">
               <Link to={"/homepage"} className="nav-link">
                 Home
               </Link>
             </li> */}
 
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
-                </Link>
-              </li>
-            )}
-
-            {currentUser == "ROLE_SystemAdmin" && (
+            {/* {currentUser == "ROLE_SystemAdmin" && (
               <div className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <a href="/AdminManage" className="nav-link">
@@ -127,7 +124,7 @@ class Navbar extends Component {
                   </a>
                 </li>
               </div>
-            )}
+            )} */}
 
             {/* {currentUser && (
               <li className="nav-item">
@@ -138,7 +135,39 @@ class Navbar extends Component {
             )} */}
           </div>
 
-          {currentUser != "ROLE_SystemAdmin" && currentUser ? (
+          {/* <h1>User</h1> */}
+          {currentUser ? (
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <a href="/" className="nav-link">
+                  Home
+                </a>
+              </li>
+              {/* <li className="nav-item">
+                <a href="/myprofile" className="nav-link">
+                  MyProfile
+                </a>
+              </li> */}
+              <li className="nav-item">
+                <a href="/write" className="nav-link">
+                  Write
+                </a>
+              </li>
+              {/* <li className="nav-item">
+                <a href="/createCourse" className="nav-link">
+                  Create Course
+                </a>
+              </li> */}
+              <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={this.logOut}>
+                  LogOut
+                </a>
+              </li>
+              <li>
+                <DropdownMenu />
+              </li>
+            </div>
+          ) : creatorUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <a href="/" className="nav-link">
@@ -166,7 +195,79 @@ class Navbar extends Component {
                 </a>
               </li>
               <li>
-                <DropdownMenu />
+                <DropdownMenuCreator />
+              </li>
+            </div>
+          ) : adminSystem ? (
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <a href="/AdminListPage" className="nav-link">
+                  Management Staff/Admin
+                </a>
+              </li>
+              {/* <li className="nav-item">
+                <a href="/" className="nav-link">
+                  Home
+                </a>
+              </li> */}
+              {/* <li className="nav-item">
+                <a href="/myprofile" className="nav-link">
+                  MyProfile
+                </a>
+              </li> */}
+              {/* <li className="nav-item">
+                <a href="/write" className="nav-link">
+                  Write
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="/createCourse" className="nav-link">
+                  Create Course
+                </a>
+              </li> */}
+              <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={this.logOut}>
+                  LogOut
+                </a>
+              </li>
+              <li>
+                <DropdownMenuAdmin />
+              </li>
+            </div>
+          ) : staffUser ? (
+            <div className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <a href="/AdminManage" className="nav-link">
+                  Management
+                </a>
+              </li>
+              {/* <li className="nav-item">
+                <a href="/" className="nav-link">
+                  Home
+                </a>
+              </li> */}
+              {/* <li className="nav-item">
+                <a href="/myprofile" className="nav-link">
+                  MyProfile
+                </a>
+              </li> */}
+              {/* <li className="nav-item">
+                <a href="/write" className="nav-link">
+                  Write
+                </a>
+              </li>
+              <li className="nav-item">
+                <a href="/createCourse" className="nav-link">
+                  Create Course
+                </a>
+              </li> */}
+              <li className="nav-item">
+                <a href="/login" className="nav-link" onClick={this.logOut}>
+                  LogOut
+                </a>
+              </li>
+              <li>
+                <DropdownMenuAdmin />
               </li>
             </div>
           ) : (

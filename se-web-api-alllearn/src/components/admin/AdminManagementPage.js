@@ -166,14 +166,14 @@ const CheckShowPage = (props) => {
 };
 
 const AdminManagementPage = () => {
-  const [NowPage, setNowPage] = useState("Course");
+  const [NowPage, setNowPage] = useState("Report");
   return (
     <div className="AdminManagementPage-Con">
       <div className="AdminManagement-Con">
         <h1>{NowPage}Page</h1>
         <div className="AdminManagementHeadButt-con">
           <div className="AdminManagementButt-con">
-            <button
+            {/* <button
               type="button"
               className="SwapPageButt"
               onClick={() => setNowPage((NowPage) => "Course")}
@@ -186,7 +186,7 @@ const AdminManagementPage = () => {
               onClick={() => setNowPage((NowPage) => "Post")}
             >
               Post
-            </button>
+            </button> */}
             <button
               type="button"
               className="SwapPageButt"

@@ -78,11 +78,11 @@ export default function DropdownMenu() {
           </NavLink>
         </MenuItem>
 
-        {/* <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose}>
           <NavLink to="/myCourse" className="choice">
             My Course
           </NavLink>
-        </MenuItem> */}
+        </MenuItem>
 
         {/* <MenuItem onClick={handleClose}>
                     <NavLink to="/fav" className="choice">

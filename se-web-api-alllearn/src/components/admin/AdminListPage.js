@@ -79,14 +79,14 @@ const AdminManagementPage = () => {
               className="SwapPageButt"
               onClick={() => setNowPage((NowPage) => "AdminList")}
             >
-              Admin List
+              Staff List
             </button>
             <button
               type="button"
               className="SwapPageButt"
               onClick={() => setNowPage((NowPage) => "AddAdmin")}
             >
-              Add Admin
+              Add Staff
             </button>
           </div>
         </div>
