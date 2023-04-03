@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import eng.cpe.se.project.model.Report;
 import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.repository.ReportTypeRepository;
 
@@ -28,4 +29,9 @@ public class ReportTypeService {
 	public void delete(int id) {
 		reportTypeRepository.deleteById(id);
 	}
+	
+	public ReportType findByReport(Report report) {
+		return reportTypeRepository.findByReport(report);
+	}
+	
 }

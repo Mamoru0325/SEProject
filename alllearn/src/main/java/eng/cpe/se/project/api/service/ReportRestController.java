@@ -21,12 +21,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import eng.cpe.se.project.api.util.Response;
+import eng.cpe.se.project.model.ContentType;
 import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Report;
+import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.service.CourseService;
 import eng.cpe.se.project.service.PostService;
 import eng.cpe.se.project.service.ReportService;
+import eng.cpe.se.project.service.ReportTypeService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
@@ -39,6 +42,8 @@ public class ReportRestController {
 	private CourseService courseService;
 	@Autowired
 	private PostService postService;
+	@Autowired
+	private ReportTypeService reportTypeService;
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex){
@@ -123,6 +128,23 @@ public class ReportRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{reportId}/reporttype")
+	public ResponseEntity<Response<ReportType>> findReportTypeByReport(@PathVariable("reportId") int reportId) {
+		Response<ReportType> res = new Response<>();
+		Report report = reportService.findById(reportId);
+		try {
+			ReportType reportType = reportTypeService.findByReport(report);
+			res.setMessage("find sucess");
+			res.setBody(reportType);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<ReportType>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<ReportType>>(res, res.getHttpStatus());
 		}
 	}
 	
