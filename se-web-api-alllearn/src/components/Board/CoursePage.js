@@ -1,15 +1,20 @@
 import React from 'react'
 import './CoursePage.css'
+import { useState } from 'react';
+
+import ConfirmCourse from './ConfirmCourse'
+import ConfirmCourse2 from './ConfirmCourse';
 
 export default function CoursePage() {
+
   return (
     <div className='cp-container'>
       <div className='cp-content'>
 
         <div className='cp-profile'>
-        
-            <img className='small-profile' src='./proImg.jpg' alt='avatar'/>
-      
+
+          <img className='small-profile' src='./proImg.jpg' alt='avatar' />
+
           <span> ชื่อ นามสกุล</span>
         </div>
 
@@ -54,17 +59,20 @@ export default function CoursePage() {
 
           </div>
 
-
+         
 
         </div>
         <div style={{display:'flex' , justifyContent:'center'}}>
-            <button className='cp-button'> Register</button>
+           <ConfirmCourse />
         </div>
-      
+
+
+
       </div>
-      
+
     </div>
 
   )
 }
+
 
