@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import eng.cpe.se.project.model.LikePost;
 import eng.cpe.se.project.model.Post;
+import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.repository.LikePostRepository;
 
 @Service
@@ -15,6 +16,8 @@ public class LikePostService {
 	private LikePostRepository likePostRepository;
 	@Autowired
 	private PostService postService;
+	@Autowired
+	private UserService userService;
 	
 	public void save(LikePost likePost) {
 		likePostRepository.save(likePost);
@@ -35,5 +38,9 @@ public class LikePostService {
 	public int countLikePost(int postId) {
 		Post post = postService.findById(postId);
 		return likePostRepository.countLikePost(post);
+	}
+	
+	public LikePost findByPostAndUser(Post post,User user) {
+		return likePostRepository.findByPostAndUser(post, user);
 	}
 }

@@ -35,6 +35,8 @@ import com.github.pheerathach.ThaiQRPromptPay;
 
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Course;
+import eng.cpe.se.project.model.ImgCourse;
+import eng.cpe.se.project.model.ImgPost;
 import eng.cpe.se.project.model.JoinCourse;
 import eng.cpe.se.project.model.PaymentCheck;
 import eng.cpe.se.project.model.Post;
@@ -43,6 +45,8 @@ import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.model.dto.UserPaymentDTO;
 import eng.cpe.se.project.service.CourseService;
+import eng.cpe.se.project.service.ImgCommentService;
+import eng.cpe.se.project.service.ImgCourseService;
 import eng.cpe.se.project.service.JoinCourseService;
 import eng.cpe.se.project.service.PaymentCheckService;
 import eng.cpe.se.project.service.ReportService;
@@ -71,6 +75,8 @@ public class CourseRestController {
 	private PaymentCheckService paymentCheckService;
 	@Autowired
 	private ReportTypeService reportTypeService;
+	@Autowired
+	private ImgCourseService imgCourseService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -263,7 +269,7 @@ public class CourseRestController {
 		}
 	}
 
-	@GetMapping("/byuser/page/{page}/value/{value}")
+	@GetMapping("/user/page/{page}/value/{value}")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
 	public ResponseEntity<Response<List<Course>>> findAllByUser(@PathVariable("page") int page,
@@ -281,6 +287,22 @@ public class CourseRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<List<Course>>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{courseId}/imgcourse")
+	public ResponseEntity<Response<ImgCourse>> findImgPostByPost(@PathVariable("courseId") int courseId) {
+		Response<ImgCourse> res = new Response<>();
+		try {
+			ImgCourse img = imgCourseService.findByCourse(courseId);
+			res.setMessage("find sucess");
+			res.setBody(img);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<ImgCourse>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<ImgCourse>>(res, res.getHttpStatus());
 		}
 	}
 

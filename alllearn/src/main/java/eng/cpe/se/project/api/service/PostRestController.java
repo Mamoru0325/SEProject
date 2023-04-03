@@ -364,6 +364,28 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
 		}
 	}
+	
+	@DeleteMapping("/{postId}/unlike")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<String>> unlikeByPostAndUser(@PathVariable("postId") int postId) {
+		Response<String> res = new Response<String>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		Post post = postService.findById(postId);
+		try {
+			LikePost likePost = likePostService.findByPostAndUser(post, user);
+			likePostService.delete(likePost.getLikePostId());
+			res.setMessage("delete" + likePost.getLikePostId() + "success");
+			res.setBody("");
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		}
+	}
 
 //	@GetMapping("/{postId}/page/{page}/value/{value}")
 //	public ResponseEntity<Response<List<UserCommentDTO>>> findAllByPost(@PathVariable("postId") int postId,

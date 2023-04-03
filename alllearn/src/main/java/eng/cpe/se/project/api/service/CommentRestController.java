@@ -29,13 +29,17 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import eng.cpe.se.project.api.util.Response;
 import eng.cpe.se.project.model.Comment;
+import eng.cpe.se.project.model.ImgComment;
+import eng.cpe.se.project.model.ImgCourse;
 import eng.cpe.se.project.model.LikeComment;
+import eng.cpe.se.project.model.LikePost;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Report;
 import eng.cpe.se.project.model.ReportType;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.model.dto.UserCommentDTO;
 import eng.cpe.se.project.service.CommentService;
+import eng.cpe.se.project.service.ImgCommentService;
 import eng.cpe.se.project.service.LikeCommentService;
 import eng.cpe.se.project.service.ReportService;
 import eng.cpe.se.project.service.ReportTypeService;
@@ -58,6 +62,8 @@ public class CommentRestController {
 	private ReportService reportService;
 	@Autowired
 	private ReportTypeService reportTypeService;
+	@Autowired
+	private ImgCommentService imgCommentService;
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response<ObjectNode>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -189,6 +195,44 @@ public class CommentRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{commentId}/imgcourse")
+	public ResponseEntity<Response<ImgComment>> findImgPostByPost(@PathVariable("commentId") int commentId) {
+		Response<ImgComment> res = new Response<>();
+		try {
+			ImgComment img = imgCommentService.findByComment(commentId);
+			res.setMessage("find sucess");
+			res.setBody(img);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<ImgComment>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<ImgComment>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@DeleteMapping("/{commentId}/unlike")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<String>> unlikeByPostAndUser(@PathVariable("commentId") int commentId) {
+		Response<String> res = new Response<String>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		Comment comment = commentService.findById(commentId);
+		try {
+			LikeComment likeComment = likeCommentService.findByCommentAndUser(comment, user);
+			likeCommentService.delete(likeComment.getLikeCommentId());
+			res.setMessage("delete" + likeComment.getLikeCommentId() + "success");
+			res.setBody("");
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 		}
 	}
 

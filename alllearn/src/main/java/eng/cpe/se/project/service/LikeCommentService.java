@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import eng.cpe.se.project.model.Comment;
 import eng.cpe.se.project.model.LikeComment;
+import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.repository.LikeCommentRepository;
 
 @Service
@@ -15,6 +16,8 @@ public class LikeCommentService {
 	private LikeCommentRepository likeCommentRepository;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private UserService userService;
 
 	public void save(LikeComment likeComment) {
 		likeCommentRepository.save(likeComment);
@@ -35,5 +38,9 @@ public class LikeCommentService {
 	public int countLikeComment(int commentId) {
 		Comment comment = commentService.findById(commentId);
 		return likeCommentRepository.countLikeComment(comment);
+	}
+	
+	public LikeComment findByCommentAndUser(Comment comment,User user) {
+		return likeCommentRepository.findByCommentAndUser(comment, user);
 	}
 }
