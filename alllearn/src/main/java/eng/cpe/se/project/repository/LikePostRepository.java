@@ -14,6 +14,6 @@ public interface LikePostRepository extends CrudRepository<LikePost, Integer> {
 	@Query("select count(lp) from LikePost lp where lp.post = :post")
 	public int countLikePost(@Param("post")Post post);
 	
-	@Query("select lk from LikePost lp where lp.post = :post and lp.user = :user")
+	@Query("select lp from LikePost lp where lp.post = :post and lp.user = :user")
 	public LikePost findByPostAndUser(@Param("post")Post post,@Param("user")User user);
 }
