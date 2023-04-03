@@ -11,9 +11,10 @@ import eng.cpe.se.project.model.Post;
 
 @Repository
 public interface ContentTypeRepository extends CrudRepository<ContentType, Integer> {
-	@Query("from ContentType ct where ct.posts = post")
+	
+	@Query("from ContentType ct where ct.posts = :post")
 	public ContentType findByPost(@Param("post")Post post);
 	
-	@Query("from ContentType ct where ct.courses = courses")
-	public ContentType findByCourse(@Param("courses")Course courses);
+	@Query("from ContentType ct where ct.courses = :course")
+	public ContentType findByCourse(@Param("course")Course course);
 }
