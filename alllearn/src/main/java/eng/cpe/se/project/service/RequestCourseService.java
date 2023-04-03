@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 
 import eng.cpe.se.project.model.RequestCourse;
+import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.repository.RequestCourseRepository;
 
 @Service
 public class RequestCourseService {
 	@Autowired
 	private RequestCourseRepository requestCourseRepository;
+	@Autowired
+	private UserService userService;
 	
 	public void save(RequestCourse requestCourse) {
 		requestCourseRepository.save(requestCourse);
@@ -28,5 +31,9 @@ public class RequestCourseService {
 	
 	public void delete(int id) {
 		requestCourseRepository.deleteById(id);
+	}
+	
+	public List<RequestCourse> findByUser(User user){
+		return requestCourseRepository.findByUser(user);
 	}
 }

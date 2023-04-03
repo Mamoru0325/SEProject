@@ -36,4 +36,6 @@ public class CommentService {
 		Pageable pageable = PageRequest.of(page-1, value);
 		return commentRepository.findAllByPost(post, pageable);
 	}
+	
+	
 }

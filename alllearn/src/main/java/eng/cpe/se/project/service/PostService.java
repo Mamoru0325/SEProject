@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import eng.cpe.se.project.model.Post;
+import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.repository.PostRepository;
 
 @Service
@@ -36,13 +37,27 @@ public class PostService {
 		return postRepository.findAll(pageable);
 	}
 	
-	public List<Post> findAllByDate(int page,int value){
+	public List<Post> findAllByDateAndDoneReportStatus(int page,int value){
 		Pageable pageable = PageRequest.of(page-1, value);
-		return postRepository.findAllByDate(pageable);
+		return postRepository.findAllByDateAndDoneReportStatus(pageable);
 	}
 	
-	public List<Post> findAllByPopulation(int page,int value){
+	public List<Post> findAllByPopulationAndDoneReportStatus(int page,int value){
 		Pageable pageable = PageRequest.of(page-1, value);
-		return postRepository.findAllByPopulation(pageable);
+		return postRepository.findAllByPopulationAndDoneReportStatus(pageable);
+	}
+	
+	public List<Post> findAllByWaitingReportStatus(int page,int value){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return postRepository.findAllByWaitingReportStatus(pageable);
+	}
+	
+	public List<Post> findAllByFollowerandDate(int page,int value,User user){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return postRepository.findAllByFollowerandDate(pageable, user);
+	}
+	public List<Post> findAllByPopulationfromFollower(int page,int value,User user){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return postRepository.findAllByPopulationfromFollower(pageable, user);
 	}
 }

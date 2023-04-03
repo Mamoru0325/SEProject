@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import eng.cpe.se.project.model.Follower;
+import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.repository.FollowerRepository;
 
 
@@ -15,6 +16,8 @@ import eng.cpe.se.project.repository.FollowerRepository;
 public class FollowerService {
 	@Autowired
 	private FollowerRepository followerRepository; 
+	@Autowired
+	private UserService userService;
 	
 	public void save(Follower follower) {
 		followerRepository.save(follower);
@@ -30,5 +33,10 @@ public class FollowerService {
 	
 	public void delete(int id) {
 		followerRepository.deleteById(id);
+	}
+	
+	public int countFollower(int userId) {
+		User user = userService.findById(userId);
+		return followerRepository.countFollower(user);
 	}
 }

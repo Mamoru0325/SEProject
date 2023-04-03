@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -22,6 +23,7 @@ public class Post implements java.io.Serializable {
 	private String postTopic;
 	private String postDetail;
 	private String reportStatus;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm a")
 	private Date createDate;
 	@JsonIgnore
 	private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
