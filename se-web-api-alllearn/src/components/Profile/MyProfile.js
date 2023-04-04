@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import "../Profile/MyProfile.css";
 import "../Header/Header.css";
-import Posts from "../subPosts/Posts"
 import Button from "@material-ui/core/Button";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import EditIcon from "@mui/icons-material/Edit";

@@ -5,6 +5,9 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import ConfirmCourse from "./ConfirmCourse";
 import ConfirmCourse2 from "./ConfirmCourse";
+import { FiUsers ,FiClock} from "react-icons/fi";
+
+import { HiTicket } from "react-icons/hi2";
 
 export default function CoursePage() {
   const searchParams = new URLSearchParams(window.location.search);
@@ -64,6 +67,34 @@ export default function CoursePage() {
     fetchData();
     // fetchDataContentType();
   }, []);
+
+  const createQR = () => {
+
+    const localStorageData = localStorage.getItem('user');
+    let user = JSON.parse(localStorageData);
+    const token = user.body.token;
+    // console.log(contentTypeNow);
+    // console.log(postTopic);
+    // console.log(postDetail);
+    axios.post(`http://localhost:8080/courses/1/payment`, {
+      payby: 1,
+      joinCourseId: 5,
+      status: "Wating",
+      qrCodePath: "D:/SE_65_GROUP_1/se-web-api-alllearn/public/image",
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log(response.data);
+    }).catch((error) => {
+      console.error(error);
+    });
+
+    
+      };
+      if (!data) return "No Course";
 
   if (isLoading) {
     return (
@@ -127,28 +158,29 @@ export default function CoursePage() {
 
         <div className="cp-detail">
           <div className="cp-font">
-            <div>
-              register {data.body.minimum}/{data.body.maximum}
+            <div style={{fontSize: "18px", color: "#003566"}}>
+              <FiUsers style={{margin: "10px",fontSize:"22px"}}/> {data.body.minimum}/{data.body.maximum}
+            </div><br></br>
+
+            <div style={{fontSize: "18px"}}>
+              <span style={{fontSize: "20px", color: "#003566"}}><FiClock />  วันสมัคร </span>  <div>เริ่ม   {data.body.firstEnrollDate} ถึง{" "}
+              {data.body.lastEnrollDate}</div> 
             </div>
 
-            <div>
-              ระยะเวลาเปิดรับสมัคร {data.body.firstEnrollDate} ถึง{" "}
-              {data.body.lastEnrollDate}
+            <div ><span style={{fontSize: "20px", color: "#003566"}}><FiClock />  วันสอน</span></div>
+            <div style={{fontSize: "18px"}}>
+                    เริ่ม   {data.body.startDate} ถึง {data.body.endDate}
+              </div><br></br>
+            
+            <div style={{fontSize: "18px"}}>
+            <FiUsers style={{fontSize: "20px", color: "#003566"}}/> เปิดรับ ขั้นต่ำ: {data.body.minimum} คน มากสุด: {data.body.maximum} คน
             </div>
 
-            <div>วันที่เปิดสอน</div>
-            <div>
-              {data.body.startDate} ถึง {data.body.endDate}
-            </div>
-            <div>
-              จำนวนที่เปิดรับ Min: {data.body.minimum} Max: {data.body.maximum}
-            </div>
-
-            <div>ราคา {data.body.price}</div>
+            <div style={{fontSize: "18px"}}><HiTicket style={{fontSize: "20px", color: "#003566"}}/> {data.body.price}</div>
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <ConfirmCourse />
+          <ConfirmCourse props={data}/>
         </div>
       </div>
     </div>

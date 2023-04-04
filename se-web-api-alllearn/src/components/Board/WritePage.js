@@ -171,6 +171,7 @@ axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
 }).catch((error) => {
   console.error(error);
 });
+
   };
   if (!data) return "No Course";
 
@@ -178,7 +179,7 @@ axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
     <div>
       <div className="write-page">
         <div className="write-con">
-          <div className="write-tag">
+          {/* <div className="write-tag">
             <div>
               <select onChange={(event) => setContentTypeNow(event.target.value)}>
                 {contentType.body.map((content, index) => (
@@ -188,7 +189,7 @@ axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
           <div className="write-up-img">
             <div className="a">Cover image</div>
 
