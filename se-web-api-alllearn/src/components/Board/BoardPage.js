@@ -11,7 +11,7 @@ import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
 import CommentApp from '../comment/CommentApp';
 import LikeButton from '../LikeButton';
 import ReportButton from '../ReportButton';
-import { FiAlertCircle, FiHeart ,FiThumbsUp } from "react-icons/fi";
+import { FiAlertCircle, FiHeart, FiThumbsUp } from "react-icons/fi";
 
 
 function BoardPage() {
@@ -33,6 +33,7 @@ function BoardPage() {
               <li className='boardPageOwnerImg'>
                 <img src="./proImg.jpg" />
               </li>
+
               <li className='boardPageOwnerDetail'>
                 <li className='boardPageOwnerName'>
                   นายก นามสมมุติ
@@ -50,8 +51,13 @@ function BoardPage() {
                 </li>
               </li>
               <li className='boardPageFavButton'>
-                  <ReportButton/>
-                
+                <ReportButton />
+
+              </li>
+              <li className='boardPageFavButton'>
+
+                <DeleteButton />
+
               </li>
             </ul>
           </div>
@@ -90,7 +96,7 @@ function BoardPage() {
 
           </div>
           <LikeButton />
-          
+
 
 
 
