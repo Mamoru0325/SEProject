@@ -24,8 +24,19 @@ export default function WritePage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [items, setItems] = useState([]);
   const [data, setData] = useState([]);
-  const [contentType, setContentType] = useState([]);
+  const [contentTypeNow, setContentTypeNow] = useState("1");
   const [isLoading, setIsLoading] = useState(true);
+  const [contentType, setContentType] = useState();
+  const [postTopic, setpostTopic] = useState();
+  const [postDetail, setpostDetail] = useState();
+
+  const TextTopicChange = (event) => {
+    setpostTopic(event.target.value);
+  }
+
+  const TextDetailChange = (event) => {
+    setpostDetail(event.target.value);
+  }
 
   // On file select (from the pop up)
   const onFileChange = (event) => {
@@ -122,7 +133,7 @@ export default function WritePage() {
       setTimeout(async () => {
         const response = await axios.get(`http://localhost:8080/contenttypes/`);
         setContentType(response.data);
-        console.log("asdasd"+contentType);
+        console.log("asdasd");
         setIsLoading(false);
       }, 2000); // set delay to 2 seconds
     };
@@ -136,32 +147,31 @@ export default function WritePage() {
 
 
 
-//   const createPo = () => {
-//     const formData = new FormData();
-// formData.append('file', selectedFile);
-// formData.append('postTopic', 'string');
-// formData.append('postDetail', 'string');
-// formData.append('createDate', moment().format('YYYY-MM-DD HH:mm a'));
+  const createPo = () => {
 
-
-// const localStorageData = localStorage.getItem('user');
-// let user = JSON.parse(localStorageData);
-// const token = user.body.token;
-
-// axios.post('http://localhost:8080/users/post', formData, {
-//   headers: {
-//     'Content-Type': 'application/json',
-//     Authorization: `Bearer ${token}`,
-//   },
-//   params: {
-//     contentId: 1,
-//   },
-// }).then((response) => {
-//   console.log(response.data);
-// }).catch((error) => {
-//   console.error(error);
-// });
-//   };
+const localStorageData = localStorage.getItem('user');
+let user = JSON.parse(localStorageData);
+const token = user.body.token;
+const titleField = document.getElementById('filled-basic');
+console.log(contentTypeNow);
+console.log(postTopic);
+console.log(postDetail);
+axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
+  postTopic: `${postTopic}`,
+  postDetail: `${postDetail}`,
+  reportStatus: "Done",
+  createDate: moment().format('YYYY-MM-DD HH:mm a'),
+}, {
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  },
+}).then((response) => {
+  console.log(response.data);
+}).catch((error) => {
+  console.error(error);
+});
+  };
   if (!data) return "No Course";
 
   return (
@@ -170,7 +180,7 @@ export default function WritePage() {
         <div className="write-con">
           <div className="write-tag">
             <div>
-              <select>
+              <select onChange={(event) => setContentTypeNow(event.target.value)}>
                 {contentType.body.map((content, index) => (
                   <option key={index} value={content.contentTypeId}>
                     {content.typeName}
@@ -206,20 +216,20 @@ export default function WritePage() {
             ))}
           </div>
 
-          <div className="write-topic">
+          <div className="write-topic" >
             <div className="a">Title</div>
-
-            <TextField id="filled-basic" label="Title" variant="filled" />
+            <TextField id="filled-basic" label="Title" variant="filled" onChange={TextTopicChange}/>
           </div>
 
           <div className="write-content">
-            <div className="a">Paragrap</div>
+            <div className="a" >Paragrap</div>
 
             <TextField
               id="filled-textarea"
               placeholder="Type your content"
               multiline
               variant="filled"
+              onChange={TextDetailChange}
             />
             <div className="post-button">
               {/* <Button
@@ -229,7 +239,7 @@ export default function WritePage() {
               >
                 Post
               </Button> */}
-              <button>Upload!</button>
+              <button onClick={createPo}>Upload!</button>
             </div>
           </div>
         </div>
