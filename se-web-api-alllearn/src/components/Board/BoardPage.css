@@ -70,7 +70,8 @@
     position: relative;
 }
 .boardPagePostBodyImg img{
-    height: 350px;
+    height: 500px;
+    width: 800px;
     width: 100%;
     position: relative;
 }

@@ -4,6 +4,7 @@ import "./LoadingPage.css";
 // import HomePage from "./HomePage";
 // import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import "../Home/FeedBoardPage.css";
+import { Link } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
 // import Board from "./Board";
 function FeedBoardPage() {
@@ -12,12 +13,6 @@ function FeedBoardPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // const localStorageData = localStorage.getItem("user");
-    // let user = JSON.parse(localStorageData);
-    // console.log("===== " + user.body.userName);
-    // if (localStorageData) {
-    //   setData(JSON.parse(localStorageData));
-    // }
     const fetchData = async () => {
       setTimeout(async () => {
         const response = await axios.get(
@@ -30,19 +25,6 @@ function FeedBoardPage() {
       }, 2000); // set delay to 2 seconds
     };
 
-    // const fetchDataContentType = async () => {
-    //   setTimeout(async () => {
-    //     const response = await axios.get(
-    //       `http://localhost:8080/posts/${id}/contenttype`
-    //       // `http://localhost:8080/users/email/${user.body.userName}`
-    //     );
-    //     setId(response.data);
-    //     console.log(id);
-    //     setIsLoading(false);
-    //   }, 2000); // set delay to 2 seconds
-    // };
-
-    // console.log(data);
     fetchData();
     // fetchDataContentType();
   }, []);
@@ -86,10 +68,10 @@ function FeedBoardPage() {
         <div key={index}>{item.postTopic}</div>
       ))} */}
       {data.body.map((item, index) => (
-        <div className="container py-2 m-4">
+        <div className="container py-0 mt-4">
           <div key={index}>
             <article className="postcard light blue">
-              <a className="postcard__img_link" href="/BoardPage">
+              <a className="postcard__img_link">
                 <img
                   className="postcard__img"
                   src="https://picsum.photos/1000/1000"
@@ -111,6 +93,7 @@ function FeedBoardPage() {
                 <ul className="postcard__tagbox">
                   <li className="tag__item">
                     <i className="fas fa-tag mr-2" />
+                    AllLearn Blog
                     {/* {id.body.typeName} */}
                   </li>
                   {/* <li className="tag__item">
@@ -124,6 +107,11 @@ function FeedBoardPage() {
                     </a>
                   </li> */}
                 </ul>
+                <div className="mt-3">
+                  <button type="button" class="btn btn-primary">
+                    <Link to={`/BoardPage/${item.postId}`}>Read More</Link>
+                  </button>
+                </div>
               </div>
             </article>
           </div>

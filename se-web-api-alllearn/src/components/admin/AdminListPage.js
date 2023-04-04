@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {} from "./AdminListPage.css";
-import DeleteButton from "../DeleteButton";
+import DeleteButton from "../../components/DeleteBotton";
 // import { DataGrid } from "@mui/x-data-grid";
 // import { IconButton } from "@mui/material";
-// import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
 import AddAdminPage from "../../components/admin/AddAdminPage";
 
 const AdminList = () => {

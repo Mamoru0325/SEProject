@@ -299,13 +299,16 @@ class Navbar extends Component {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
+            <Route path="/BoardPage/:id" element={<BoardPage />} />
+            <Route path="/coursePage/:id" element={<CoursePage />} />
+
             {/* <Route path="/homepage" element={<HomePage />} /> */}
             {/* <Route path="/write" element={<WritePage />} /> */}
             <Route path="/Profile" element={<Profile />} />
             {/* <Route path="/MyProfile" element={<MyProfile />} /> */}
             <Route path="/createCourse" element={<CreateCoursePage />} />
-            <Route path="/BoardPage" element={<BoardPage />} />
-            <Route path="/coursePage" element={<CoursePage />} />
+            {/* <Route path="/BoardPage" element={<BoardPage />} /> */}
+            {/* <Route path="/coursePage" element={<CoursePage />} /> */}
             {/* <Route path="/register" element={<Register />} /> */}
             <Route path="/verify" element={<VerifyPage />} />
             {/* <Route path="/register" element={<Register />} /> */}
