@@ -58,14 +58,13 @@ public class RequestVerifyService {
 			if (requestVerify.getApproveStatus() == "Approve") {
 				Role role = roleService.findByRoleName("ROLE_CourseCreator");
 				User user = requestVerify.getUserByUserId();
-
-				UserRole userRole = new UserRole(role, user);
-				userRoleService.save(userRole);
+				user.getUserRoles().get(0).setRole(role);
+				userService.save(user);
 			}
 		}
 		if (requestVerify.getVerifyType() == "verify") {
 			User user = requestVerify.getUserByUserId();
-			userService.save(user);
+			
 			user.setVerifyStatus("Y");
 			userService.save(user);
 		}
