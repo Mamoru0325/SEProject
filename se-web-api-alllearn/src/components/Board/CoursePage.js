@@ -25,18 +25,18 @@ export default function CoursePage() {
       setTimeout(async () => {
         const response = await axios.get(
           // "http://localhost:8080/users/staff/page/1/value/10"
-          `http://localhost:8080/posts/${id}`
+          `http://localhost:8080/courses/${id}`
         );
         const response1 = await axios.get(
           // "http://localhost:8080/users/staff/page/1/value/10"
-          `http://localhost:8080/posts/${id}/contenttype`
+          `http://localhost:8080/courses/${id}/contenttype`
         );
         const response2 = await axios.get(
-          "http://localhost:8080/posts/lastestdate/page/1/value/5"
+          "http://localhost:8080/courses/page/1/value/5"
           // `http://localhost:8080/users/email/${user.body.userName}`
         );
         const response3 = await axios.get(
-          `http://localhost:8080/posts/${id}/user`
+          `http://localhost:8080/courses/${id}/user`
         );
         setUser(response3.data);
         setData(response.data);
@@ -99,37 +99,52 @@ export default function CoursePage() {
     <div className="cp-container">
       <div className="cp-content">
         <div className="cp-profile">
-          <img className="small-profile" src="./proImg.jpg" alt="avatar" />
+          <img
+            className="small-profile"
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="avatar"
+          />
 
-          <span> ชื่อ นามสกุล</span>
+          <span>
+            {" "}
+            {user.body.firstName} {user.body.lastName}
+          </span>
         </div>
 
         <div className="cp-img">
-          <img src="./bannerPic.png" alt="img" height={400} width={900} />
+          <img
+            src="https://picsum.photos/1000/1000"
+            alt="img"
+            height={400}
+            width={900}
+          />
         </div>
 
         <div className="cp-info">
-          <h1>หัวข้อ</h1>
-          <p>
-            รู้หรือไม่ว่า Engoo เป็นแพลตฟอร์ม เรียนภาษาอังกฤษออนไลน์ สอนสด
-            ตัวต่อตัว กับครูต่างชาติ และครูเจ้าของภาษา เรียนได้ตลอด 24 ชม.
-            โดยแพลตฟอร์มนี้ ถูกออกแบบขึ้นโดยประเทศญี่ปุ่น
-            ด้วยหลักสูตรที่ยืดหยุ่นและได้ผลจริง
-            ในราคาที่ผู้เรียนทุกระดับสามารถเข้าถึงได้ จึงทำให้ Engoo
-            เติบโตและเป็นที่นิยมเป็นอย่างมากทั้งในประเทศไทยและทั่วโลก
-          </p>
+          <h1>{data.body.courseTopic}</h1>
+          <p>{data.body.courseDetail}</p>
         </div>
 
         <div className="cp-detail">
           <div className="cp-font">
-            <div>register 10/10</div>
+            <div>
+              register {data.body.minimum}/{data.body.maximum}
+            </div>
 
-            <div>ระยะเวลาเปิดรับสมัคร</div>
+            <div>
+              ระยะเวลาเปิดรับสมัคร {data.body.firstEnrollDate} ถึง{" "}
+              {data.body.lastEnrollDate}
+            </div>
 
             <div>วันที่เปิดสอน</div>
-            <div>จำนวนที่เปิดรับ min max</div>
+            <div>
+              {data.body.startDate} ถึง {data.body.endDate}
+            </div>
+            <div>
+              จำนวนที่เปิดรับ Min: {data.body.minimum} Max: {data.body.maximum}
+            </div>
 
-            <div>ราครา</div>
+            <div>ราคา {data.body.price}</div>
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
