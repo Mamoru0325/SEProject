@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import "../Profile/MyProfile.css";
 import "../Header/Header.css";
+import Posts from "../subPosts/Posts"
 import Button from "@material-ui/core/Button";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import EditIcon from "@mui/icons-material/Edit";
@@ -23,7 +24,7 @@ function Profile() {
     // if (localStorageData) {
     //   setData(JSON.parse(localStorageData));
     // }
-    const fetchData = async () => {
+    const fetchProfile = async () => {
       setTimeout(async () => {
         const response = await axios.get(
           `http://localhost:8080/users/email/${user.body.userName}`
@@ -35,7 +36,7 @@ function Profile() {
       }, 2000); // set delay to 2 seconds
     };
     
-    fetchData();
+    fetchProfile();
     
   }, []);
 
@@ -239,6 +240,7 @@ function Profile() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }
