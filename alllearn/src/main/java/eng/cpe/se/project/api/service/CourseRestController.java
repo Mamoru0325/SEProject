@@ -376,5 +376,24 @@ public class CourseRestController {
 			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
 		}
 	}
+	
+	@GetMapping("/{id}/qrcode")
+	public ResponseEntity<Response<PaymentCheck>> qrcode(@PathVariable("id") int id) {
+		Response<PaymentCheck> res = new Response<>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		Course course = courseService.findById(id);
+		try {
+			PaymentCheck paymentCheck = paymentCheckService.findByUserAndCourse(user, course);
+			res.setMessage("find success");
+			res.setBody(paymentCheck);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<PaymentCheck>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<PaymentCheck>>(res, res.getHttpStatus());
+		}
+	}
 
 }

@@ -111,6 +111,10 @@ public class PaymentCheckService {
 		save(payment);
 	  }
 	
+	public PaymentCheck findByUserAndCourse(User user,Course course) {
+		return checkRepository.findByUserAndCourse(user, course);
+	}
+	
 //	public String writeFile(MultipartFile file,int courseId,int JoinId) throws IOException {
 //
 //		
