@@ -32,8 +32,6 @@ public class ImgPostService {
 
 	@Autowired
 	private ImgPostRepository imgPostRepository;
-	@Autowired
-	private PostService postService;
 	
 	public void save(ImgPost imgPost) {
 		imgPostRepository.save(imgPost);
@@ -96,8 +94,7 @@ public class ImgPostService {
 		save(img);
 	  }
 	
-	public ImgPost findByPost(int postId) {
-		Post post = postService.findById(postId);
+	public ImgPost findByPost(Post post) {
 		return imgPostRepository.findByPost(post);
 	}
 	

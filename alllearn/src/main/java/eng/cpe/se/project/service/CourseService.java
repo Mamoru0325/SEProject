@@ -1,5 +1,6 @@
 package eng.cpe.se.project.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import eng.cpe.se.project.model.Course;
+import eng.cpe.se.project.model.ImgCourse;
 import eng.cpe.se.project.model.PaymentCheck;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.repository.CourseRepository;
@@ -16,6 +18,8 @@ import eng.cpe.se.project.repository.CourseRepository;
 public class CourseService {
 	@Autowired
 	private CourseRepository courseRepository;
+	@Autowired
+	private ImgCourseService imgCourseService;
 	
 	public void save(Course course) {
 		courseRepository.save(course);
@@ -30,6 +34,10 @@ public class CourseService {
 	}
 	
 	public void delete(int id) {
+		Course course = findById(id);
+		ImgCourse imgCourse = imgCourseService.findByCourse(course);
+		File img = new File(imgCourse.getImgPath());
+		img.deleteOnExit();
 		courseRepository.deleteById(id);
 	}
 	

@@ -20,6 +20,9 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
 	@Query("from Post p where p.reportStatus = 'Done' order by p.createDate desc")
 	public List<Post> findAllByDateAndDoneReportStatus(Pageable pageable);
 	
+	@Query("from Post p where p.reportStatus = 'Done' and p.user = :user order by p.createDate desc")
+	public Post findByDateAndDoneReportStatus(@Param("user")User user);
+	
 	@Query("select p from Post p inner join p.likePosts lp where p.reportStatus = 'Done' group by lp.post order by count(lp.post) desc")
 	public List<Post> findAllByPopulationAndDoneReportStatus(Pageable pageable);
 	

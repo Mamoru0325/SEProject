@@ -73,6 +73,19 @@ public class UserService implements IUserService, UserDetailsService{
 	}
 	
 	public void delete(int id) {
+		User user = findById(id);
+		File backgroundUser = new File(user.getBackgroundPath());
+		File profileUser = new File(user.getImgPath());
+		
+		File profile = new File (externalPath+File.separator+"Userprofile"+File.separator+"Profile"+File.separator+"basic.png");
+		File background = new File(externalPath+File.separator+"Userprofile"+File.separator+"Background"+File.separator+"basic.jpg");
+		if (backgroundUser != background) {
+			backgroundUser.deleteOnExit();
+		}
+		if (profileUser != profile) {
+			profileUser.deleteOnExit();
+		}
+		
 		userRepository.deleteById(id);
 	}
 	

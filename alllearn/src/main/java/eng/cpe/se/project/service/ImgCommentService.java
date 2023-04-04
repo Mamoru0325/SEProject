@@ -27,8 +27,6 @@ public class ImgCommentService {
 	private String externalPath;
 	@Autowired
 	private ImgCommentRepository imgCommentRepository;
-	@Autowired
-	private CommentService commentService;
 
 	public void save(ImgComment imgComment) {
 		imgCommentRepository.save(imgComment);
@@ -93,8 +91,7 @@ public class ImgCommentService {
 		save(img);
 	}
 	
-	public ImgComment findByComment(int commentId) {
-		Comment comment = commentService.findById(commentId);
+	public ImgComment findByComment(Comment comment) {
 		return imgCommentRepository.findByComment(comment);
 	}
 }

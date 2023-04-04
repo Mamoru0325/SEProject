@@ -297,8 +297,9 @@ public class CourseRestController {
 	@GetMapping("/{courseId}/imgcourse")
 	public ResponseEntity<Response<ImgCourse>> findImgCourseByCourse(@PathVariable("courseId") int courseId) {
 		Response<ImgCourse> res = new Response<>();
+		Course course = courseService.findById(courseId);
 		try {
-			ImgCourse img = imgCourseService.findByCourse(courseId);
+			ImgCourse img = imgCourseService.findByCourse(course);
 			res.setMessage("find sucess");
 			res.setBody(img);
 			res.setHttpStatus(HttpStatus.OK);

@@ -203,8 +203,9 @@ public class CommentRestController {
 	@GetMapping("/{commentId}/imgcourse")
 	public ResponseEntity<Response<ImgComment>> findImgPostByPost(@PathVariable("commentId") int commentId) {
 		Response<ImgComment> res = new Response<>();
+		Comment commet = commentService.findById(commentId);
 		try {
-			ImgComment img = imgCommentService.findByComment(commentId);
+			ImgComment img = imgCommentService.findByComment(commet);
 			res.setMessage("find sucess");
 			res.setBody(img);
 			res.setHttpStatus(HttpStatus.OK);

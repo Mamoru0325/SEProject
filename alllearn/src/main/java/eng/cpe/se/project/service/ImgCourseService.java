@@ -27,8 +27,6 @@ public class ImgCourseService {
 	private String externalPath;
 	@Autowired
 	private ImgCourseRepository imgCourseRepository;
-	@Autowired
-	private CourseService courseService;
 
 	public void save(ImgCourse imgCourse) {
 		imgCourseRepository.save(imgCourse);
@@ -92,8 +90,7 @@ public class ImgCourseService {
 		save(img);
 	}
 	
-	public ImgCourse findByCourse(int courseId) {
-		Course course = courseService.findById(courseId);
+	public ImgCourse findByCourse(Course course) {
 		return imgCourseRepository.findByCourse(course);
 	}
 }

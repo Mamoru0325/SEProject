@@ -105,6 +105,22 @@ public class PostRestController {
 		res.setMessage("File too large!");
 		return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Response<Post>> findById(@PathVariable("id") int id) {
+		Response<Post> res = new Response<>();
+		try {
+			Post post = postService.findById(id);
+			res.setMessage("find success");
+			res.setBody(post);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Post>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Post>>(res, res.getHttpStatus());
+		}
+	}
 
 	@GetMapping("/page/{page}/value/{value}")
 	public ResponseEntity<Response<List<Post>>> findAll(@PathVariable("page") int page,
@@ -160,8 +176,9 @@ public class PostRestController {
 	@GetMapping("/{postId}/imgpost")
 	public ResponseEntity<Response<ImgPost>> findImgPostByPost(@PathVariable("postId") int postId) {
 		Response<ImgPost> res = new Response<>();
+		Post post = postService.findById(postId);
 		try {
-			ImgPost img = imgPostService.findByPost(postId);
+			ImgPost img = imgPostService.findByPost(post);
 			res.setMessage("find sucess");
 			res.setBody(img);
 			res.setHttpStatus(HttpStatus.OK);
