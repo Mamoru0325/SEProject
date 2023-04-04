@@ -14,6 +14,8 @@ import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import axios from "axios";
+import moment, { max } from "moment/moment";
 
 // import Slider from '@mui/material/Slider';
 
@@ -56,6 +58,55 @@ export default function CreateCoursePage() {
   const [personName, setPersonName] = React.useState([]);
   const [images, setImages] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
+  const [data, setData] = useState([]);
+  const [contentTypeNow, setContentTypeNow] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [contentType, setContentType] = useState();
+  const [courseTopic, setcourseTopic] = useState();
+  const [courseDetail, setcourseDetail] = useState();
+  const [minimum, setMinimum] = useState();
+  const [maximum, setMaximum] = useState();
+  const [lastEnroll, setLastEnroll] = useState();
+  const [price, setPrice] = useState();
+  const [eventDate, setEventDate] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  
+  const TextTopicChange = (event) => {
+    setcourseTopic(event.target.value);
+  }
+
+  const TextDetailChange = (event) => {
+    setcourseDetail(event.target.value);
+  }
+
+  const TextlastEnrollChange = (event) => {
+    setLastEnroll(event.target.value);
+  }
+
+  const priceChange = (event) => {
+    setPrice(event.target.value);
+  }
+
+  const minimumChange = (event) => {
+    setMinimum(event.target.value);
+  }
+
+  const maximumChange = (event) => {
+    setMaximum(event.target.value);
+  }
+
+  const TextEventDateChange = (event) => {
+    setEventDate(event.target.value);
+  }
+
+  const TextStartDateChange = (event) => {
+    setStartDate(event.target.value);
+  }
+
+  const TextEndDateChange = (event) => {
+    setEndDate(event.target.value);
+  }
 
   const handleChange = (event) => {
     const {
@@ -81,6 +132,78 @@ export default function CreateCoursePage() {
   console.log("Images : ", images);
   console.log("imageURLs : ", imageURLs);
 
+  useEffect(() => {
+    const localStorageData = localStorage.getItem("user");
+    let user = JSON.parse(localStorageData);
+    console.log("===== " + user.body.userName);
+    // if (localStorageData) {
+    //   setData(JSON.parse(localStorageData));
+    // }
+    const fetchData = async () => {
+      setTimeout(async () => {
+        const response = await axios.get(
+          `http://localhost:8080/users/email/${user.body.userName}`
+        );
+        setData(response.data);
+        //console.log(data.body);
+        setIsLoading(false);
+      }, 2000); // set delay to 2 seconds
+    };
+    fetchData();
+
+    const fetchContentTypeData = async () => {
+      setTimeout(async () => {
+        const response = await axios.get(`http://localhost:8080/contenttypes/`);
+        setContentType(response.data);
+        setIsLoading(false);
+      }, 2000); // set delay to 2 seconds
+    };
+    fetchContentTypeData();
+  }, []);
+  console.log(data);
+  console.log(contentType);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  const createCo = () => {
+
+const localStorageData = localStorage.getItem('user');
+let user = JSON.parse(localStorageData);
+const token = user.body.token;
+console.log(contentTypeNow);
+console.log(courseTopic);
+console.log(courseDetail);
+console.log(Date());
+console.log(lastEnroll);
+console.log(maximum);
+console.log(startDate);
+console.log(endDate);
+console.log(eventDate);
+axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
+  courseTopic: `${courseTopic}`,
+  courseDetail: `${courseDetail}`,
+  minimum: 1,
+  maximum: `${maximum}`,
+  price: `${price}`,
+  status: "Available",
+  reportStatus: "Done",
+  firstEnrollDate: moment(Date()).format('YYYY-MM-DD'),
+  lastEnrollDate: `${lastEnroll}`,
+  eventDate: `${eventDate}`,
+  startDate: moment(`${startDate}`).format('YYYY-MM-DD HH:mm a'),
+  endDate: moment(`${endDate}`).format('YYYY-MM-DD HH:mm a'),
+}, {
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  },
+}).then((response) => {
+  console.log(response.data);
+}).catch((error) => {
+  console.error(error);
+});
+  };
+  if (!data) return "No Course";
 
   return (
     <div>
@@ -88,7 +211,17 @@ export default function CreateCoursePage() {
       <div className='create-course-page'>
 
         <div className='create-course-info'>
-
+          <div className="write-tag">
+            <div>
+              <select onChange={(event) => setContentTypeNow(event.target.value)}>
+                {contentType.body.map((content, index) => (
+                  <option key={index} value={content.contentTypeId}>
+                    {content.typeName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
           <div className='r1'>
 
             <div className='create-course-topic'>
@@ -104,16 +237,33 @@ export default function CreateCoursePage() {
                 id="filled-basic"
                 label="Title"
                 variant="filled"
+                type='date'
+                onChange={TextlastEnrollChange}
               />
             </div>
             <div className='create-course-topic'>
 
-              <a className='a'>กำหนดระยะเวลากิจกรรม</a>
+              <a className='a'>กำหนดระยะเวลากิจกรรมเริ่ม</a>
 
               <TextField
                 id="filled-basic"
                 label="Title"
                 variant="filled"
+                type='date'
+                onChange={TextStartDateChange}
+              />
+
+            </div>
+            <div className='create-course-topic'>
+
+              <a className='a'>กำหนดระยะเวลากิจกรรมจบ</a>
+
+              <TextField
+                id="filled-basic"
+                label="Title"
+                variant="filled"
+                type='date'
+                onChange={TextEndDateChange}
               />
 
             </div>
@@ -123,13 +273,11 @@ export default function CreateCoursePage() {
           <div className='r2'>
             <div className='create-course-topic'>
               <a className='a'>กำหนดราคา</a>
-
-
-
               <TextField
                 id="filled-basic"
                 label="Title"
                 variant="filled"
+                onChange={priceChange}
               />
             </div>
             <div className='create-course-topic'>
@@ -140,6 +288,7 @@ export default function CreateCoursePage() {
                 id="filled-basic"
                 label="Title"
                 variant="filled"
+                onChange={maximumChange}
               />
 
             </div>
@@ -152,6 +301,8 @@ export default function CreateCoursePage() {
                 id="filled-basic"
                 label="Title"
                 variant="filled"
+                type='date'
+                onChange={TextEventDateChange}
               />
 
             </div>
@@ -228,6 +379,7 @@ export default function CreateCoursePage() {
               id="filled-basic"
               label="Title"
               variant="filled"
+              onChange={TextTopicChange}
             />
 
           </div>
@@ -241,7 +393,7 @@ export default function CreateCoursePage() {
               placeholder="Type your content"
               multiline
               variant="filled"
-
+              onChange={TextDetailChange}
             />
             
             <div className='create-button'>
@@ -249,6 +401,7 @@ export default function CreateCoursePage() {
                 variant="contained"
                 color='primary'
                 size="large"
+                onClick={createCo}
               >
                 Create coruse
               </Button>
