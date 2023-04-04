@@ -120,9 +120,9 @@ export default function WritePage() {
 
     const fetchContentTypeData = async () => {
       setTimeout(async () => {
-        const response = await axios.get(`http://localhost:8080/conntentType/`);
+        const response = await axios.get(`http://localhost:8080/contenttypes/`);
         setContentType(response.data);
-        //console.log(contentType);
+        console.log("asdasd"+contentType);
         setIsLoading(false);
       }, 2000); // set delay to 2 seconds
     };
@@ -134,34 +134,34 @@ export default function WritePage() {
     return <div>Loading...</div>;
   }
 
-  const createPo = () => {
-    const localStorageData = localStorage.getItem("user");
-    let user = JSON.parse(localStorageData);
-    const token = user.body.token;
-    axios
-      .post(
-        `http://localhost:8080/users/post`,
-        {
-          postTopic: "string",
-          postDetail: "string",
-          createDate: moment().format("YYYY-MM-DD HH:mm a"),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          params: {
-            contentId: 1,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+
+
+//   const createPo = () => {
+//     const formData = new FormData();
+// formData.append('file', selectedFile);
+// formData.append('postTopic', 'string');
+// formData.append('postDetail', 'string');
+// formData.append('createDate', moment().format('YYYY-MM-DD HH:mm a'));
+
+
+// const localStorageData = localStorage.getItem('user');
+// let user = JSON.parse(localStorageData);
+// const token = user.body.token;
+
+// axios.post('http://localhost:8080/users/post', formData, {
+//   headers: {
+//     'Content-Type': 'application/json',
+//     Authorization: `Bearer ${token}`,
+//   },
+//   params: {
+//     contentId: 1,
+//   },
+// }).then((response) => {
+//   console.log(response.data);
+// }).catch((error) => {
+//   console.error(error);
+// });
+//   };
   if (!data) return "No Course";
 
   return (
@@ -229,7 +229,7 @@ export default function WritePage() {
               >
                 Post
               </Button> */}
-              <button onClick={createPo}>Upload!</button>
+              <button>Upload!</button>
             </div>
           </div>
         </div>
