@@ -88,7 +88,7 @@ function ConfirmCourse(props) {
             setQR(response.data);
             console.log(QR);
             setIsLoading(false);
-          }, 2000); // set delay to 2 seconds
+          }, 2001); // set delay to 2 seconds
         };
         fetchQRData();
       }, []);

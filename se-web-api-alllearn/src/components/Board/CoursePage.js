@@ -47,7 +47,7 @@ export default function CoursePage() {
         setContent(response1.data);
         console.log(data);
         setIsLoading(false);
-      }, 500);
+      }, 501);
     };
 
     // const fetchContent = async () => {
