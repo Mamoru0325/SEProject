@@ -11,6 +11,7 @@ import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
 import CommentApp from '../comment/CommentApp';
 import LikeButton from '../LikeButton';
 import ReportButton from '../ReportButton';
+import DeleteButton from '../DeleteButton';
 import { FiAlertCircle, FiHeart, FiThumbsUp } from "react-icons/fi";
 
 
