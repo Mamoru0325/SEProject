@@ -101,6 +101,7 @@ class Login extends Component {
               <label htmlFor="username">Email</label>
               <Input
                 type="text"
+                placeholder="Enter Your Email"
                 className="form-control"
                 name="username"
                 value={this.state.username}
@@ -113,6 +114,7 @@ class Login extends Component {
               <label htmlFor="password">Password</label>
               <Input
                 type="password"
+                placeholder="password"
                 className="form-control"
                 name="password"
                 value={this.state.password}

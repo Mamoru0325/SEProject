@@ -229,9 +229,10 @@ export default class Register extends Component {
             {!this.state.successful && (
               <div>
                 <div className="form-group">
-                  <label htmlFor="title">Title Mr/Ms/Miss/Other</label>
+                  <label htmlFor="title">Title</label>
                   <Input
                     type="text"
+                    placeholder=" Mr/Ms/Miss/Other "
                     className="form-control"
                     name="title"
                     value={this.state.title}
@@ -244,6 +245,7 @@ export default class Register extends Component {
                   <label htmlFor="firstname">First Name</label>
                   <Input
                     type="text"
+                    placeholder=" Enter Your First Name"
                     className="form-control"
                     name="firstname"
                     value={this.state.firstName}
@@ -256,6 +258,7 @@ export default class Register extends Component {
                   <label htmlFor="lastname">Last Name</label>
                   <Input
                     type="text"
+                    placeholder=" Enter Your Last Name"
                     className="form-control"
                     name="lastname"
                     value={this.state.lastName}
@@ -268,6 +271,7 @@ export default class Register extends Component {
                   <label htmlFor="phonenumber">Phone Number</label>
                   <Input
                     type="text"
+                    placeholder=" Enter Your Phone Number"
                     className="form-control"
                     name="phonenumber"
                     value={this.state.phoneNumber}
@@ -280,6 +284,7 @@ export default class Register extends Component {
                   <label htmlFor="username">Username</label>
                   <Input
                     type="text"
+                    placeholder=" Enter Your Username"
                     className="form-control"
                     name="username"
                     value={this.state.username}
@@ -292,6 +297,7 @@ export default class Register extends Component {
                   <label htmlFor="email">Email</label>
                   <Input
                     type="text"
+                    placeholder=" Enter Your Email"
                     className="form-control"
                     name="email"
                     value={this.state.email}
@@ -304,6 +310,7 @@ export default class Register extends Component {
                   <label htmlFor="password">Password</label>
                   <Input
                     type="password"
+                    placeholder=" Enter Your Password"
                     className="form-control"
                     name="password"
                     value={this.state.password}
@@ -316,6 +323,7 @@ export default class Register extends Component {
                   <label htmlFor="matchingPassword">Confirm Password</label>
                   <Input
                     type="password"
+                    placeholder=" Confirm Password"
                     className="form-control"
                     name="matchingPassword"
                     value={this.state.matchingPassword}
