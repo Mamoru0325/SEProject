@@ -85,6 +85,10 @@ function BoardPage() {
     // fetchDataContentType();
   }, []);
 
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   if (isLoading) {
     return (
       <section className="light">
@@ -233,7 +237,11 @@ function BoardPage() {
                   </li> */}
                       </ul>
                       <div className="mt-3">
-                        <button type="button" class="btn btn-primary">
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          onClick={handleReload}
+                        >
                           <Link to={`/BoardPage/${item.postId}`}>
                             Read More
                           </Link>

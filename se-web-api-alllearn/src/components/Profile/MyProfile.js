@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import "../Profile/MyProfile.css";
 import "../Header/Header.css";
+<<<<<<< Updated upstream
+=======
+// import Posts from "../subPosts/Posts"
+>>>>>>> Stashed changes
 import Button from "@material-ui/core/Button";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import EditIcon from "@mui/icons-material/Edit";
@@ -34,9 +38,8 @@ function Profile() {
         setIsLoading(false);
       }, 2000); // set delay to 2 seconds
     };
-    
+
     fetchProfile();
-    
   }, []);
 
   if (isLoading) {
@@ -184,16 +187,16 @@ function Profile() {
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center text-center">
                   <img
-                    src={profile.imgPath}
+                    src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
                     alt="Admin"
                     className="rounded-circle"
                     width={150}
                   />
+                  <div className="mt-3">{followerBy} Follower</div>
                   <div className="mt-3">
-                    {followerBy}   Follower
-                  </div>
-                  <div className="mt-3">
-                    <h4>{profile.firstName}  {profile.lastName}</h4>
+                    <h4>
+                      {profile.firstName} {profile.lastName}
+                    </h4>
                   </div>
                 </div>
               </div>
@@ -206,7 +209,9 @@ function Profile() {
                   <div className="col-sm-3">
                     <h6 className="mb-0">Full Name</h6>
                   </div>
-                  <div className="col-sm-9 text-secondary">{profile.firstName}  {profile.lastName}</div>
+                  <div className="col-sm-9 text-secondary">
+                    {profile.firstName} {profile.lastName}
+                  </div>
                 </div>
                 <hr />
                 <div className="row">
@@ -220,7 +225,9 @@ function Profile() {
                   <div className="col-sm-3">
                     <h6 className="mb-0">Phone</h6>
                   </div>
-                  <div className="col-sm-9 text-secondary">{profile.phoneNumber}</div>
+                  <div className="col-sm-9 text-secondary">
+                    {profile.phoneNumber}
+                  </div>
                 </div>
                 <hr />
                 {/* <div className="row">
@@ -239,7 +246,6 @@ function Profile() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
