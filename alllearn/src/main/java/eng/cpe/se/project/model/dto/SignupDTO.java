@@ -47,8 +47,8 @@ public class SignupDTO {
 	String matchingPassword;
 
 	public SignupDTO(@Email String email, String username, String title, String password, String firstName,
-			String lastName, String phoneNumber, String imgPath, String backgroundPath, String verifyStatus,String detail,
-			@NotBlank String matchingPassword) {
+			String lastName, String phoneNumber, String imgPath, String backgroundPath, String verifyStatus,
+			String detail, @NotBlank String matchingPassword) {
 		super();
 		this.email = email;
 		this.username = username;
@@ -144,6 +144,14 @@ public class SignupDTO {
 		this.verifyStatus = verifyStatus;
 	}
 
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
 	public String getMatchingPassword() {
 		return matchingPassword;
 	}
@@ -151,5 +159,6 @@ public class SignupDTO {
 	public void setMatchingPassword(String matchingPassword) {
 		this.matchingPassword = matchingPassword;
 	}
+
 
 }

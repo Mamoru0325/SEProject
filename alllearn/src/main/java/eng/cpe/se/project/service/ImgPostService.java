@@ -93,9 +93,9 @@ public class ImgPostService {
 		return imgPostRepository.findByPost(post);
 	}
 	
-	public List<ImgPost> findAllByPostDate(){
-		return imgPostRepository.findAllByPostDate();
-	}
+//	public List<ImgPost> findAllByPostDate(){
+//		return imgPostRepository.findAllByPostDate();
+//	}
 	
 	
 	

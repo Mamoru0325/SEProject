@@ -15,6 +15,6 @@ public interface ImgPostRepository extends CrudRepository<ImgPost, Integer> {
 	@Query("from ImgPost ip where ip.post = :post")
 	public ImgPost findByPost(@Param("post")Post post);
 	
-	@Query("select ip from ImgPost ip where ip.post p where p.reportStatus = 'Done' order by p.createDate desc")
-	public List<ImgPost> findAllByPostDate();
+//	@Query("select ip from ImgPost ip where ip.post p where p.reportStatus = 'Done' order by p.createDate desc")
+//	public List<ImgPost> findAllByPostDate();
 }
