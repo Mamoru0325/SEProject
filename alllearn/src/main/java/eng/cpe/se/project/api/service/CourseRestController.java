@@ -191,6 +191,23 @@ public class CourseRestController {
 			return new ResponseEntity<Response<Course>>(res, res.getHttpStatus());
 		}
 	}
+	
+	@GetMapping("/{id}")
+	@SecurityRequirement(name = "Bearer Authentication")
+	public ResponseEntity<Response<Course>> findById(@PathVariable("id") int id) {
+		Response<Course> res = new Response<>();
+		Course course = courseService.findById(id);
+		try {
+			res.setMessage("find success");
+			res.setBody(course);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Course>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Course>>(res, res.getHttpStatus());
+		}
+	}
 
 	@DeleteMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")

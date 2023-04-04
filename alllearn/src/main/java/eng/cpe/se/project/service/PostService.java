@@ -74,4 +74,9 @@ public class PostService {
 	public Post findByDateAndDoneReportStatus(User user) {
 		return postRepository.findByDateAndDoneReportStatus(user);
 	}
+	
+	public List<Post> findAllByUser(int page, int value, User user){
+		Pageable pageable = PageRequest.of(page - 1, value);
+		return postRepository.findAllByUser(user, pageable);
+	}
 }

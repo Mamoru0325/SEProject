@@ -13,6 +13,7 @@ import axios from "axios";
 
 function Profile() {
   const [profile, setProfile] = useState([]);
+  const [followerBy, setFollowerBy] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +29,8 @@ function Profile() {
           `http://localhost:8080/users/email/${user.body.userName}`
         );
         setProfile(response.data.body.user);
-        // console.log(profile);
+        setFollowerBy(response.data.body.countFollowBy);
+        // console.log(followerBy);
         setIsLoading(false);
       }, 2000); // set delay to 2 seconds
     };
@@ -187,6 +189,9 @@ function Profile() {
                     className="rounded-circle"
                     width={150}
                   />
+                  <div className="mt-3">
+                    {followerBy}   Follower
+                  </div>
                   <div className="mt-3">
                     <h4>{profile.firstName}  {profile.lastName}</h4>
                   </div>

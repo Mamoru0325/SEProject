@@ -141,6 +141,24 @@ public class UserRestController {
 		}
 	}
 
+	@GetMapping("/{id}/posts/page/{page}/value/{value}")
+	public ResponseEntity<Response<List<Post>>> findAllPostByUser(@PathVariable("id") int id,
+			@PathVariable("page") int page, @PathVariable("value") int value) {
+		Response<List<Post>> res = new Response<>();
+		try {
+			User user = userService.findById(id);
+			List<Post> posts = postService.findAllByUser(page, value, user);
+			res.setMessage("find success");
+			res.setBody(posts);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		}
+	}
+
 	@GetMapping("/username/{username}")
 	public ResponseEntity<Response<UserCountDTO>> findUserByName(@PathVariable("username") String username) {
 		Response<UserCountDTO> res = new Response<>();
