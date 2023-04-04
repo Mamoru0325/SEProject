@@ -98,7 +98,7 @@ class Login extends Component {
             }}
           >
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">Email</label>
               <Input
                 type="text"
                 className="form-control"
