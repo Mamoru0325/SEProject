@@ -42,11 +42,12 @@ public class SignupDTO {
 	private String imgPath;
 	private String backgroundPath;
 	private String verifyStatus;
+	private String detail;
 	@NotBlank
 	String matchingPassword;
 
 	public SignupDTO(@Email String email, String username, String title, String password, String firstName,
-			String lastName, String phoneNumber, String imgPath, String backgroundPath, String verifyStatus,
+			String lastName, String phoneNumber, String imgPath, String backgroundPath, String verifyStatus,String detail,
 			@NotBlank String matchingPassword) {
 		super();
 		this.email = email;
@@ -59,6 +60,7 @@ public class SignupDTO {
 		this.imgPath = imgPath;
 		this.backgroundPath = backgroundPath;
 		this.verifyStatus = verifyStatus;
+		this.detail = detail;
 		this.matchingPassword = matchingPassword;
 	}
 

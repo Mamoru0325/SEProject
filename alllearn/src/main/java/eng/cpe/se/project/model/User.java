@@ -28,6 +28,7 @@ public class User implements java.io.Serializable {
 	private String imgPath;
 	private String backgroundPath;
 	private String verifyStatus;
+	private String detail;
 	@JsonIgnore
 	private List<PaymentCheck> paymentChecks = new ArrayList<PaymentCheck>();
 	@JsonIgnore
@@ -61,7 +62,7 @@ public class User implements java.io.Serializable {
 	}
 
 	public User(String email, String password, String matchingPassword, String title, String firstName, String lastName,
-			String phoneNumber, String username, String imgPath, String backgroundPath, String verifyStatus) {
+			String phoneNumber, String username, String imgPath, String backgroundPath, String verifyStatus, String detail) {
 		this.email = email;
 		this.password = password;
 		this.title = title;
@@ -72,11 +73,12 @@ public class User implements java.io.Serializable {
 		this.imgPath = imgPath;
 		this.backgroundPath = backgroundPath;
 		this.verifyStatus = verifyStatus;
+		this.detail = detail;
 	}
 
 	public User(Integer userId, String email, String password, String matchingPassword, String title, String firstName,
 			String lastName, String phoneNumber, String username, String imgPath, String backgroundPath,
-			String verifyStatus, List<PaymentCheck> paymentChecks, List<Follower> followersForFollowBy,
+			String verifyStatus, String detail, List<PaymentCheck> paymentChecks, List<Follower> followersForFollowBy,
 			List<Follower> followersForFollowTo, List<Comment> comments, List<RequestVerify> requestVerifiesForUserId,
 			List<RequestCourse> requestCourses, List<Course> courses, List<RequestVerify> requestVerifiesForStaffId,
 			List<Bookmark> bookmarks, List<Post> posts, List<LikeComment> likeComments, List<Report> reports,
@@ -93,6 +95,7 @@ public class User implements java.io.Serializable {
 		this.imgPath = imgPath;
 		this.backgroundPath = backgroundPath;
 		this.verifyStatus = verifyStatus;
+		this.detail = detail;
 		this.paymentChecks = paymentChecks;
 		this.followersForFollowBy = followersForFollowBy;
 		this.followersForFollowTo = followersForFollowTo;
@@ -222,7 +225,15 @@ public class User implements java.io.Serializable {
 	public void setVerifyStatus(String verifyStatus) {
 		this.verifyStatus = verifyStatus;
 	}
-	
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
 	public List<PaymentCheck> getPaymentChecks() {
 		return paymentChecks;
 	}
