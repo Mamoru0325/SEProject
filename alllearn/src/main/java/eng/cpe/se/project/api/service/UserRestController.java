@@ -243,7 +243,7 @@ public class UserRestController {
 	@PostMapping("/requestverify")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<RequestVerify>> createRequestVerifyByUser(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<Response<RequestVerify>> createRequestVerifyByUser(
 			@Valid @RequestBody RequestVerify request) {
 		Response<RequestVerify> res = new Response<RequestVerify>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -251,7 +251,6 @@ public class UserRestController {
 		try {
 			request.setUserByUserId(user);
 			requestVerifyService.save(request);
-			imgVerifyService.saveimg(file, request);
 			res.setMessage("create RequestVerify Success");
 			res.setBody(request);
 			res.setHttpStatus(HttpStatus.OK);
@@ -262,12 +261,12 @@ public class UserRestController {
 			return new ResponseEntity<Response<RequestVerify>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@PostMapping("/course")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('CourseCreator')")
-	public ResponseEntity<Response<Course>> createCourseByUser(@RequestParam("file") MultipartFile file,
-			@RequestParam("contentId") int contentId, @Valid @RequestBody Course course) {
+	public ResponseEntity<Response<Course>> createCourseByUser(@RequestParam("contentId") int contentId,
+			@Valid @RequestBody Course course) {
 		Response<Course> res = new Response<Course>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByEmail(email);
@@ -276,7 +275,6 @@ public class UserRestController {
 			course.setUser(user);
 			course.setContentType(contentType);
 			courseService.save(course);
-			imgCourseService.saveimg(file, course);
 			res.setMessage("create Course Success");
 			res.setBody(course);
 			res.setHttpStatus(HttpStatus.OK);

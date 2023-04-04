@@ -105,7 +105,7 @@ public class PostRestController {
 		res.setMessage("File too large!");
 		return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Response<Post>> findById(@PathVariable("id") int id) {
 		Response<Post> res = new Response<>();
@@ -283,8 +283,8 @@ public class PostRestController {
 	@PostMapping("/{id}/comment")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<Comment>> createCommentByPost(@RequestParam("file") MultipartFile file,
-			@PathVariable("id") int id, @Valid @RequestBody Comment comment) {
+	public ResponseEntity<Response<Comment>> createCommentByPost(@PathVariable("id") int id,
+			@Valid @RequestBody Comment comment) {
 		Response<Comment> res = new Response<Comment>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = postService.findById(id);
@@ -293,7 +293,6 @@ public class PostRestController {
 			comment.setPost(post);
 			comment.setUser(user);
 			commentService.save(comment);
-			imgCommentService.saveimg(file, comment);
 			res.setMessage("create report Success");
 			res.setBody(comment);
 			res.setHttpStatus(HttpStatus.OK);
@@ -386,7 +385,7 @@ public class PostRestController {
 			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@DeleteMapping("/{postId}/unlike")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
@@ -408,7 +407,7 @@ public class PostRestController {
 			return new ResponseEntity<Response<String>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@GetMapping("/{postId}/contenttype")
 	public ResponseEntity<Response<ContentType>> findContentTypeByPost(@PathVariable("postId") int postId) {
 		Response<ContentType> res = new Response<>();
@@ -425,7 +424,7 @@ public class PostRestController {
 			return new ResponseEntity<Response<ContentType>>(res, res.getHttpStatus());
 		}
 	}
-	
+
 	@GetMapping("/{postId}/likepost")
 	public ResponseEntity<Response<Integer>> countLikePostByPost(@PathVariable("postId") int postId) {
 		Response<Integer> res = new Response<>();
