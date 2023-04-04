@@ -262,7 +262,7 @@ public class UserRestController {
 			return new ResponseEntity<Response<RequestVerify>>(res, res.getHttpStatus());
 		}
 	}
-
+	
 	@PostMapping("/course")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('CourseCreator')")

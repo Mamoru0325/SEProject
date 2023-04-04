@@ -23,6 +23,7 @@ public class RequestVerify implements java.io.Serializable {
 	private String verifyHeader;
 	private String verifyDetail;
 	private String approveStatus;
+	private String verifyType;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dateApprove;
 	@JsonIgnore
@@ -32,7 +33,7 @@ public class RequestVerify implements java.io.Serializable {
 	}
 
 	public RequestVerify(Integer requestVerifyId, User userByUserId, User userByStaffId, String verifyHeader,
-			String verifyDetail, String approveStatus, Date dateApprove, List<ImgVerify> imgVerifies) {
+			String verifyDetail, String approveStatus, String verifyType, Date dateApprove, List<ImgVerify> imgVerifies) {
 		super();
 		this.requestVerifyId = requestVerifyId;
 		this.userByUserId = userByUserId;
@@ -40,6 +41,7 @@ public class RequestVerify implements java.io.Serializable {
 		this.verifyHeader = verifyHeader;
 		this.verifyDetail = verifyDetail;
 		this.approveStatus = approveStatus;
+		this.verifyType = verifyType;
 		this.dateApprove = dateApprove;
 		this.imgVerifies = imgVerifies;
 	}
@@ -98,6 +100,14 @@ public class RequestVerify implements java.io.Serializable {
 		this.approveStatus = approveStatus;
 	}
 
+	public String getVerifyType() {
+		return verifyType;
+	}
+
+	public void setVerifyType(String verifyType) {
+		this.verifyType = verifyType;
+	}
+
 	public Date getDateApprove() {
 		return dateApprove;
 	}
@@ -113,6 +123,5 @@ public class RequestVerify implements java.io.Serializable {
 	public void setImgVerifies(List<ImgVerify> imgVerifies) {
 		this.imgVerifies = imgVerifies;
 	}
-
 
 }

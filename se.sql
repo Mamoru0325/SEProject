@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2023 at 05:55 AM
+-- Generation Time: Apr 04, 2023 at 08:57 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -375,6 +375,7 @@ CREATE TABLE `requestverify` (
   `requestVerifyId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `staffId` int(11) DEFAULT NULL,
+  `verifyType` enum('verify','attitude') NOT NULL,
   `verifyHeader` varchar(255) NOT NULL,
   `verifyDetail` text NOT NULL,
   `approveStatus` enum('Approve','Waiting','Reject') NOT NULL DEFAULT 'Waiting',
@@ -385,8 +386,8 @@ CREATE TABLE `requestverify` (
 -- Dumping data for table `requestverify`
 --
 
-INSERT INTO `requestverify` (`requestVerifyId`, `userId`, `staffId`, `verifyHeader`, `verifyDetail`, `approveStatus`, `dateApprove`) VALUES
-(1, 3, NULL, 'service', 'do it pokpong', 'Waiting', '2023-03-24');
+INSERT INTO `requestverify` (`requestVerifyId`, `userId`, `staffId`, `verifyType`, `verifyHeader`, `verifyDetail`, `approveStatus`, `dateApprove`) VALUES
+(1, 3, NULL, 'verify', 'service', 'do it pokpong', 'Waiting', '2023-03-24');
 
 -- --------------------------------------------------------
 

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -93,9 +95,10 @@ public class ImgPostService {
 		return imgPostRepository.findByPost(post);
 	}
 	
-//	public List<ImgPost> findAllByPostDate(){
-//		return imgPostRepository.findAllByPostDate();
-//	}
+	public List<ImgPost> findAllByPostDate(int page,int value){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return imgPostRepository.findAllByPostDate(pageable);
+	}
 	
 	
 	

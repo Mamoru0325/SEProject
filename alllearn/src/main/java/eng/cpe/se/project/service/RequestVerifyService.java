@@ -25,6 +25,8 @@ public class RequestVerifyService {
 	private RoleService roleService;
 	@Autowired
 	private ImgVerifyService imgVerifyService;
+	@Autowired
+	private UserService userService; 
 	
 	public void save(RequestVerify requestVerify) {
 		requestVerifyRepository.save(requestVerify);
@@ -54,8 +56,10 @@ public class RequestVerifyService {
 		if(requestVerify.getApproveStatus().equals("Approve")) {
 			Role role = roleService.findByRoleName("ROLE_CourseCreator");
 			User user = requestVerify.getUserByUserId();
+			user.setVerifyStatus("Y");
 			UserRole userRole = new UserRole(role, user);
 			userRoleService.save(userRole);
+			userService.save(user);
 		}
 	}
 }
