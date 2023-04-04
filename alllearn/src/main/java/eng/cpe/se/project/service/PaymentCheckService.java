@@ -112,6 +112,7 @@ public class PaymentCheckService {
 	  }
 	
 	public PaymentCheck findByUserAndCourse(User user,Course course) {
+
 		return checkRepository.findByUserAndCourse(user, course);
 	}
 	

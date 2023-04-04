@@ -378,11 +378,14 @@ public class CourseRestController {
 	}
 	
 	@GetMapping("/{id}/qrcode")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
 	public ResponseEntity<Response<PaymentCheck>> qrcode(@PathVariable("id") int id) {
 		Response<PaymentCheck> res = new Response<>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByEmail(email);
 		Course course = courseService.findById(id);
+		System.out.println(course.getCourseId()+" "+user.getUserId());
 		try {
 			PaymentCheck paymentCheck = paymentCheckService.findByUserAndCourse(user, course);
 			res.setMessage("find success");
