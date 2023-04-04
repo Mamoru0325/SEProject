@@ -359,5 +359,22 @@ public class CourseRestController {
 			return new ResponseEntity<Response<ContentType>>(res, res.getHttpStatus());
 		}
 	}
+	
+	@GetMapping("/{courseId}/countjoincourse")
+	public ResponseEntity<Response<Integer>> countJoinCourse(@PathVariable("courseId") int courseId) {
+		Response<Integer> res = new Response<>();
+		Course course = courseService.findById(courseId);
+		try {
+			int count = courseService.countJoinCourse(course);
+			res.setMessage("find sucess");
+			res.setBody(count);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
+		}
+	}
 
 }
