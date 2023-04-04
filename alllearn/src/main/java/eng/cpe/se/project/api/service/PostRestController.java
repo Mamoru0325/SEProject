@@ -441,6 +441,23 @@ public class PostRestController {
 			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
 		}
 	}
+	
+	@GetMapping("/{postId}/user")
+	public ResponseEntity<Response<User>> findUserByPost(@PathVariable("postId") int postId) {
+		Response<User> res = new Response<>();
+		User user = userService.findByPost(postId);
+		try {
+			
+			res.setMessage("find sucess");
+			res.setBody(user);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		}
+	}
 
 //	@GetMapping("/{postId}/page/{page}/value/{value}")
 //	public ResponseEntity<Response<List<UserCommentDTO>>> findAllByPost(@PathVariable("postId") int postId,
