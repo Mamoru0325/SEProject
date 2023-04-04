@@ -29,5 +29,6 @@ public interface CourseRepository extends CrudRepository<Course, Integer> {
 	
 	@Query("select c FROM Course c inner join c.joinCourses j inner join j.paymentChecks jp WHERE jp.user = :user and c.reportStatus = 'Done' group by c ")
 	public List<Course> findAllJoinByUser(Pageable pageable,@Param("user") User user);
+	
 
 }

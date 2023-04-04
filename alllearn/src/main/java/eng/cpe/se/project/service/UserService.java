@@ -239,5 +239,10 @@ public class UserService implements IUserService, UserDetailsService{
 		Post post = postService.findById(id);
 		return userRepository.findByPost(post);
 	}
+	
+	public User findByCourse(int id) {
+		Course course = courseService.findById(id);
+		return userRepository.findByCourse(course);
+	}
 
 }
