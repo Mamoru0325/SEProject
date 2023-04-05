@@ -106,7 +106,13 @@ class Navbar extends Component {
       <div>
         <nav className="navbar navbar-expand navbar-light bg-light">
           <Link to={"/"} className="navbar-brand">
-            <img src={Logo} alt="" height={40} width={45} />
+            <img
+              src={Logo}
+              alt=""
+              height={40}
+              width={45}
+              style={{ borderRadius: "10px" }}
+            />
           </Link>
           <div className="navbar-nav ml-auto">
             {/* <li className="nav-item">

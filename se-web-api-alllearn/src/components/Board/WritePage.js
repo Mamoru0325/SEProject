@@ -15,6 +15,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import axios from "axios";
 import moment from "moment/moment";
+import { Link } from "react-router-dom";
 // import PhotoCamera from '@material-ui/core/PhotoCamera';
 
 export default function WritePage() {
@@ -32,11 +33,11 @@ export default function WritePage() {
 
   const TextTopicChange = (event) => {
     setpostTopic(event.target.value);
-  }
+  };
 
   const TextDetailChange = (event) => {
     setpostDetail(event.target.value);
-  }
+  };
 
   // On file select (from the pop up)
   const onFileChange = (event) => {
@@ -145,33 +146,36 @@ export default function WritePage() {
     return <div>Loading...</div>;
   }
 
-
-
   const createPo = () => {
-
-const localStorageData = localStorage.getItem('user');
-let user = JSON.parse(localStorageData);
-const token = user.body.token;
-const titleField = document.getElementById('filled-basic');
-console.log(contentTypeNow);
-console.log(postTopic);
-console.log(postDetail);
-axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
-  postTopic: `${postTopic}`,
-  postDetail: `${postDetail}`,
-  reportStatus: "Done",
-  createDate: moment().format('YYYY-MM-DD HH:mm a'),
-}, {
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  },
-}).then((response) => {
-  console.log(response.data);
-}).catch((error) => {
-  console.error(error);
-});
-
+    const localStorageData = localStorage.getItem("user");
+    let user = JSON.parse(localStorageData);
+    const token = user.body.token;
+    const titleField = document.getElementById("filled-basic");
+    console.log(contentTypeNow);
+    console.log(postTopic);
+    console.log(postDetail);
+    axios
+      .post(
+        `http://localhost:8080/users/post?contentId=${contentTypeNow}`,
+        {
+          postTopic: `${postTopic}`,
+          postDetail: `${postDetail}`,
+          reportStatus: "Done",
+          createDate: moment().format("YYYY-MM-DD HH:mm a"),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   if (!data) return "No Course";
 
@@ -179,9 +183,11 @@ axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
     <div>
       <div className="write-page">
         <div className="write-con">
-          {/* <div className="write-tag">
+          <div className="write-tag">
             <div>
-              <select onChange={(event) => setContentTypeNow(event.target.value)}>
+              <select
+                onChange={(event) => setContentTypeNow(event.target.value)}
+              >
                 {contentType.body.map((content, index) => (
                   <option key={index} value={content.contentTypeId}>
                     {content.typeName}
@@ -189,16 +195,16 @@ axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
                 ))}
               </select>
             </div>
-          </div> */}
+          </div>
           <div className="write-up-img">
-            <div className="a">Cover image</div>
+            {/* <div className="a">Cover image</div> */}
 
-            <div>
+            {/* <div>
               <div>
                 <input type="file" onChange={onFileChange} />
               </div>
               {fileData()}
-            </div>
+            </div> */}
 
             {/* <Button
               variant="contained"
@@ -217,13 +223,18 @@ axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
             ))}
           </div>
 
-          <div className="write-topic" >
+          <div className="write-topic">
             <div className="a">Title</div>
-            <TextField id="filled-basic" label="Title" variant="filled" onChange={TextTopicChange}/>
+            <TextField
+              id="filled-basic"
+              label="Title"
+              variant="filled"
+              onChange={TextTopicChange}
+            />
           </div>
 
           <div className="write-content">
-            <div className="a" >Paragrap</div>
+            <div className="a">Paragrap</div>
 
             <TextField
               id="filled-textarea"
@@ -240,7 +251,9 @@ axios.post(`http://localhost:8080/users/post?contentId=${contentTypeNow}`, {
               >
                 Post
               </Button> */}
-              <button onClick={createPo}>Upload!</button>
+              <button onClick={createPo}>
+                <Link to={`/`}>Upload!</Link>
+              </button>
             </div>
           </div>
         </div>

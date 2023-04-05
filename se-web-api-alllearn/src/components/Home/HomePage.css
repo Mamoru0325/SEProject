@@ -3,7 +3,7 @@
 .HomePage{
     display: flex; 
     height: max-content;
-    justify-content: end;
+    /* justify-content: end; */
     margin-right: 50px;
     margin-bottom: 10%;
 }

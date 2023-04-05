@@ -105,7 +105,7 @@ function Course_Registration() {
                       {row.Status}
                     </TableCell>
                     <TableCell align={"center"} style={{ color: "#003566" }}>
-                      <NavLink to="/CoursePage" className={"buttonDetail"}>
+                      <NavLink to="/CoursePage/1" className={"buttonDetail"}>
                         <IoIosEasel />
                       </NavLink>
                     </TableCell>

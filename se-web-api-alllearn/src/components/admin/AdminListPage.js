@@ -90,7 +90,13 @@ const AdminList = () => {
             <td>{item.email}</td>
             <td>{item.phoneNumber}</td>
             <td>
-              <DeleteButton onClick={() => handleDelete(item.userId)} />
+              <button
+                type="button"
+                class="btn btn-danger"
+                onClick={() => handleDelete(item.userId)}
+              >
+                DELETE
+              </button>
             </td>
           </tr>
         ))}

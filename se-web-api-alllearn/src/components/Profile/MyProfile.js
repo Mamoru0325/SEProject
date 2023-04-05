@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import "../Profile/MyProfile.css";
 import "../Header/Header.css";
-<<<<<<< Updated upstream
-=======
 // import Posts from "../subPosts/Posts"
->>>>>>> Stashed changes
 import Button from "@material-ui/core/Button";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import EditIcon from "@mui/icons-material/Edit";

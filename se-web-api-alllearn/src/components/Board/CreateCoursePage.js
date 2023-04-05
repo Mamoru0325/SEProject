@@ -1,25 +1,24 @@
 // ======หน้าสำหรับไว้สร้างคอร์ส=========
 
-import React from 'react'
+import React from "react";
 import { useState, useEffect } from "react";
-import "./CreateCoursePage.css"
-import TextField from '@material-ui/core/TextField';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { useTheme } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import "./CreateCoursePage.css";
+import TextField from "@material-ui/core/TextField";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import { useTheme } from "@material-ui/core/styles";
+import Chip from "@material-ui/core/Chip";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import axios from "axios";
 import moment, { max } from "moment/moment";
+import { Link } from "react-router-dom";
 
 // import Slider from '@mui/material/Slider';
-
-
 
 // const ITEM_HEIGHT = 48;
 // const ITEM_PADDING_TOP = 8;
@@ -41,8 +40,6 @@ import moment, { max } from "moment/moment";
 //   'กีฬา',
 //   'อสังหาทรัพย์',
 // ];
-
-
 
 // function getStyles(name, personName, theme) {
 //   return {
@@ -71,42 +68,42 @@ export default function CreateCoursePage() {
   const [eventDate, setEventDate] = useState();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-  
+
   const TextTopicChange = (event) => {
     setcourseTopic(event.target.value);
-  }
+  };
 
   const TextDetailChange = (event) => {
     setcourseDetail(event.target.value);
-  }
+  };
 
   const TextlastEnrollChange = (event) => {
     setLastEnroll(event.target.value);
-  }
+  };
 
   const priceChange = (event) => {
     setPrice(event.target.value);
-  }
+  };
 
   const minimumChange = (event) => {
     setMinimum(event.target.value);
-  }
+  };
 
   const maximumChange = (event) => {
     setMaximum(event.target.value);
-  }
+  };
 
   const TextEventDateChange = (event) => {
     setEventDate(event.target.value);
-  }
+  };
 
   const TextStartDateChange = (event) => {
     setStartDate(event.target.value);
-  }
+  };
 
   const TextEndDateChange = (event) => {
     setEndDate(event.target.value);
-  }
+  };
 
   const handleChange = (event) => {
     const {
@@ -114,7 +111,7 @@ export default function CreateCoursePage() {
     } = event;
     setPersonName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
@@ -166,54 +163,60 @@ export default function CreateCoursePage() {
     return <div>Loading...</div>;
   }
   const createCo = () => {
-
-const localStorageData = localStorage.getItem('user');
-let user = JSON.parse(localStorageData);
-const token = user.body.token;
-console.log(contentTypeNow);
-console.log(courseTopic);
-console.log(courseDetail);
-console.log(Date());
-console.log(lastEnroll);
-console.log(maximum);
-console.log(startDate);
-console.log(endDate);
-console.log(eventDate);
-axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
-  courseTopic: `${courseTopic}`,
-  courseDetail: `${courseDetail}`,
-  minimum: 1,
-  maximum: `${maximum}`,
-  price: `${price}`,
-  status: "Available",
-  reportStatus: "Done",
-  firstEnrollDate: moment(Date()).format('YYYY-MM-DD'),
-  lastEnrollDate: `${lastEnroll}`,
-  eventDate: `${eventDate}`,
-  startDate: moment(`${startDate}`).format('YYYY-MM-DD HH:mm a'),
-  endDate: moment(`${endDate}`).format('YYYY-MM-DD HH:mm a'),
-}, {
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  },
-}).then((response) => {
-  console.log(response.data);
-}).catch((error) => {
-  console.error(error);
-});
+    const localStorageData = localStorage.getItem("user");
+    let user = JSON.parse(localStorageData);
+    const token = user.body.token;
+    console.log(contentTypeNow);
+    console.log(courseTopic);
+    console.log(courseDetail);
+    console.log(Date());
+    console.log(lastEnroll);
+    console.log(maximum);
+    console.log(startDate);
+    console.log(endDate);
+    console.log(eventDate);
+    axios
+      .post(
+        `http://localhost:8080/users/course?contentId=${contentTypeNow}`,
+        {
+          courseTopic: `${courseTopic}`,
+          courseDetail: `${courseDetail}`,
+          minimum: 1,
+          maximum: `${maximum}`,
+          price: `${price}`,
+          status: "Available",
+          reportStatus: "Done",
+          firstEnrollDate: moment(Date()).format("YYYY-MM-DD"),
+          lastEnrollDate: `${lastEnroll}`,
+          eventDate: `${eventDate}`,
+          startDate: moment(`${startDate}`).format("YYYY-MM-DD HH:mm a"),
+          endDate: moment(`${endDate}`).format("YYYY-MM-DD HH:mm a"),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   if (!data) return "No Course";
 
   return (
     <div>
-
-      <div className='create-course-page'>
-
-        <div className='create-course-info'>
+      <div className="create-course-page">
+        <div className="create-course-info">
           <div className="write-tag">
             <div>
-              <select onChange={(event) => setContentTypeNow(event.target.value)}>
+              <select
+                onChange={(event) => setContentTypeNow(event.target.value)}
+              >
                 {contentType.body.map((content, index) => (
                   <option key={index} value={content.contentTypeId}>
                     {content.typeName}
@@ -222,10 +225,9 @@ axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
               </select>
             </div>
           </div>
-          <div className='r1'>
-
-            <div className='create-course-topic'>
-              <a className='a'>กำหนดวันปิดรับสมัคร</a>
+          <div className="r1">
+            <div className="create-course-topic">
+              <a className="a">กำหนดวันปิดรับสมัคร</a>
 
               {/* <DateField
                 label="Controlled field"
@@ -237,42 +239,37 @@ axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
                 id="filled-basic"
                 label="Title"
                 variant="filled"
-                type='date'
+                type="date"
                 onChange={TextlastEnrollChange}
               />
             </div>
-            <div className='create-course-topic'>
-
-              <a className='a'>กำหนดระยะเวลากิจกรรมเริ่ม</a>
+            <div className="create-course-topic">
+              <a className="a">กำหนดระยะเวลากิจกรรมเริ่ม</a>
 
               <TextField
                 id="filled-basic"
                 label="Title"
                 variant="filled"
-                type='date'
+                type="date"
                 onChange={TextStartDateChange}
               />
-
             </div>
-            <div className='create-course-topic'>
-
-              <a className='a'>กำหนดระยะเวลากิจกรรมจบ</a>
+            <div className="create-course-topic">
+              <a className="a">กำหนดระยะเวลากิจกรรมจบ</a>
 
               <TextField
                 id="filled-basic"
                 label="Title"
                 variant="filled"
-                type='date'
+                type="date"
                 onChange={TextEndDateChange}
               />
-
             </div>
-
           </div>
 
-          <div className='r2'>
-            <div className='create-course-topic'>
-              <a className='a'>กำหนดราคา</a>
+          <div className="r2">
+            <div className="create-course-topic">
+              <a className="a">กำหนดราคา</a>
               <TextField
                 id="filled-basic"
                 label="Title"
@@ -280,9 +277,8 @@ axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
                 onChange={priceChange}
               />
             </div>
-            <div className='create-course-topic'>
-
-              <a className='a'>กำหนดจำนวนคน</a>
+            <div className="create-course-topic">
+              <a className="a">กำหนดจำนวนคน</a>
 
               <TextField
                 id="filled-basic"
@@ -290,31 +286,23 @@ axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
                 variant="filled"
                 onChange={maximumChange}
               />
-
             </div>
 
-            <div className='create-course-topic'>
-
-              <a className='a'>กำหนดช่วงเวลา</a>
+            <div className="create-course-topic">
+              <a className="a">กำหนดช่วงเวลา</a>
 
               <TextField
                 id="filled-basic"
                 label="Title"
                 variant="filled"
-                type='date'
+                type="date"
                 onChange={TextEventDateChange}
               />
-
             </div>
-
           </div>
-
-
-
         </div>
 
-        <div className='create-course-con'>
-
+        <div className="create-course-con">
           {/* <div className='write-tag'>
 
             <FormControl sx={{ m: 1, width: 300 }}>
@@ -350,30 +338,33 @@ axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
             </FormControl>
 
           </div> */}
-          <div className='line'></div>
-          <div className='create-course-up-img'>
-
-            <a className='a'>Cover image</a>
+          <div className="line"></div>
+          {/* <div className="create-course-up-img">
+            <a className="a">Cover image</a>
 
             <Button
               variant="contained"
               component="label"
-              color='tertiary'
+              color="tertiary"
               size="small"
             >
               Upload
-              <input hidden accept="image/*" type="file" onChange={onImageChange} />
+              <input
+                hidden
+                accept="image/*"
+                type="file"
+                onChange={onImageChange}
+              />
             </Button>
-
+          </div> */}
+          <div className="pic">
+            {imageURLs.map((imageSrc, idx) => (
+              <img key={idx} width="320" height="200" src={imageSrc} />
+            ))}
           </div>
-          <div className="pic">{imageURLs.map((imageSrc, idx) => (
-            <img key={idx} width="320" height="200" src={imageSrc} />
-          ))}
-          </div>
 
-          <div className='create-course-topic'>
-
-            <a className='a'>Title</a>
+          <div className="create-course-topic">
+            <a className="a">Title</a>
 
             <TextField
               id="filled-basic"
@@ -381,12 +372,10 @@ axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
               variant="filled"
               onChange={TextTopicChange}
             />
-
           </div>
 
-          <div className='create-course-content'>
-
-            <a className='a'>Paragrap</a>
+          <div className="create-course-content">
+            <a className="a">Paragrap</a>
 
             <TextField
               id="filled-textarea"
@@ -395,32 +384,20 @@ axios.post(`http://localhost:8080/users/course?contentId=${contentTypeNow}`, {
               variant="filled"
               onChange={TextDetailChange}
             />
-            
-            <div className='create-button'>
+
+            <div className="create-button">
               <Button
                 variant="contained"
-                color='primary'
+                color="primary"
                 size="large"
                 onClick={createCo}
               >
-                Create coruse
+                <Link to={`/`}>Create coruse</Link>
               </Button>
             </div>
           </div>
-
-
-
         </div>
-
       </div>
     </div>
-
   );
 }
-
-
-
-
-
-
-
