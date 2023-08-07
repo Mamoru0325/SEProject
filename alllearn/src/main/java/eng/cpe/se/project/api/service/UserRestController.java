@@ -141,6 +141,24 @@ public class UserRestController {
 		}
 	}
 
+	@GetMapping("/{id}/posts/page/{page}/value/{value}")
+	public ResponseEntity<Response<List<Post>>> findAllPostByUser(@PathVariable("id") int id,
+			@PathVariable("page") int page, @PathVariable("value") int value) {
+		Response<List<Post>> res = new Response<>();
+		try {
+			User user = userService.findById(id);
+			List<Post> posts = postService.findAllByUser(page, value, user);
+			res.setMessage("find success");
+			res.setBody(posts);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<List<Post>>>(res, res.getHttpStatus());
+		}
+	}
+
 	@GetMapping("/username/{username}")
 	public ResponseEntity<Response<UserCountDTO>> findUserByName(@PathVariable("username") String username) {
 		Response<UserCountDTO> res = new Response<>();
@@ -243,7 +261,7 @@ public class UserRestController {
 	@PostMapping("/requestverify")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('User')")
-	public ResponseEntity<Response<RequestVerify>> createRequestVerifyByUser(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<Response<RequestVerify>> createRequestVerifyByUser(
 			@Valid @RequestBody RequestVerify request) {
 		Response<RequestVerify> res = new Response<RequestVerify>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -251,7 +269,6 @@ public class UserRestController {
 		try {
 			request.setUserByUserId(user);
 			requestVerifyService.save(request);
-			imgVerifyService.saveimg(file, request);
 			res.setMessage("create RequestVerify Success");
 			res.setBody(request);
 			res.setHttpStatus(HttpStatus.OK);
@@ -266,8 +283,8 @@ public class UserRestController {
 	@PostMapping("/course")
 	@SecurityRequirement(name = "Bearer Authentication")
 	@PreAuthorize("hasRole('CourseCreator')")
-	public ResponseEntity<Response<Course>> createCourseByUser(@RequestParam("file") MultipartFile file,
-			@RequestParam("contentId") int contentId, @Valid @RequestBody Course course) {
+	public ResponseEntity<Response<Course>> createCourseByUser(@RequestParam("contentId") int contentId,
+			@Valid @RequestBody Course course) {
 		Response<Course> res = new Response<Course>();
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userService.findByEmail(email);
@@ -276,7 +293,6 @@ public class UserRestController {
 			course.setUser(user);
 			course.setContentType(contentType);
 			courseService.save(course);
-			imgCourseService.saveimg(file, course);
 			res.setMessage("create Course Success");
 			res.setBody(course);
 			res.setHttpStatus(HttpStatus.OK);

@@ -191,6 +191,38 @@ public class CourseRestController {
 			return new ResponseEntity<Response<Course>>(res, res.getHttpStatus());
 		}
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Response<Course>> findById(@PathVariable("id") int id) {
+		Response<Course> res = new Response<>();
+		Course course = courseService.findById(id);
+		try {
+			res.setMessage("find success");
+			res.setBody(course);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Course>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Course>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{id}/user")
+	public ResponseEntity<Response<User>> findUserByCourse(@PathVariable("id") int id) {
+		Response<User> res = new Response<>();
+		User user = userService.findByCourse(id);
+		try {
+			res.setMessage("find success");
+			res.setBody(user);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<User>>(res, res.getHttpStatus());
+		}
+	}
 
 	@DeleteMapping("/{id}")
 	@SecurityRequirement(name = "Bearer Authentication")
@@ -325,6 +357,45 @@ public class CourseRestController {
 			res.setBody(null);
 			res.setHttpStatus(HttpStatus.NOT_FOUND);
 			return new ResponseEntity<Response<ContentType>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{courseId}/countjoincourse")
+	public ResponseEntity<Response<Integer>> countJoinCourse(@PathVariable("courseId") int courseId) {
+		Response<Integer> res = new Response<>();
+		Course course = courseService.findById(courseId);
+		try {
+			int count = courseService.countJoinCourse(course);
+			res.setMessage("find sucess");
+			res.setBody(count);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<Integer>>(res, res.getHttpStatus());
+		}
+	}
+	
+	@GetMapping("/{id}/qrcode")
+	@SecurityRequirement(name = "Bearer Authentication")
+	@PreAuthorize("hasRole('User')")
+	public ResponseEntity<Response<PaymentCheck>> qrcode(@PathVariable("id") int id) {
+		Response<PaymentCheck> res = new Response<>();
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.findByEmail(email);
+		Course course = courseService.findById(id);
+		System.out.println(course.getCourseId()+" "+user.getUserId());
+		try {
+			PaymentCheck paymentCheck = paymentCheckService.findByUserAndCourse(user, course);
+			res.setMessage("find success");
+			res.setBody(paymentCheck);
+			res.setHttpStatus(HttpStatus.OK);
+			return new ResponseEntity<Response<PaymentCheck>>(res, res.getHttpStatus());
+		} catch (Exception ex) {
+			res.setBody(null);
+			res.setHttpStatus(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Response<PaymentCheck>>(res, res.getHttpStatus());
 		}
 	}
 

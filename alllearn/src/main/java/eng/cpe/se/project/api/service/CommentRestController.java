@@ -185,7 +185,7 @@ public class CommentRestController {
 	@PreAuthorize("hasRole('User')")
 	public ResponseEntity<Response<User>> findAllByPopulationfromFollower(@PathVariable("id") int id) {
 		Response<User> res = new Response<>();
-		User user = userService.findBycomment(id);
+		User user = userService.findByComment(id);
 		try {
 			res.setMessage("find success");
 			res.setBody(user);

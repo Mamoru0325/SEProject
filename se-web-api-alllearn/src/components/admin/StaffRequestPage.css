@@ -1,0 +1,20 @@
+.ApproveButt{
+    font-size: 100%;
+    padding: 10px 60px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    padding: 10px;
+}
+.lll button{
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+}
+.LinkStyle{
+    color: aqua;
+}
+.LinkStyle :hover{
+    background-color: yellow;
+    cursor: crosshair;
+}

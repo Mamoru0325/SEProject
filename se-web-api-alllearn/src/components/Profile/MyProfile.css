@@ -1,0 +1,29 @@
+.MyProfile-totalTab {
+    background: lightpink;
+    height: 80px;
+    width: 200px;
+    position: absolute;
+    top: 320px;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.MyProfile-totalText{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.MyProfile-totalNum{
+    padding: 10px;
+}
+.Myprofile-descEditButt-con{
+    background: lawngreen;
+    height: 30px;
+    position: absolute;
+    top: 700px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

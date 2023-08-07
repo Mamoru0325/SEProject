@@ -42,12 +42,13 @@ public class SignupDTO {
 	private String imgPath;
 	private String backgroundPath;
 	private String verifyStatus;
+	private String detail;
 	@NotBlank
 	String matchingPassword;
 
 	public SignupDTO(@Email String email, String username, String title, String password, String firstName,
 			String lastName, String phoneNumber, String imgPath, String backgroundPath, String verifyStatus,
-			@NotBlank String matchingPassword) {
+			String detail, @NotBlank String matchingPassword) {
 		super();
 		this.email = email;
 		this.username = username;
@@ -59,6 +60,7 @@ public class SignupDTO {
 		this.imgPath = imgPath;
 		this.backgroundPath = backgroundPath;
 		this.verifyStatus = verifyStatus;
+		this.detail = detail;
 		this.matchingPassword = matchingPassword;
 	}
 
@@ -142,6 +144,14 @@ public class SignupDTO {
 		this.verifyStatus = verifyStatus;
 	}
 
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
 	public String getMatchingPassword() {
 		return matchingPassword;
 	}
@@ -149,5 +159,6 @@ public class SignupDTO {
 	public void setMatchingPassword(String matchingPassword) {
 		this.matchingPassword = matchingPassword;
 	}
+
 
 }

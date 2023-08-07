@@ -24,6 +24,9 @@
         <property name="dateApprove" type="date">
             <column length="10" name="dateApprove" not-null="true"/>
         </property>
+        <property name="verifyType" type="string">
+            <column length="10" name="verifyType" not-null="true"/>
+        </property>
         <bag fetch="select" inverse="true" lazy="true" name="imgVerifies" table="imgverify">
             <key>
                 <column name="requestVerifyId" not-null="true"/>

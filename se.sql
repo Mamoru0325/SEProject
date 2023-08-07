@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2023 at 10:51 AM
+-- Generation Time: Apr 04, 2023 at 08:57 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -48,6 +48,18 @@ CREATE TABLE `comment` (
   `reportStatus` enum('Waiting','Done') DEFAULT 'Done',
   `createDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`commentId`, `postId`, `userId`, `commentDetail`, `reportStatus`, `createDate`) VALUES
+(1, 1, 4, 'dfghjkl', 'Done', '2023-04-02 19:06:23'),
+(2, 2, 5, 'sdfghjk', 'Done', '2023-04-02 19:06:23'),
+(3, 1, 5, 'sdgfhgjhkjl', 'Done', '2023-04-02 19:06:23'),
+(4, 1, 4, 'dfghjkl', 'Done', '2023-04-02 19:06:37'),
+(5, 2, 5, 'sdfghjk', 'Done', '2023-04-02 19:06:37'),
+(6, 1, 5, 'sdgfhgjhkjl', 'Done', '2023-04-02 19:06:37');
 
 -- --------------------------------------------------------
 
@@ -116,6 +128,15 @@ CREATE TABLE `follower` (
   `followBy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `follower`
+--
+
+INSERT INTO `follower` (`followerId`, `followTo`, `followBy`) VALUES
+(1, 6, 4),
+(2, 6, 5),
+(3, 6, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -151,6 +172,20 @@ CREATE TABLE `imgpost` (
   `postId` int(11) NOT NULL,
   `imgPath` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `imgpost`
+--
+
+INSERT INTO `imgpost` (`imgPostId`, `postId`, `imgPath`) VALUES
+(1, 1, './image\\Slip\\postId1\\1.JPG'),
+(2, 1, 'file'),
+(3, 1, 'D:/se/se-web-api-alllearn/public/image\\Slip\\postId1\\1.JPG'),
+(4, 1, 'D:/se/se-web-api-alllearn/public/image\\Slip\\postId1\\1.JPG'),
+(5, 1, 'D:/se/se-web-api-alllearn/public/image\\Post\\postId1\\1.JPG'),
+(6, 1, 'D:/se/se-web-api-alllearn/public/image\\Post\\postId1\\1.JPG'),
+(7, 1, '..\\Post\\postId1\\1.JPG'),
+(8, 1, '..\\Post\\postId1\\1.JPG');
 
 -- --------------------------------------------------------
 
@@ -294,7 +329,8 @@ CREATE TABLE `report` (
 --
 
 INSERT INTO `report` (`reportId`, `reportTypeId`, `postId`, `commentId`, `courseId`, `userId`, `reportDetail`, `status`) VALUES
-(1, 1, 1, NULL, NULL, 3, 'pokpong', 'Waiting');
+(1, 1, 1, NULL, NULL, 3, 'pokpong', 'Waiting'),
+(2, 1, 1, NULL, NULL, 3, 'pokpong', 'Waiting');
 
 -- --------------------------------------------------------
 
@@ -339,6 +375,7 @@ CREATE TABLE `requestverify` (
   `requestVerifyId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `staffId` int(11) DEFAULT NULL,
+  `verifyType` enum('verify','attitude') NOT NULL,
   `verifyHeader` varchar(255) NOT NULL,
   `verifyDetail` text NOT NULL,
   `approveStatus` enum('Approve','Waiting','Reject') NOT NULL DEFAULT 'Waiting',
@@ -349,8 +386,8 @@ CREATE TABLE `requestverify` (
 -- Dumping data for table `requestverify`
 --
 
-INSERT INTO `requestverify` (`requestVerifyId`, `userId`, `staffId`, `verifyHeader`, `verifyDetail`, `approveStatus`, `dateApprove`) VALUES
-(1, 3, NULL, 'service', 'do it pokpong', 'Waiting', '2023-03-24');
+INSERT INTO `requestverify` (`requestVerifyId`, `userId`, `staffId`, `verifyType`, `verifyHeader`, `verifyDetail`, `approveStatus`, `dateApprove`) VALUES
+(1, 3, NULL, 'verify', 'service', 'do it pokpong', 'Waiting', '2023-03-24');
 
 -- --------------------------------------------------------
 
@@ -390,26 +427,27 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `imgPath` varchar(150) NOT NULL,
   `backgroundPath` varchar(150) NOT NULL,
-  `verifyStatus` enum('Y','N') NOT NULL DEFAULT 'N'
+  `verifyStatus` enum('Y','N') NOT NULL DEFAULT 'N',
+  `detail` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`userId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`, `username`, `imgPath`, `backgroundPath`, `verifyStatus`) VALUES
-(1, 'admin@hotmail.com', '$2a$10$a1l6WI0b02CU.BMy3k6NnujFnQRPTncydqmPY3S3DoFQf26.DQzrK', 'Mr', 'admin', 'admin', '0896345911', 'admin', 'dd', 'dd', 'Y'),
-(2, 'staff@hotmail.com', '$2a$10$KsBCSQd56QysbLE2zwI29Obs3dJXterNDpjK5mpzx07oqH6lS4qqa', 'Mr', 'staff', 'staff', '0896345911', 'staff', 'dd', 'dd', 'Y'),
-(3, 'user@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user', 'user', '0896345911', 'user', 'dd', 'dd', 'Y'),
-(4, 'user1@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user1', 'user1', '0896345911', 'user1', 'dd', 'dd', 'Y'),
-(5, 'user2@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user2', 'user2', '0896345911', 'user2', 'dd', 'dd', 'N'),
-(6, 'user3@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user3', 'user3', '0896345911', 'user3', 'dd', 'dd', 'Y'),
-(7, 'user4@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user4', 'user4', '0896345911', 'user4', 'dd', 'dd', 'Y'),
-(8, 'user5@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user5', 'user5', '0896345911', 'user5', 'dd', 'dd', 'N'),
-(9, 'user6@hotmail.com', '$2a$10$qeU5VmKnI8HsbfMjb46ZTe.jnv4HmYp0zx5eAqLFyStK943oacfYG', 'Mr', 'user6', 'user6', '0896345911', 'user6', 'hh', 'hh', 'N'),
-(10, 'staff1@hotmail.com', '$2a$10$gj3kH.iUN146bbMMnupkZeuDboCS.6jpphZHHT64Ibh7SR9e/eI92', 'Mr', 'staff1', 'staff1', '0896345911', 'staff1', 'hh', 'hh', 'Y'),
-(11, 'user7@hhotmail.com', '$2a$10$3MfJ8pQU7mlqXRISN5R7hOredd4JHfHDGEPdLPXiKhzDfwQGFJcd2', 'mr', 'user7', 'user7', '0896345911', 'user7', 'D:/image\\Userprofile\\Profile\\basic.png\n', 'D:/image\\Userprofile\\Background\\basic.jpg', 'N'),
-(12, 'user8@hotmail.com', '$2a$10$bGmf3MBNd/1GRZcXt0ln4.bw6brB5t6Wp9xjU7meNPaJUU.Y6CQy.', 'mr', 'user8', 'user8', '0896345911', 'user8', 'D:/image\\Userprofile\\Profile\\basic.png', 'D:/image\\Userprofile\\Background\\basic.jpg', 'N');
+INSERT INTO `user` (`userId`, `email`, `password`, `title`, `firstName`, `lastName`, `phoneNumber`, `username`, `imgPath`, `backgroundPath`, `verifyStatus`, `detail`) VALUES
+(1, 'admin@hotmail.com', '$2a$10$a1l6WI0b02CU.BMy3k6NnujFnQRPTncydqmPY3S3DoFQf26.DQzrK', 'Mr', 'admin', 'admin', '0896345911', 'admin', 'dd', 'dd', 'Y', ''),
+(2, 'staff@hotmail.com', '$2a$10$KsBCSQd56QysbLE2zwI29Obs3dJXterNDpjK5mpzx07oqH6lS4qqa', 'Mr', 'staff', 'staff', '0896345911', 'staff', 'dd', 'dd', 'Y', ''),
+(3, 'user@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user', 'user', '0896345911', 'user', 'dd', 'dd', 'Y', ''),
+(4, 'user1@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user1', 'user1', '0896345911', 'user1', 'dd', 'dd', 'Y', ''),
+(5, 'user2@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user2', 'user2', '0896345911', 'user2', 'dd', 'dd', 'N', ''),
+(6, 'user3@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user3', 'user3', '0896345911', 'user3', 'dd', 'dd', 'Y', ''),
+(7, 'user4@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user4', 'user4', '0896345911', 'user4', 'dd', 'dd', 'Y', ''),
+(8, 'user5@hotmail.com', '$2a$10$gRAnr2TAg/psqZH2Huv6seXmGP/vVDeBDHDBQ97omeTLG8IH4Cn..', 'Mr', 'user5', 'user5', '0896345911', 'user5', 'dd', 'dd', 'N', ''),
+(9, 'user6@hotmail.com', '$2a$10$qeU5VmKnI8HsbfMjb46ZTe.jnv4HmYp0zx5eAqLFyStK943oacfYG', 'Mr', 'user6', 'user6', '0896345911', 'user6', 'hh', 'hh', 'N', ''),
+(10, 'staff1@hotmail.com', '$2a$10$gj3kH.iUN146bbMMnupkZeuDboCS.6jpphZHHT64Ibh7SR9e/eI92', 'Mr', 'staff1', 'staff1', '0896345911', 'staff1', 'hh', 'hh', 'Y', ''),
+(11, 'user7@hhotmail.com', '$2a$10$3MfJ8pQU7mlqXRISN5R7hOredd4JHfHDGEPdLPXiKhzDfwQGFJcd2', 'mr', 'user7', 'user7', '0896345911', 'user7', 'D:/image\\Userprofile\\Profile\\basic.png\n', 'D:/image\\Userprofile\\Background\\basic.jpg', 'N', ''),
+(12, 'user8@hotmail.com', '$2a$10$bGmf3MBNd/1GRZcXt0ln4.bw6brB5t6Wp9xjU7meNPaJUU.Y6CQy.', 'mr', 'user8', 'user8', '0896345911', 'user8', 'D:/image\\Userprofile\\Profile\\basic.png', 'D:/image\\Userprofile\\Background\\basic.jpg', 'N', '');
 
 -- --------------------------------------------------------
 
@@ -623,7 +661,7 @@ ALTER TABLE `bookmark`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `commentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `contenttype`
@@ -641,7 +679,7 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `follower`
 --
 ALTER TABLE `follower`
-  MODIFY `followerId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `followerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `imgcomment`
@@ -659,7 +697,7 @@ ALTER TABLE `imgcourse`
 -- AUTO_INCREMENT for table `imgpost`
 --
 ALTER TABLE `imgpost`
-  MODIFY `imgPostId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `imgPostId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `imgverify`
@@ -701,7 +739,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reporttype`
@@ -731,13 +769,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `userrole`
 --
 ALTER TABLE `userrole`
-  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `userRoleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables

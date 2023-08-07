@@ -35,4 +35,7 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
 	@Query("select p from Post p inner join p.likePosts lp inner join p.user u inner join u.followersForFollowTo f WHERE f.userByFollowBy= :user and p.reportStatus = 'Done' group by lp.post order by count(lp.post) desc")
 	public List<Post> findAllByPopulationfromFollower(Pageable pageable,@Param("user") User user);
 	
+	@Query("select p from Post p inner join p.user u where p.reportStatus = 'Done' and u = :user order by p.createDate desc")
+	public List<Post> findAllByUser(@Param("user")User user,Pageable pageable);
+	
 }

@@ -25,19 +25,21 @@ public class RequestVerifyService {
 	private RoleService roleService;
 	@Autowired
 	private ImgVerifyService imgVerifyService;
-	
+	@Autowired
+	private UserService userService;
+
 	public void save(RequestVerify requestVerify) {
 		requestVerifyRepository.save(requestVerify);
 	}
-	
-	public List<RequestVerify> findAll(){
+
+	public List<RequestVerify> findAll() {
 		return (List<RequestVerify>) requestVerifyRepository.findAll();
 	}
-	
+
 	public RequestVerify findById(int id) {
 		return requestVerifyRepository.findById(id).get();
 	}
-	
+
 	public void delete(int id) {
 		RequestVerify verify = findById(id);
 		ImgVerify imgVerify = imgVerifyService.findByRequestVerify(verify);
@@ -45,17 +47,27 @@ public class RequestVerifyService {
 		img.deleteOnExit();
 		requestVerifyRepository.deleteById(id);
 	}
-	public List<RequestVerify> findAll(int page,int value){
+
+	public List<RequestVerify> findAll(int page, int value) {
 		Pageable pageable = PageRequest.of(page, value);
 		return (List<RequestVerify>) requestVerifyRepository.findAll(pageable);
 	}
-	
+
 	public void checkVerify(RequestVerify requestVerify) {
-		if(requestVerify.getApproveStatus().equals("Approve")) {
-			Role role = roleService.findByRoleName("ROLE_CourseCreator");
-			User user = requestVerify.getUserByUserId();
-			UserRole userRole = new UserRole(role, user);
-			userRoleService.save(userRole);
+		if (requestVerify.getVerifyType() == "attitude") {
+			if (requestVerify.getApproveStatus() == "Approve") {
+				Role role = roleService.findByRoleName("ROLE_CourseCreator");
+				User user = requestVerify.getUserByUserId();
+				user.getUserRoles().get(0).setRole(role);
+				userService.save(user);
+			}
 		}
+		if (requestVerify.getVerifyType() == "verify") {
+			User user = requestVerify.getUserByUserId();
+			
+			user.setVerifyStatus("Y");
+			userService.save(user);
+		}
+
 	}
 }

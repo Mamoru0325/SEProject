@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import eng.cpe.se.project.model.Comment;
 import eng.cpe.se.project.model.Course;
 import eng.cpe.se.project.model.PaymentCheck;
+import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.Role;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.model.UserRole;
@@ -59,6 +60,8 @@ public class UserService implements IUserService, UserDetailsService{
 	private PaymentCheckService paymentCheckService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private PostService postService;
 	
 	public void save(User user) {
 		userRepository.save(user);
@@ -222,7 +225,7 @@ public class UserService implements IUserService, UserDetailsService{
 		return userRepository.countUserByWaitingStatus(course);
 	}
 	
-	public User findBycomment(int id) {
+	public User findByComment(int id) {
 		Comment comment = commentService.findById(id);
 		return userRepository.findByComment(comment);
 	}
@@ -230,6 +233,16 @@ public class UserService implements IUserService, UserDetailsService{
 	public List<User> findByStaffRole(int page,int value){
 		Pageable pageable = PageRequest.of(page-1, value);
 		return userRepository.findByStaffRole(pageable);
+	}
+	
+	public User findByPost(int id) {
+		Post post = postService.findById(id);
+		return userRepository.findByPost(post);
+	}
+	
+	public User findByCourse(int id) {
+		Course course = courseService.findById(id);
+		return userRepository.findByCourse(course);
 	}
 
 }

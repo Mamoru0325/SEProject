@@ -1,0 +1,215 @@
+.boardPage-con{
+    height: auto;
+    background: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    min-width: fit-content;
+    max-height: fit-content;
+    
+}
+.boardPageAllPost-con{
+    height: 100%;
+    width: 70%;
+    padding-top: 50px;
+    flex-direction: column;
+    min-width: 700px
+}
+.boardPagePost-con{
+    /* background: lightgreen; */
+    height: 100%;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+}
+.boardPagePostHead-con{
+    height: 15%;
+    /* background: rgb(148, 61, 61); */
+    display: flex;
+}
+.boardPageOwner-con{
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.boardPageOwnerImg{
+    height: 60px;
+    display: inline-flex;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.boardPageOwnerImg img{
+    border-radius: 50%;
+}
+.boardPageOwnerFollower{
+    margin: 50px;
+    display: flex;
+    flex-direction: row;
+}
+.boardPageButtonFollower{
+    margin-left: 20px;
+    right: 60%;
+}
+.boardPageFavButton{
+    position: relative;
+    right: 0%;
+}
+.boardPagePostBody-con{
+    /* background: lightseagreen; */
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.boardPagePostBodyImg {
+    height: fit-content;
+    position: relative;
+}
+.boardPagePostBodyImg img{
+    height: 500px;
+    width: 800px;
+    width: 100%;
+    position: relative;
+}
+.boardPagePostBodyLikeNum{
+    position: absolute;
+    background: white;
+    left: 10px;
+    bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+.boardPagePostBodyCommentNum{
+    position: absolute;
+    background: white;
+    left: 80px;
+    bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+.boardPagePostBodyDesc-con{
+    margin-top: 10px;
+    /* background: lightcoral; */
+    box-sizing: border-box;
+}
+.boardPagePostBodyDesc{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.boardPagePostBodyDescTopic{
+    font-size: larger;
+    font-weight: 600;
+    margin: 10px;
+}
+.boardPagePostDescMaybe{
+    font-size: medium;
+    font-weight: 300;
+    max-height: min-content;
+    margin: 10px;
+    
+}
+.boardPagePostDesc{
+    height: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display:inline-block;
+}
+.boardPagePostTail-con{
+    height: 5%;
+    /* background: lightskyblue; */
+    display: flex;
+    align-items: center;
+}
+.boardPagePostTag{
+    text-decoration: none;
+    margin: 8px;
+    padding: 2px 10px;
+    /* background: lightblue; */
+    border-radius: 10px;
+}
+.boardPageRecPost-con {
+    /* background: lightgoldenrodyellow; */
+    margin: 40px 0 0 0;
+    height: 100%;
+}
+.boardPageRecPosHead{
+    height: 50px;
+    /* background: lightcoral; */
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    
+}
+.boardPageRecPosHead p{
+    font-size: 30px;
+}
+.boardPageRecPosBody{
+    height: 800px;
+}
+.boardPageRecPosGrid-con{
+    /* background: lightgreen; */
+    display: grid;
+    grid-template-columns: 10% auto 10%;
+    grid-template-rows: 33% 33% 33%;
+    height: 100%;
+}
+.boardPageRecPos{
+    /* background: lightsteelblue; */
+    height: 98%;
+    border-bottom: 3px solid #333;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 30px;
+}
+.boardPageRecPos:nth-child(1){
+    grid-row: 1;
+    grid-column: 2;
+}
+.boardPageRecPos:nth-child(2) {
+    grid-row: 2;
+    grid-column: 2;
+}
+.boardPageRecPos:nth-child(3) {
+    grid-row: 3;
+    grid-column: 2;
+}
+.boardPageRecPosText {
+    margin: 5px;
+}
+.boardPageRecPosTextDesc .boardPageRecPosTextDescTopic{
+    font-size: 20px;
+}
+.boardPageRecPosTextDesc .boardPageRecPosTextDescAbout {
+    font-size: 15px;
+}
+.fav{
+    position: relative;
+    right: 0px;
+    top: -60px;
+    margin: 10px;
+}
+.boardPageRecPosImg{
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    padding-right: 6%;
+}
+.BookmarkIcon{
+    margin-left: 10px;
+}
+.boardPageRecPosImg img{
+    width: 100%;
+}
+.boardPageRecPosTail{
+    background: lightslategrey;
+    display: flex;
+    justify-content: center;
+}

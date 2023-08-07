@@ -65,5 +65,9 @@ public class CourseService {
 		Pageable pageable = PageRequest.of(page-1, value);
 		return  courseRepository.findAllJoinByUser(pageable, user);
 	}
+	
+	public int countJoinCourse(Course course) {
+		return courseRepository.countJoinCourse(course);
+	}
 
 }

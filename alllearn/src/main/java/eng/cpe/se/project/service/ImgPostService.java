@@ -5,22 +5,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import eng.cpe.se.project.model.Course;
+
 import eng.cpe.se.project.model.ImgPost;
-import eng.cpe.se.project.model.PaymentCheck;
 import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.repository.ImgPostRepository;
 
@@ -97,6 +94,13 @@ public class ImgPostService {
 	public ImgPost findByPost(Post post) {
 		return imgPostRepository.findByPost(post);
 	}
+	
+	public List<ImgPost> findAllByPostDate(int page,int value){
+		Pageable pageable = PageRequest.of(page-1, value);
+		return imgPostRepository.findAllByPostDate(pageable);
+	}
+	
+	
 	
 	
 }

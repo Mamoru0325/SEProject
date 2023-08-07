@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import eng.cpe.se.project.model.Comment;
 import eng.cpe.se.project.model.Course;
+import eng.cpe.se.project.model.Post;
 import eng.cpe.se.project.model.User;
 import eng.cpe.se.project.model.dto.UserPaymentDTO;
 
@@ -35,8 +36,14 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Query("select u from User u inner join u.comments c where c = :comment")
 	public User findByComment(@Param("comment")Comment comment);
+	
+	@Query("select u from User u inner join u.posts p where p = :post")
+	public User findByPost(@Param("post")Post post);
 
 	@Query("select u from User u inner join u.userRoles ur inner join ur.role r where r.roleName = 'ROLE_Staff'")
 	public List<User> findByStaffRole(Pageable pageable);
+	
+	@Query("select u from User u inner join u.courses c where c = :course")
+	public User findByCourse(@Param("course")Course course);
 	
 }
